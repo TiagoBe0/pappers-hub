@@ -23,6 +23,53 @@ TITLE_PATTERNS = (
     re.compile(r"^\s*#\s+(.+)$"),
 )
 
+QUOTED_TITLE_PATTERNS = (
+    re.compile(
+        r"(?:paper|art[ií]culo|libro/art[ií]culo|trabajo)(?:\s+(?:de\s+revisi[oó]n|titulado|sobre))?\s+[*_]*[\"“](.+?)[\"”][*_]*(?:\s*\(([^)]+)\))?",
+        re.IGNORECASE,
+    ),
+    re.compile(r"^[*_]*[\"“](.+?)[\"”][*_]*$"),
+)
+
+DESCRIPTIVE_TITLE_PATTERNS = (
+    re.compile(
+        r"trabajo\s+sobre\s+(?:el\s+dataset\s+)?(.+?)(?::|$)",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"algoritmo\s+novedoso\s+llamado\s+([A-Z0-9-]+)\s+\(([^)]+)\)",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"c[oó]mo\s+se\s+forma\s+(?:el\s+)?(.+?)\s+y\s+c[oó]mo",
+        re.IGNORECASE,
+    ),
+)
+
+GENERIC_HEADINGS = {
+    "aportes principales del paper",
+    "cómo lo hacen (métodos y setup)",
+    "cómo podrías usarlo (si estás simulando cu-ni)",
+    "conceptos clave para recordar",
+    "conclusión",
+    "conclusión del paper",
+    "explicación detallada por secciones",
+    "figuras y captiones importantes",
+    "idea central del trabajo",
+    "limitaciones",
+    "limitaciones (implícitas del setup)",
+    "limitaciones y desafíos",
+    "objetivo principal",
+    "puntos clave del trabajo",
+    "qué aportan (interpretación)",
+    "qué estudia",
+    "recursos destacados",
+    "resultados principales",
+    "resumen del paper",
+    "resumen detallado",
+    "resumen general",
+}
+
 
 def slugify(value: str) -> str:
     value = unicodedata.normalize("NFKD", value)
@@ -33,18 +80,64 @@ def slugify(value: str) -> str:
 
 
 def clean_title(value: str) -> str:
+    value = re.sub(r"^\s*#+\s*", "", value)
     value = value.strip().strip("*").strip()
+    value = re.sub(r"^[^\wÁÉÍÓÚÜÑáéíóúüñ¿¡]+", "", value).strip()
     value = re.sub(r"^[\"“”']+|[\"“”']+$", "", value)
+    value = value.rstrip(":;.").strip()
     return value
 
 
+def sentence_case(value: str) -> str:
+    value = clean_title(value)
+    return value[:1].upper() + value[1:] if value else value
+
+
+def clean_author(value: str) -> str:
+    value = re.sub(r"\*|_", "", value).strip()
+    value = re.split(r",\s*(?:Journal|Nature|Phys|IEEE|Science|202[0-9]|19[0-9]{2})", value, maxsplit=1)[0]
+    return value.strip()
+
+
+def is_generic_heading(value: str) -> bool:
+    normalized = clean_title(value.lower()).lower().replace("–", "-").replace("—", "-")
+    normalized = normalized.strip("¡!¿?").strip()
+    return normalized in GENERIC_HEADINGS
+
+
 def title_from_text(path: Path, text: str) -> str:
-    for line in text.splitlines():
-        stripped = line.strip()
+    lines = [line.strip() for line in text.splitlines()]
+    for index, stripped in enumerate(lines):
         for pattern in TITLE_PATTERNS:
             match = pattern.match(stripped)
-            if match:
+            if match and not is_generic_heading(match.group(1)):
                 return clean_title(match.group(1))
+
+        for pattern in QUOTED_TITLE_PATTERNS:
+            match = pattern.search(stripped)
+            if not match:
+                continue
+
+            title = clean_title(match.group(1))
+            author = clean_author(match.group(2) if match.lastindex and match.lastindex >= 2 else "")
+            if not author:
+                for next_line in lines[index + 1 : index + 4]:
+                    author_match = re.match(r"^\(([^)]+)\)", next_line)
+                    if author_match:
+                        author = clean_author(author_match.group(1))
+                        break
+            return f"{title} — {author}" if author else title
+
+        for pattern in DESCRIPTIVE_TITLE_PATTERNS:
+            match = pattern.search(stripped)
+            if not match:
+                continue
+            if match.lastindex and match.lastindex >= 2:
+                title = f"{sentence_case(match.group(1))}: {clean_title(match.group(2))}"
+            else:
+                title = sentence_case(match.group(1))
+            if title and len(title) > 8:
+                return title
 
     generic_starts = (
         "aquí tienes",
@@ -52,6 +145,7 @@ def title_from_text(path: Path, text: str) -> str:
         "este es",
         "esumen ejecutivo",
         "leí tu archivo",
+        "laro",
         "perfecto",
         "resumen ejecutivo",
         "resumen general",
@@ -62,8 +156,10 @@ def title_from_text(path: Path, text: str) -> str:
         stripped = line.strip()
         if not stripped:
             continue
-        lower = stripped.lower().lstrip("¡¿").strip()
+        lower = re.sub(r"^[^\wáéíóúüñ]+", "", stripped.lower()).lstrip("¡¿").strip()
         if lower.startswith(generic_starts):
+            continue
+        if is_generic_heading(lower):
             continue
         if len(stripped) > 8 and not stripped.startswith(("---", "*", "-", "[")):
             return clean_title(stripped)

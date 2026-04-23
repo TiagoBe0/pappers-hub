@@ -186,9 +186,14 @@ body {
 }
 
 .paper-id {
+  display: -webkit-box;
+  max-height: 5.4em;
+  overflow: hidden;
   font-family: var(--font-main);
-  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  font-size: clamp(0.82rem, 2vw, 1rem);
   line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
 }
 
 @keyframes fadeIn {

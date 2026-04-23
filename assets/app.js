@@ -53,6 +53,33 @@ const formatPaperLabel = (file) => {
   return words.charAt(0).toUpperCase() + words.slice(1);
 };
 
+const loadPaperTitle = async (file) => {
+  try {
+    const response = await fetch(`${PAPERS_FOLDER}/${file}`, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error("No se pudo leer el papper");
+    }
+
+    const pageText = await response.text();
+    const doc = new DOMParser().parseFromString(pageText, "text/html");
+    const title = doc.querySelector("h1")?.textContent || doc.querySelector("title")?.textContent;
+    return title?.replace(/\s+/g, " ").trim() || formatPaperLabel(file);
+  } catch {
+    return formatPaperLabel(file);
+  }
+};
+
+const loadPaperItems = async (files) => {
+  const items = await Promise.all(
+    files.map(async (file) => ({
+      file,
+      label: await loadPaperTitle(file),
+    })),
+  );
+
+  return items.sort((a, b) => a.label.localeCompare(b.label, "es"));
+};
+
 const computeRadius = (count) => {
   if (count <= 4) return 210;
   if (count <= 8) return 280;
@@ -60,20 +87,20 @@ const computeRadius = (count) => {
   return 420;
 };
 
-const renderNodes = (files) => {
+const renderNodes = (items) => {
   mapNodes.replaceChildren();
 
-  if (files.length === 0) {
+  if (items.length === 0) {
     statusLabel.textContent = "Aún no hay pappers en pappers_html/.";
     return;
   }
 
-  statusLabel.textContent = `Encontrados ${files.length} pappers.`;
+  statusLabel.textContent = `Encontrados ${items.length} pappers.`;
 
-  const radius = computeRadius(files.length);
-  const slice = (Math.PI * 2) / files.length;
+  const radius = computeRadius(items.length);
+  const slice = (Math.PI * 2) / items.length;
 
-  files.forEach((file, index) => {
+  items.forEach(({ file, label }, index) => {
     const node = template.content.firstElementChild.cloneNode(true);
     const angle = -Math.PI / 2 + slice * index;
     const x = Math.cos(angle) * radius;
@@ -88,7 +115,8 @@ const renderNodes = (files) => {
     node.style.setProperty("--float-distance", `${index % 2 === 0 ? -12 : 12}px`);
     node.style.setProperty("--float-tilt", `${index % 2 === 0 ? -0.8 : 0.8}deg`);
     node.style.animationDelay = `${index * 55}ms, ${index * -320}ms`;
-    node.querySelector(".paper-id").textContent = formatPaperLabel(file);
+    node.title = label;
+    node.querySelector(".paper-id").textContent = label;
 
     mapNodes.appendChild(node);
   });
@@ -97,7 +125,8 @@ const renderNodes = (files) => {
 const loadPapers = async () => {
   try {
     const files = await loadFromManifest();
-    renderNodes(files);
+    const items = await loadPaperItems(files);
+    renderNodes(items);
     return;
   } catch {
     // fallback silencioso al índice del directorio
@@ -105,7 +134,8 @@ const loadPapers = async () => {
 
   try {
     const files = await loadFromDirectoryIndex();
-    renderNodes(files);
+    const items = await loadPaperItems(files);
+    renderNodes(items);
   } catch {
     statusLabel.innerHTML =
       "No se pudo descubrir automáticamente los pappers. Añade <code>pappers_html/index.json</code> con un arreglo de archivos.";
