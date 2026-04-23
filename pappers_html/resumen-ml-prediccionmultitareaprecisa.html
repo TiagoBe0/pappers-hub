@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción multi-tarea precisa y con conciencia de la incertidumbre de propiedades de aleaciones de alta entropía (HEA) utilizando procesos gaussianos profundos guiados por información previa.</title>
+    <style>
+      :root {
+        --bg: #10151b;
+        --paper: #f7f2e8;
+        --ink: #17130f;
+        --muted: #6b5b4b;
+        --accent: #1e6b83;
+        --accent-2: #8a2d2d;
+        --rule: #d8c9ad;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(16, 21, 27, 0.72), rgba(16, 21, 27, 0.84)),
+          repeating-linear-gradient(90deg, #17202a 0 1px, transparent 1px 46px),
+          #10151b;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.72;
+      }
+      main {
+        width: min(980px, calc(100% - 32px));
+        margin: 32px auto;
+        padding: clamp(28px, 5vw, 58px);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      }
+      nav a {
+        color: var(--accent);
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      header {
+        margin: 26px 0 34px;
+        padding-bottom: 24px;
+        border-bottom: 3px double var(--rule);
+      }
+      h1 {
+        margin: 0 0 12px;
+        color: var(--ink);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.08;
+      }
+      .source {
+        margin: 0;
+        color: var(--muted);
+        font: 0.9rem Arial, sans-serif;
+      }
+      h2, h3, h4 {
+        color: var(--accent);
+        line-height: 1.22;
+        margin: 2rem 0 0.8rem;
+      }
+      h2 { font-size: 1.65rem; border-bottom: 2px solid var(--rule); padding-bottom: 0.35rem; }
+      h3 { color: var(--accent-2); font-size: 1.28rem; }
+      h4 { font-size: 1.05rem; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; }
+      p { margin: 0 0 1rem; }
+      ul { margin: 0 0 1.2rem 1.2rem; padding: 0; }
+      li { margin: 0.42rem 0; }
+      code {
+        padding: 0.1rem 0.28rem;
+        border-radius: 3px;
+        background: #eadfc9;
+        font-size: 0.9em;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 2rem 0;
+      }
+      strong { color: #2b2119; }
+      @media (max-width: 640px) {
+        main { width: min(100% - 18px, 980px); margin: 9px auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="../index.html">Volver al mapa</a></nav>
+      <header>
+        <h1>Predicción multi-tarea precisa y con conciencia de la incertidumbre de propiedades de aleaciones de alta entropía (HEA) utilizando procesos gaussianos profundos guiados por información previa.</h1>
+        <p class="source">Generado desde resumen-ML-prediccionmultitareaprecisa.txt</p>
+      </header>
+      <article>
+        <p>esumen Ejecutivo en Español</p>
+<p><strong>Título:</strong> Predicción multi-tarea precisa y con conciencia de la incertidumbre de propiedades de aleaciones de alta entropía (HEA) utilizando procesos gaussianos profundos guiados por información previa.</p>
+<p><strong>Objetivo Principal:</strong> Evaluar y comparar sistemáticamente el rendimiento de diferentes modelos sustitutos (surrogate models) para predecir múltiples propiedades mecánicas correlacionadas en el sistema de Aleaciones de Alta Entropía (HEA) de 8 elementos (Al-Co-Cr-Cu-Fe-Mn-Ni-V), utilizando un conjunto de datos híbrido que combina mediciones experimentales y predicciones computacionales.</p>
+<p>Modelos Evaluados:</p>
+<ul>
+<li>CGP: Proceso Gaussiano Convencional.</li>
+</ul>
+<ul>
+<li>DGP: Proceso Gaussiano Profundo (una extensión jerárquica de los GP).</li>
+</ul>
+<ul>
+<li>Encoder-Decoder: Red neuronal para regresión multi-salida.</li>
+</ul>
+<ul>
+<li>XGBoost: Modelo basado en árboles de boosting.</li>
+</ul>
+<p><strong>Hallazgo Principal:</strong> El modelo DGP con información previa (HDGP-P-All) superó consistentemente a todos los demás modelos en la predicción de propiedades experimentales clave (como límite elástico, resistencia máxima, dureza, alargamiento y módulo). Su superioridad se debe a:</p>
+<ul>
+<li>Arquitectura Jerárquica: Captura relaciones no lineales y complejas entre las propiedades.</li>
+</ul>
+<ul>
+<li>Cuantificación de Incertidumbre: Proporciona estimaciones de confianza para sus predicciones, crucial para el diseño de materiales.</li>
+</ul>
+<ul>
+<li>Manejo de Datos del Mundo Real: Es robusto frente a datos heteroscedásticos (ruido variable), heterotópicos (medidos en puntos diferentes) e incompletos.</li>
+</ul>
+<ul>
+<li>Uso de Conocimiento Previo: La integración de un modelo &quot;encoder-decoder&quot; pre-entrenado como &quot;información previa&quot; guía al modelo y mejora significativamente las predicciones, especialmente en regiones con pocos datos.</li>
+</ul>
+<p><strong>Conclusión:</strong> Los modelos sustitutos jerárquicos y conscientes de la incertidumbre, como el DGP con información previa, son herramientas extremadamente potentes para acelerar el descubrimiento y optimización de materiales, ya que ofrecen alta precisión predictiva y una cuantificación fiable de la incertidumbre incluso con conjuntos de datos pequeños y ruidosos.</p>
+<p>Traducción y Resumen Detallado por Secciones</p>
+<ul>
+<li>Introducción</li>
+</ul>
+<ul>
+<li>Contexto: Las Aleaciones de Alta Entropía (HEA) poseen un vasto espacio de diseño composicional, pero su exploración está limitada por la escasez de datos experimentales y las relaciones complejas entre composición y propiedades.</li>
+</ul>
+<ul>
+<li>Problema: Se necesitan modelos sustitutos precisos y eficientes para predecir propiedades y guiar el descubrimiento de nuevas aleaciones.</li>
+</ul>
+<ul>
+<li>Solución Propuesta: Este estudio compara cuatro tipos de modelos (CGP, DGP, Encoder-Decoder, XGBoost) en un conjunto de datos híbrido (experimental y computacional) del sistema HEA Al-Co-Cr-Cu-Fe-Mn-Ni-V.</li>
+</ul>
+<ul>
+<li>Hipótesis: Los modelos DGPs, especialmente cuando se les dota de &quot;información previa&quot;, pueden manejar mejor los desafíos comunes en la ciencia de materiales (datos ruidosos, incompletos y correlacionados) y ofrecer predicciones más robustas.</li>
+</ul>
+<ul>
+<li>Métodos y Modelos</li>
+</ul>
+<ul>
+<li>Conjunto de Datos (BIRDSHOT): Se utilizó un conjunto de datos de alta fidelidad con más de 100 composiciones de HEA, que incluye propiedades mecánicas medidas experimentalmente (límite elástico, dureza, módulo, etc.) y descriptores computacionales (Energía de Faula de Apilamiento - SFE, Concentración de Electrones de Valencia - VEC, etc.).</li>
+</ul>
+<p>Modelos Evaluados:</p>
+<ul>
+<li>CGP: Proceso Gaussiano estándar. Bueno para incertidumbre, pero no captura bien las correlaciones entre propiedades.</li>
+</ul>
+<ul>
+<li>DGP: Versión &quot;profunda&quot; y jerárquica del GP. Mejor para modelar no linealidades complejas y ruido dependiente de la entrada.</li>
+</ul>
+<ul>
+<li>Encoder-Decoder: Red neuronal que comprime la composición en un espacio latente y luego decodifica para predecir múltiples propiedades a la vez. Es determinista (sin incertidumbre nativa).</li>
+</ul>
+<ul>
+<li>XGBoost: Modelo de árboles potente para regresión, pero sin cuantificación de incertidumbre y que ignora las correlaciones entre propiedades.</li>
+</ul>
+<ul>
+<li>Innovación Clave: Se inyectó &quot;información previa&quot; a los modelos DGP utilizando las predicciones de un modelo Encoder-Decoder pre-entrenado. Esto permite al DGP enfocarse en aprender las &quot;desviaciones&quot; o &quot;residuales&quot; con respecto a esta predicción base, mejorando su rendimiento.</li>
+</ul>
+<ul>
+<li>Resultados y Comparación</li>
+</ul>
+<ul>
+<li>Rendimiento General: Los modelos DGP con información previa (HDGP-P-All y HDGP-P-Main) fueron los mejores en casi todas las propiedades experimentales clave, mostrando el menor error (RMSE, MAE) y el mayor coeficiente de determinación (R²).</li>
+</ul>
+<ul>
+<li>Ventaja de la Información Previa: La inyección de información previa evita que el modelo prediga un valor constante en regiones con pocos datos, mejorando la generalización. La Figura 4 del artículo ilustra claramente esta ventaja.</li>
+</ul>
+<p>Clasificación de Modelos:</p>
+<ul>
+<li>Mejores: DGP con información previa (HDGP-P-All, HDGP-P-Main).</li>
+</ul>
+<ul>
+<li>Intermedios: DGP sin información previa (HDGP-NP-All, HDGP-NP-Main) y el modelo Encoder-Decoder.</li>
+</ul>
+<ul>
+<li>Peores: XGBoost y CGP. XGBoost carece de incertidumbre, y CGP no puede capturar correlaciones entre propiedades complejas.</li>
+</ul>
+<ul>
+<li>Interpretabilidad (SHAP): Un análisis SHAP en el mejor modelo (HDGP-P-All) reveló que el Aluminio (Al) y el Vanadio (V) son los principales contribuyentes positivos a la resistencia, mientras que el Cromo (Cr) y el Cobre (Cu) suelen afectar negativamente la resistencia pero pueden beneficiar la ductilidad, lo cual coincide con el conocimiento metalúrgico.</li>
+</ul>
+<ul>
+<li>Discusión y Conclusión</li>
+</ul>
+<p>El estudio demuestra que los Procesos Gaussianos Profundos (DGP), especialmente cuando se combinan con información previa de modelos de aprendizaje automático, son los sustitutos más potentes para problemas de diseño de materiales con datos complejos, escasos y ruidosos.</p>
+<p>Su capacidad para cuantificar la incertidumbre y capturar correlaciones entre propiedades los hace ideales para aplicaciones de Optimización Bayesiana, donde guiar experimentos futuros de manera eficiente es fundamental.</p>
+<p>Se recomienda el uso de estos modelos avanzados en campañas de descubrimiento de materiales para lograr un diseño más robusto y eficiente en el uso de datos.</p>
+<p>Espero que este resumen y traducción sean de utilidad.</p>
+      </article>
+    </main>
+  </body>
+</html>

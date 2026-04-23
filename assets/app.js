@@ -43,6 +43,16 @@ const loadFromDirectoryIndex = async () => {
   return extractHtmlFiles(html);
 };
 
+const formatPaperLabel = (file) => {
+  const words = file
+    .replace(/\.html$/i, "")
+    .replace(/^resumen[-_]?/i, "")
+    .replace(/[-_]+/g, " ")
+    .trim();
+
+  return words.charAt(0).toUpperCase() + words.slice(1);
+};
+
 const computeRadius = (count) => {
   if (count <= 4) return 210;
   if (count <= 8) return 280;
@@ -69,7 +79,6 @@ const renderNodes = (files) => {
     const x = Math.cos(angle) * radius;
     const y = Math.sin(angle) * radius;
 
-    const paperId = file.replace(/\.html$/i, "");
     node.href = `${PAPERS_FOLDER}/${file}`;
     node.style.setProperty("--x", `${x}px`);
     node.style.setProperty("--y", `${y}px`);
@@ -79,7 +88,7 @@ const renderNodes = (files) => {
     node.style.setProperty("--float-distance", `${index % 2 === 0 ? -12 : 12}px`);
     node.style.setProperty("--float-tilt", `${index % 2 === 0 ? -0.8 : 0.8}deg`);
     node.style.animationDelay = `${index * 55}ms, ${index * -320}ms`;
-    node.querySelector(".paper-id").textContent = paperId;
+    node.querySelector(".paper-id").textContent = formatPaperLabel(file);
 
     mapNodes.appendChild(node);
   });

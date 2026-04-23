@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué estudia?</title>
+    <style>
+      :root {
+        --bg: #10151b;
+        --paper: #f7f2e8;
+        --ink: #17130f;
+        --muted: #6b5b4b;
+        --accent: #1e6b83;
+        --accent-2: #8a2d2d;
+        --rule: #d8c9ad;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(16, 21, 27, 0.72), rgba(16, 21, 27, 0.84)),
+          repeating-linear-gradient(90deg, #17202a 0 1px, transparent 1px 46px),
+          #10151b;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.72;
+      }
+      main {
+        width: min(980px, calc(100% - 32px));
+        margin: 32px auto;
+        padding: clamp(28px, 5vw, 58px);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      }
+      nav a {
+        color: var(--accent);
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      header {
+        margin: 26px 0 34px;
+        padding-bottom: 24px;
+        border-bottom: 3px double var(--rule);
+      }
+      h1 {
+        margin: 0 0 12px;
+        color: var(--ink);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.08;
+      }
+      .source {
+        margin: 0;
+        color: var(--muted);
+        font: 0.9rem Arial, sans-serif;
+      }
+      h2, h3, h4 {
+        color: var(--accent);
+        line-height: 1.22;
+        margin: 2rem 0 0.8rem;
+      }
+      h2 { font-size: 1.65rem; border-bottom: 2px solid var(--rule); padding-bottom: 0.35rem; }
+      h3 { color: var(--accent-2); font-size: 1.28rem; }
+      h4 { font-size: 1.05rem; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; }
+      p { margin: 0 0 1rem; }
+      ul { margin: 0 0 1.2rem 1.2rem; padding: 0; }
+      li { margin: 0.42rem 0; }
+      code {
+        padding: 0.1rem 0.28rem;
+        border-radius: 3px;
+        background: #eadfc9;
+        font-size: 0.9em;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 2rem 0;
+      }
+      strong { color: #2b2119; }
+      @media (max-width: 640px) {
+        main { width: min(100% - 18px, 980px); margin: 9px auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="../index.html">Volver al mapa</a></nav>
+      <header>
+        <h1>¿Qué estudia?</h1>
+        <p class="source">Generado desde resumen_cascada_defectos.txt</p>
+      </header>
+      <article>
+        <p>¡Vamos! Aquí tienes un resumen detallado y accionable del paper que subiste.</p>
+<h2>¿Qué estudia?</h2>
+<p>Simulan por dinámica molecular (MD) cómo se forma el daño primario por irradiación en aleaciones binarias Cu–Ni y cómo ese daño impacta en sus propiedades a tracción. Exploran un espacio 3D de variables: temperatura (300–700 K), energía del PKA (2–10 keV) y orientación cristalina (\[100], \[110], \[111]), y comparan distintas fracciones atómicas de Ni (0, 5, 10, 20%). También evalúan el cambio en el esfuerzo de fluencia tras irradiar.&amp;#x20;</p>
+<h2>Cómo lo hacen (métodos y setup)</h2>
+<ul>
+<li><strong>Modelos y potenciales:</strong> superceldas FCC de tamaño 50a×50a×50a (≈500 000 átomos); Cu con potencial de Mishin y Cu–Ni con EAM modificado con corrección ZBL (Bonny/Tramontina) para colisiones de corto alcance. &amp;#x20;</li>
+<li><strong>Rangos explorados:</strong> T = 300–700 K; E\_PKA = 2–10 keV; orientaciones \[100], \[110], \[111]. &amp;#x20;</li>
+<li><strong>Protocolo MD:</strong> relajación NPT y termostatización (Nose–Hoover), cascadas en NVE con PKA cercano al centro; cada evento 50–100 ps hasta estabilizar defectos. Defectos identificados por <strong>Wigner–Seitz</strong> en <strong>OVITO</strong>; se promedian 20 simulaciones independientes por condición. &amp;#x20;</li>
+<li><strong>Ensayos mecánicos:</strong> tracción cuasiestática del mismo bloque (pre y post-irradiación); preparación por CG, control térmico a 300 K, deformación bajo NVE con tasa 0.005 ps⁻¹; análisis de dislocaciones (DXA) y CNA en OVITO. &amp;#x20;</li>
+</ul>
+<h2>Resultados principales</h2>
+<h3>1) Temperatura</h3>
+<ul>
+<li>En todas las composiciones, el número de <strong>pares de Frenkel</strong> crece rápido (pico), luego decae y se estabiliza. A mayor <strong>temperatura</strong>, en estado estable quedan <strong>menos</strong> pares por mayor movilidad y recombinación vacancia–intersticial; además, la distribución se vuelve más <strong>localizada/compacta</strong>.&amp;#x20;</li>
+</ul>
+<h3>2) Energía del PKA</h3>
+<ul>
+<li>Al subir <strong>E\_PKA</strong> (2→10 keV) aumentan fuertemente los defectos por cascadas más energéticas y más desplazamientos atómicos; en estado estable persiste un conteo mayor de defectos.&amp;#x20;</li>
+</ul>
+<h3>3) Orientación cristalina</h3>
+<ul>
+<li>El comportamiento de defectos es <strong>anisotrópico</strong>: las orientaciones \[100], \[110], \[111] muestran respuestas distintas (picos y remanentes), coherente con la diferente periodicidad y espaciamiento de planos deslizantes.&amp;#x20;</li>
+</ul>
+<h3>4) Efecto del contenido de Ni</h3>
+<ul>
+<li>Agregar <strong>Ni</strong> reduce la formación de defectos retenidos (particularmente con Ni alto) y, en mecánica, <strong>eleva la resistencia</strong>: antes de irradiar, el límite de fluencia crece con %Ni; tras irradiar, los Cu–Ni <strong>pierden</strong> resistencia, pero cuanto <strong>más Ni</strong>, <strong>menor</strong> es la caída (mejor resistencia a irradiación).&amp;#x20;</li>
+</ul>
+<h3>5) Propiedades a tracción (números)</h3>
+<ul>
+<li>A 300 K, tracción post-irradiación (dirección \[100]) muestra que el <strong>esfuerzo de fluencia</strong> disminuye con E\_PKA y aumenta con %Ni. Tabla 2 (GPa):</li>
+</ul>
+<ul>
+<li><strong>Cu</strong>: 16.86 (0 keV) → 15.82 (10 keV)</li>
+<li><strong>Cu-5 %Ni</strong>: 18.91 → 17.05</li>
+<li><strong>Cu-10 %Ni</strong>: 19.27 → 17.82</li>
+<li><strong>Cu-20 %Ni</strong>: 19.77 → 18.86</li>
+</ul>
+<p>En conjunto, más Ni → más fuerte y más inmune a la degradación por irradiación.&amp;#x20;</p>
+<h2>Qué aportan (interpretación)</h2>
+<ul>
+<li><strong>Mapa integral</strong> del daño primario y performance mecánica en Cu–Ni bajo un rango amplio de T, E\_PKA y orientación, con estadísticas (20 réplicas). El <strong>Ni</strong> actúa como estabilizador: favorece recombinación de defectos y amortigua la pérdida de fluencia tras irradiar. La <strong>temperatura</strong> acelera recombinación; la <strong>energía PKA</strong> eleva la producción de defectos; la <strong>anisotropía</strong> de la red FCC modula la cascada y la retención. &amp;#x20;</li>
+</ul>
+<h2>Cómo podrías usarlo (si estás simulando Cu–Ni)</h2>
+<ul>
+<li>Si tu objetivo es <strong>minimizar vacancias/intersticiales retenidos</strong>, opera a <strong>T más alta</strong> (dentro de límites de servicio) y considera <strong>Ni ≥10–20 at.%</strong>.</li>
+<li>Para estudios mecánicos, reportá <strong>fluencia vs. E\_PKA</strong> y <strong>vs. %Ni</strong>, como en la Tabla 2, y analiza defectos por <strong>Wigner–Seitz</strong> + <strong>DXA/CNA</strong> para enlazar microestructura con pérdida de resistencia. &amp;#x20;</li>
+</ul>
+<h2>Limitaciones (implícitas del setup)</h2>
+<ul>
+<li><strong>Escalas de tiempo</strong> (≤100 ps) y <strong>tasa de deformación</strong> altas típicas de MD; extrapolar con cuidado a experimentos.</li>
+<li><strong>Tamaños finitos</strong> (≈0.5 M átomos) y <strong>potenciales EAM/ZBL</strong> (parametrización específica) pueden influir en cinética y morfología de defectos. Aun así, validan potencial y propiedades base (DFT/MD) y realizan promedios de 20 simulaciones para robustez. &amp;#x20;</li>
+</ul>
+<p>Si querés, te hago un <strong>gráfico</strong> con los datos de la Tabla 2 (fluencia vs. E\_PKA para cada %Ni) a partir del PDF, o te armo un <strong>checklist</strong> para reproducir su pipeline en LAMMPS → OVITO (W–S, DXA, CNA) con tus dumps.</p>
+      </article>
+    </main>
+  </body>
+</html>

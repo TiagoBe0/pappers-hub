@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📘 Resumen General</title>
+    <style>
+      :root {
+        --bg: #10151b;
+        --paper: #f7f2e8;
+        --ink: #17130f;
+        --muted: #6b5b4b;
+        --accent: #1e6b83;
+        --accent-2: #8a2d2d;
+        --rule: #d8c9ad;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(16, 21, 27, 0.72), rgba(16, 21, 27, 0.84)),
+          repeating-linear-gradient(90deg, #17202a 0 1px, transparent 1px 46px),
+          #10151b;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.72;
+      }
+      main {
+        width: min(980px, calc(100% - 32px));
+        margin: 32px auto;
+        padding: clamp(28px, 5vw, 58px);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      }
+      nav a {
+        color: var(--accent);
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      header {
+        margin: 26px 0 34px;
+        padding-bottom: 24px;
+        border-bottom: 3px double var(--rule);
+      }
+      h1 {
+        margin: 0 0 12px;
+        color: var(--ink);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.08;
+      }
+      .source {
+        margin: 0;
+        color: var(--muted);
+        font: 0.9rem Arial, sans-serif;
+      }
+      h2, h3, h4 {
+        color: var(--accent);
+        line-height: 1.22;
+        margin: 2rem 0 0.8rem;
+      }
+      h2 { font-size: 1.65rem; border-bottom: 2px solid var(--rule); padding-bottom: 0.35rem; }
+      h3 { color: var(--accent-2); font-size: 1.28rem; }
+      h4 { font-size: 1.05rem; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; }
+      p { margin: 0 0 1rem; }
+      ul { margin: 0 0 1.2rem 1.2rem; padding: 0; }
+      li { margin: 0.42rem 0; }
+      code {
+        padding: 0.1rem 0.28rem;
+        border-radius: 3px;
+        background: #eadfc9;
+        font-size: 0.9em;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 2rem 0;
+      }
+      strong { color: #2b2119; }
+      @media (max-width: 640px) {
+        main { width: min(100% - 18px, 980px); margin: 9px auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="../index.html">Volver al mapa</a></nav>
+      <header>
+        <h1>📘 Resumen General</h1>
+        <p class="source">Generado desde RESUMEN_WORKSHOP_DE_DAÑO_POR_RADIACION_IMPORTANTE.txt</p>
+      </header>
+      <article>
+        <p>Aquí tienes un <strong>resumen en español</strong> del libro/artículo:</p>
+<p><strong>“State of the art, gaps, and prospects in fusion materials theory and modelling”</strong></p>
+<p>(Luca Reali et al., <em>Journal of Nuclear Materials</em>, 2026)</p>
+<hr>
+<h2>📘 Resumen General</h2>
+<p>Este trabajo presenta una revisión exhaustiva del estado actual de la <strong>teoría y modelado de materiales para fusión nuclear</strong>, basada principalmente en los resultados del 7º Workshop de <em>Fusion Materials Theory &amp; Modelling</em> (2024). El objetivo central es identificar:</p>
+<ul>
+<li>🔬 El estado del arte en modelado de materiales sometidos a irradiación.</li>
+<li>⚠️ Las principales brechas científicas y técnicas.</li>
+<li>🚀 Las direcciones futuras necesarias para el desarrollo de reactores de fusión comerciales.</li>
+</ul>
+<p>El artículo enfatiza que el modelado computacional es esencial porque muchos materiales deben diseñarse <strong>antes de que existan datos experimentales completos</strong>, especialmente en condiciones de irradiación por neutrones de 14 MeV típicas de la fusión D-T.</p>
+<hr>
+<h2>1️⃣ Efectos de Transmutación</h2>
+<p>Cuando los materiales estructurales y los <em>plasma-facing materials (PFM)</em> son expuestos a flujos intensos de neutrones:</p>
+<ul>
+<li>Se producen <strong>transmutaciones nucleares</strong> (cambio de elementos).</li>
+<li>Se generan <strong>He y H</strong>, que favorecen hinchamiento por cavidades.</li>
+<li>Aparecen nuevos elementos (como Re y Os en tungsteno) que modifican propiedades mecánicas.</li>
+<li>Se produce activación radiactiva del material.</li>
+</ul>
+<p>Se destaca el uso del código <strong>FISPACT-II</strong> para modelar la evolución isotópica bajo irradiación.</p>
+<p>Un hallazgo clave es que los efectos de transmutación pueden ser tan importantes como el daño por desplazamiento atómico.</p>
+<p>También se analiza la propagación de incertidumbres en datos nucleares, fundamental para evaluar seguridad y gestión de residuos.</p>
+<hr>
+<h2>2️⃣ Aleaciones Convencionales y Nuevas</h2>
+<p>El artículo estudia distintas familias de materiales:</p>
+<h3>🔹 Tungsteno (W) y aleaciones W-Re-Os</h3>
+<ul>
+<li>Bajo irradiación, Re y Os segregan y decoran vacíos.</li>
+<li>Se emplean métodos de primeros principios (DFT + Cluster Expansion + Monte Carlo).</li>
+<li>Se explica la formación de precipitados inducidos por radiación.</li>
+</ul>
+<h3>🔹 SMART alloys (W-Cr-Y-Zr)</h3>
+<ul>
+<li>Diseñadas para evitar oxidación catastrófica en accidentes.</li>
+<li>Modelado termodinámico muestra descomposición de fases y ordenamiento químico.</li>
+</ul>
+<h3>🔹 High-Entropy Alloys (HEA)</h3>
+<ul>
+<li>Aleaciones multicomponente con alta resistencia a irradiación.</li>
+<li>Modeladas mediante DFT + Monte Carlo + potenciales de machine learning.</li>
+<li>Pequeñas variaciones composicionales (ej. V en W-Ta) modifican fuertemente la tolerancia al daño.</li>
+</ul>
+<h3>🔹 Aceros Fe-Cr y Fe-Cr-Mn-Ni</h3>
+<ul>
+<li>Modelado de estabilidad de fases (bcc vs fcc).</li>
+<li>Influencia de vacancias e intersticiales en la segregación de Cr.</li>
+</ul>
+<hr>
+<h2>3️⃣ Daño a Alta Dosis</h2>
+<p>Se analiza cómo evoluciona la microestructura bajo irradiación prolongada:</p>
+<ul>
+<li>El modelo clásico NRT-dpa sobreestima defectos sobrevivientes.</li>
+<li>Correcciones ARC-DPA y CRC-DPA reducen significativamente el daño efectivo.</li>
+<li>Se estudian:</li>
+</ul>
+<ul>
+<li>Formación y evolución de loops de dislocación.</li>
+<li>Hinchamiento por cavidades.</li>
+<li>Endurecimiento por irradiación.</li>
+<li>Segregación inducida por radiación (RIS).</li>
+</ul>
+<p>Se enfatiza que el endurecimiento debe modelarse considerando:</p>
+<ul>
+<li>Barreras débiles y fuertes.</li>
+<li>Superposición cuadrática y lineal correcta.</li>
+</ul>
+<hr>
+<h2>4️⃣ Simulación Atomística a Alta Dosis</h2>
+<p>Simular millones de cascadas es computacionalmente inviable con DFT.</p>
+<p>Se presentan métodos alternativos:</p>
+<h3>🔹 Creation Relaxation Algorithm (CRA)</h3>
+<ul>
+<li>Inserta pares de Frenkel artificiales.</li>
+<li>Permite alcanzar altas dosis de forma eficiente.</li>
+<li>Microestructuras obtenidas son comparables a simulaciones MD masivas.</li>
+</ul>
+<h3>🔹 Limitaciones actuales:</h3>
+<ul>
+<li>Escalas de longitud limitadas (≈100 nm).</li>
+<li>Necesidad de mejores potenciales interatómicos.</li>
+<li>Alto costo computacional.</li>
+</ul>
+<hr>
+<h2>5️⃣ Potenciales Interatómicos basados en Machine Learning</h2>
+<p>Una sección clave del artículo.</p>
+<p>Se desarrollan potenciales ML para:</p>
+<ul>
+<li>Mejorar predicción de energías de enlace He-vacancia.</li>
+<li>Simular HEAs complejas.</li>
+<li>Modelar hidrógeno en metales.</li>
+</ul>
+<p>Los potenciales ML permiten:</p>
+<ul>
+<li>Precisión cercana a DFT.</li>
+<li>Escalas mucho mayores que DFT.</li>
+<li>Simulación realista de daño acumulado.</li>
+</ul>
+<hr>
+<h2>6️⃣ Materiales No Metálicos</h2>
+<p>Incluye:</p>
+<ul>
+<li>Superconductores de alta temperatura.</li>
+<li>Cerámicos de litio para breeding de tritio.</li>
+</ul>
+<p>Estos materiales también requieren modelado multiescala.</p>
+<hr>
+<h2>7️⃣ Modelado Multiescala</h2>
+<p>Uno de los puntos centrales del libro:</p>
+<p>Se busca conectar:</p>
+<p><code>`</code></p>
+<p>DFT → Monte Carlo → MD → KMC → Modelos mesoscópicos → Modelos estructurales → Simulación del reactor completo</p>
+<p><code>`</code></p>
+<p>El desafío es integrar:</p>
+<ul>
+<li>Defectos microscópicos</li>
+<li>Evolución microestructural</li>
+<li>Propiedades mecánicas</li>
+<li>Comportamiento estructural del componente</li>
+</ul>
+<hr>
+<h2>🔮 Perspectivas Futuras</h2>
+<p>El artículo concluye que los principales desafíos son:</p>
+<ul>
+<li>Mejorar datos nucleares y matrices de covarianza.</li>
+<li>Integrar transmutación + daño + evolución química.</li>
+<li>Desarrollar potenciales ML robustos para aleaciones complejas.</li>
+<li>Validación experimental en condiciones representativas de fusión.</li>
+<li>Integración multiescala realista.</li>
+<li>Uso de HPC y visualización avanzada.</li>
+</ul>
+<hr>
+<h2>🎯 Conclusión Global</h2>
+<p>El modelado teórico es absolutamente esencial para:</p>
+<ul>
+<li>Diseñar materiales antes de que existan reactores comerciales.</li>
+<li>Reducir costos experimentales.</li>
+<li>Acelerar el desarrollo de DEMO y futuros reactores.</li>
+</ul>
+<p>La comunidad está avanzando fuertemente en:</p>
+<ul>
+<li>Modelado atomístico avanzado.</li>
+<li>Aleaciones resistentes a irradiación.</li>
+<li>Machine Learning aplicado a materiales.</li>
+<li>Integración multiescala.</li>
+</ul>
+<p>Pero aún existen brechas importantes en:</p>
+<ul>
+<li>Validación experimental.</li>
+<li>Escalas de tiempo largas.</li>
+<li>Incertidumbre en datos nucleares.</li>
+<li>Acoplamiento completo microestructura–ingeniería.</li>
+</ul>
+<hr>
+<p>Si quieres, puedo ahora:</p>
+<ul>
+<li>🔎 Hacer un resumen más corto tipo “para presentación”.</li>
+<li>🧠 Explicártelo conectado a tu pipeline DGCNN.</li>
+<li>📊 Prepararte diapositivas listas para PowerPoint.</li>
+<li>📘 Hacer un resumen más técnico sección por sección.</li>
+<li>✍️ Convertirlo en un texto estilo introducción para tesis.</li>
+</ul>
+<p>¿Para qué lo necesitas?</p>
+      </article>
+    </main>
+  </body>
+</html>

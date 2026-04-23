@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Objetivo del trabajo</title>
+    <style>
+      :root {
+        --bg: #10151b;
+        --paper: #f7f2e8;
+        --ink: #17130f;
+        --muted: #6b5b4b;
+        --accent: #1e6b83;
+        --accent-2: #8a2d2d;
+        --rule: #d8c9ad;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(16, 21, 27, 0.72), rgba(16, 21, 27, 0.84)),
+          repeating-linear-gradient(90deg, #17202a 0 1px, transparent 1px 46px),
+          #10151b;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.72;
+      }
+      main {
+        width: min(980px, calc(100% - 32px));
+        margin: 32px auto;
+        padding: clamp(28px, 5vw, 58px);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      }
+      nav a {
+        color: var(--accent);
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      header {
+        margin: 26px 0 34px;
+        padding-bottom: 24px;
+        border-bottom: 3px double var(--rule);
+      }
+      h1 {
+        margin: 0 0 12px;
+        color: var(--ink);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.08;
+      }
+      .source {
+        margin: 0;
+        color: var(--muted);
+        font: 0.9rem Arial, sans-serif;
+      }
+      h2, h3, h4 {
+        color: var(--accent);
+        line-height: 1.22;
+        margin: 2rem 0 0.8rem;
+      }
+      h2 { font-size: 1.65rem; border-bottom: 2px solid var(--rule); padding-bottom: 0.35rem; }
+      h3 { color: var(--accent-2); font-size: 1.28rem; }
+      h4 { font-size: 1.05rem; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; }
+      p { margin: 0 0 1rem; }
+      ul { margin: 0 0 1.2rem 1.2rem; padding: 0; }
+      li { margin: 0.42rem 0; }
+      code {
+        padding: 0.1rem 0.28rem;
+        border-radius: 3px;
+        background: #eadfc9;
+        font-size: 0.9em;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 2rem 0;
+      }
+      strong { color: #2b2119; }
+      @media (max-width: 640px) {
+        main { width: min(100% - 18px, 980px); margin: 9px auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="../index.html">Volver al mapa</a></nav>
+      <header>
+        <h1>🎯 Objetivo del trabajo</h1>
+        <p class="source">Generado desde resumeen_papper_albert_robert_ML.txt</p>
+      </header>
+      <article>
+        <p>Perfecto, Santiago 🙌. Ya revisé tu paper “Cost-Efficient Domain-Adaptive Pretraining of Language Models for Optoelectronics Applications” (Huang &amp; Cole, 2025). Te hago un resumen traducido y explicado en español para que lo tengas claro:</p>
+<p>🎯 Objetivo del trabajo</p>
+<p>El artículo busca adaptar modelos de lenguaje (BERT, ALBERT, RoBERTa) al dominio de la optoelectrónica de una forma más barata y eficiente, en vez de entrenarlos desde cero con enormes cantidades de datos y recursos.</p>
+<p><strong>Proponen el uso de Domain-Adaptive Pretraining (DAPT):</strong> tomar un modelo ya preentrenado en inglés general y seguir entrenándolo con literatura científica en optoelectrónica.</p>
+<p>📚 Metodología</p>
+<p><strong>Corpus:</strong> recopilaron ~192.000 publicaciones en optoelectrónica → limpiaron y procesaron hasta obtener 5.7 GB de texto</p>
+<p>Mucho más pequeño que el corpus de RoBERTa (160 GB).</p>
+<p>Modelos adaptados:</p>
+<p>OE-BERT</p>
+<p>OE-ALBERT</p>
+<p>OE-RoBERTa</p>
+<p>(el prefijo OE significa “Optoelectronics-Enhanced”).</p>
+<p>Entrenamiento:</p>
+<p>Hicieron DAPT por 10 épocas (~6000 pasos) en un supercomputador (Polaris, Argonne).</p>
+<p>Esto tomó solo 3 horas en 64 GPUs A100 (mucho menos que otros trabajos como OpticalBERT que necesitó 8 días)</p>
+<p>🧪 Experimentos principales</p>
+<p><strong>Masked Language Modeling (MLM):</strong> probaron si los modelos aprendían vocabulario técnico.</p>
+<p>OE-RoBERTa acertó en valores numéricos y términos científicos.</p>
+<p><strong>El RoBERTa original solo acertaba con unidades comunes (ej:</strong> “nm”, “%”)</p>
+<p>Clasificación de abstracts (EHC-10k dataset):</p>
+<p><strong>Categorías:</strong> emisión de luz (E), cosecha de luz (H), fotocatálisis (C).</p>
+<p>Los modelos adaptados siempre superaron a sus contrapartes generales</p>
+<p><strong>Mejor resultado:</strong> OE-RoBERTa (≈98% precisión).</p>
+<p>Clasificación de artículos más citados (2023):</p>
+<p>Añadieron una categoría “otros” para realismo.</p>
+<p>El mejor fue OE-RoBERTa con lowercasing (quitando mayúsculas confusas), logrando 92% en F1</p>
+<p>Question Answering (SQuAD v1.1 y dataset TADF):</p>
+<p>En preguntas de inglés general, el DAPT redujo un poco la performance, pero en preguntas específicas de optoelectrónica, los modelos adaptados fueron muy superiores.</p>
+<p>OE-RoBERTa &gt; OpticalBERT &gt; RoBERTa general</p>
+<p>Text Embedding &amp; Retrieval:</p>
+<p>Fine-tunearon OE-RoBERTa para crear embeddings vectoriales de títulos y abstracts.</p>
+<p>Mejoró el recall@k en la búsqueda de artículos relevantes (hasta +2.5% en recall@5)</p>
+<p>🔑 Conclusiones</p>
+<p><strong>DAPT es barato y eficiente:</strong> con pocos recursos logran modelos especializados que superan a modelos mucho más costosos.</p>
+<p>RoBERTa es el mejor punto de partida para adaptación en dominios científicos (mejor que BERT/ALBERT).</p>
+<p>Aplicaciones futuras:</p>
+<p>minería de datos de materiales,</p>
+<p>clasificación de literatura,</p>
+<p>sistemas RAG (retrieval-augmented generation),</p>
+<p>enriquecimiento de bases de datos en ciencia</p>
+<p>🚀 Explicación sencilla</p>
+<p>Este paper demuestra que no hace falta entrenar un LLM desde cero para un área científica. Basta con tomar un modelo ya existente (RoBERTa) y seguir entrenándolo con artículos de tu dominio → obtienes un modelo “experto” en ese campo, con mucho menor costo en tiempo y GPUs.</p>
+<p>En este caso, adaptaron modelos al lenguaje de la optoelectrónica y probaron que entienden mejor los términos técnicos, clasifican papers más precisamente y responden preguntas de la disciplina mejor que los modelos generales.</p>
+<p>📌 Abstract (traducido)</p>
+<p>Los modelos de lenguaje preentrenados han demostrado gran capacidad y versatilidad en tareas de procesamiento de lenguaje natural (NLP), y tienen aplicaciones importantes en la investigación en optoelectrónica, como la minería de datos y el modelado de tópicos. También se han desarrollado muchos modelos de lenguaje para otros dominios científicos, entre los cuales BERT es una de las arquitecturas más usadas.</p>
+<p><strong>En este trabajo presentamos tres modelos “conscientes de la optoelectrónica”:</strong> OE-BERT, OE-ALBERT y OE-RoBERTa, que superan tanto a sus contrapartes entrenadas en inglés general como a modelos más grandes en diversas tareas de NLP aplicadas a la optoelectrónica.</p>
+<p>Nuestro trabajo también demuestra la eficacia de un método de preentrenamiento adaptativo de dominio (DAPT) rentable con RoBERTa, que reduce en más de un 80% los requisitos de cómputo en el preentrenamiento, manteniendo o mejorando su desempeño. Todos los modelos y conjuntos de datos están disponibles para la comunidad de investigación en optoelectrónic</p>
+<p>📌 Conclusiones (traducidas)</p>
+<p>Este estudio investigó un método rentable de preentrenamiento adaptativo de dominio (DAPT) para producir modelos de lenguaje ajustados a aplicaciones en optoelectrónica.</p>
+<p>Se generaron tres modelos “conscientes de la optoelectrónica” (OE-BERT, OE-RoBERTa y OE-ALBERT) mediante DAPT sobre BERT, RoBERTa y ALBERT. Se evaluó su rendimiento en tareas de clasificación de resúmenes, preguntas y respuestas (QA), y generación de embeddings para recuperación de información, comparándolos con sus equivalentes en inglés general y con OpticalBERT.</p>
+<p>Los modelos adaptados mostraron:</p>
+<p>Mejor capacidad para clasificar abstracts, incluso con categorías no vistas previamente.</p>
+<p>En QA sobre propiedades de TADF, OE-RoBERTa superó a RoBERTa-large y OpticalBERT, que habían recibido mucho más entrenamiento.</p>
+<p>En recuperación de información, el modelo vectorial derivado de OE-RoBERTa superó al mejor modelo de embeddings general de tamaño similar (gte-base-en-v1.5).</p>
+<p>El trabajo demuestra que DAPT consume muchos menos recursos de cómputo y logra igualar o superar modelos con preentrenamiento mucho más costoso. Además, se concluye que RoBERTa es el mejor modelo base para adaptación de dominio en ciencias naturales, gracias a su corpus de preentrenamiento más grande y a su tokenizador BPE.</p>
+<p>Finalmente, los autores proponen que estos modelos específicos de dominio podrían usarse en el futuro para minería y enriquecimiento de bases de datos en ciencia de materiales, permitiendo acceder a información más detallada y precisa, y abriendo nuevas aplicaciones de IA en la investigación en optoelectrónica</p>
+      </article>
+    </main>
+  </body>
+</html>

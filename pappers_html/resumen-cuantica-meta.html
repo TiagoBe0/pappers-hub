@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔑 Puntos Clave del Trabajo</title>
+    <style>
+      :root {
+        --bg: #10151b;
+        --paper: #f7f2e8;
+        --ink: #17130f;
+        --muted: #6b5b4b;
+        --accent: #1e6b83;
+        --accent-2: #8a2d2d;
+        --rule: #d8c9ad;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(16, 21, 27, 0.72), rgba(16, 21, 27, 0.84)),
+          repeating-linear-gradient(90deg, #17202a 0 1px, transparent 1px 46px),
+          #10151b;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.72;
+      }
+      main {
+        width: min(980px, calc(100% - 32px));
+        margin: 32px auto;
+        padding: clamp(28px, 5vw, 58px);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      }
+      nav a {
+        color: var(--accent);
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      header {
+        margin: 26px 0 34px;
+        padding-bottom: 24px;
+        border-bottom: 3px double var(--rule);
+      }
+      h1 {
+        margin: 0 0 12px;
+        color: var(--ink);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.08;
+      }
+      .source {
+        margin: 0;
+        color: var(--muted);
+        font: 0.9rem Arial, sans-serif;
+      }
+      h2, h3, h4 {
+        color: var(--accent);
+        line-height: 1.22;
+        margin: 2rem 0 0.8rem;
+      }
+      h2 { font-size: 1.65rem; border-bottom: 2px solid var(--rule); padding-bottom: 0.35rem; }
+      h3 { color: var(--accent-2); font-size: 1.28rem; }
+      h4 { font-size: 1.05rem; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; }
+      p { margin: 0 0 1rem; }
+      ul { margin: 0 0 1.2rem 1.2rem; padding: 0; }
+      li { margin: 0.42rem 0; }
+      code {
+        padding: 0.1rem 0.28rem;
+        border-radius: 3px;
+        background: #eadfc9;
+        font-size: 0.9em;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 2rem 0;
+      }
+      strong { color: #2b2119; }
+      @media (max-width: 640px) {
+        main { width: min(100% - 18px, 980px); margin: 9px auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="../index.html">Volver al mapa</a></nav>
+      <header>
+        <h1>🔑 Puntos Clave del Trabajo</h1>
+        <p class="source">Generado desde resumen-cuantica-meta.txt</p>
+      </header>
+      <article>
+        <p>Leí tu archivo y aquí te dejo la traducción resumida de los puntos más importantes del trabajo sobre el dataset Open Molecular Crystals 2025 (OMC25):</p>
+<p>🔑 Puntos Clave del Trabajo</p>
+<p>Objetivo principal</p>
+<p>Crear un gran dataset abierto para acelerar el desarrollo de modelos de machine learning aplicados a cristales moleculares.</p>
+<p><strong>Problema previo:</strong> había escasez de bases de datos públicas con estructuras y propiedades.</p>
+<p>El dataset OMC25</p>
+<p>Contiene más de 27 millones de estructuras de cristales moleculares.</p>
+<p>Incluye 12 elementos químicos y hasta 300 átomos por celda unitaria.</p>
+<p>Generado a partir de trayectorias de relajación por DFT (teoría del funcional de la densidad) de 230.000 estructuras candidatas construidas con ~50.000 moléculas orgánicas únicas.</p>
+<p>Diversidad y representatividad</p>
+<p>Amplia variedad de interacciones intermoleculares y motivos de empaquetamiento cristalino.</p>
+<p>Cubre 167 grupos espaciales y múltiples sistemas cristalinos.</p>
+<p>Incluye tanto estructuras densa y holgadamente empaquetadas para muestrear todo el espacio de energía potencial.</p>
+<p>Propiedades disponibles en el dataset</p>
+<p>Energía total de la estructura.</p>
+<p>Fuerzas atómicas.</p>
+<p>Tensiones de la celda unitaria.</p>
+<p>División del dataset</p>
+<p><strong>Entrenamiento:</strong> 90% (~24,8 M estructuras).</p>
+<p><strong>Validación:</strong> 5% (~1,38 M estructuras).</p>
+<p><strong>Test:</strong> 5% (~1,35 M estructuras).</p>
+<p>Validación técnica</p>
+<p>Se filtraron estructuras no físicas (con energías/ fuerzas irreales).</p>
+<p>Alta consistencia en la relajación de estructuras.</p>
+<p>Muestra representativa del paisaje de energía potencial.</p>
+<p>Modelos de Machine Learning probados</p>
+<p><strong>Se entrenaron y evaluaron varios modelos de última generación:</strong> UMA, eSEN, EquiformerV2.</p>
+<p>Los modelos muestran alta precisión en predicción de energías, fuerzas y tensiones.</p>
+<p>También funcionan bien en tareas externas como:</p>
+<p>Benchmark X23b (energías de red cristalina y volúmenes).</p>
+<p>Ranking de polimorfos (estructuras alternativas de la misma molécula).</p>
+<p>Limitaciones actuales</p>
+<p>Solo incluye cristales orgánicos de un solo componente (no co-cristales, MOFs, solvatos, etc.).</p>
+<p>El nivel de teoría usado (PBE-D3) es bueno, pero no tan preciso como otros más avanzados.</p>
+<p>Falta de modelado robusto de interacciones a largo alcance.</p>
+<p>Necesidad de más pruebas con datos “fuera de distribución” para medir la generalización real.</p>
+<p>Impacto esperado</p>
+<p>Recurso abierto y gratuito (CC BY 4.0).</p>
+<p>Facilita el desarrollo de modelos más rápidos y precisos que el DFT.</p>
+<p>Acelera investigación en áreas como farmacéutica, electrónica orgánica y predicción de estructuras cristalinas.</p>
+<p>Disponibilidad</p>
+<p>Dataset y modelos en HuggingFace:</p>
+<p>👉 https://huggingface.co/facebook/OMC25</p>
+      </article>
+    </main>
+  </body>
+</html>

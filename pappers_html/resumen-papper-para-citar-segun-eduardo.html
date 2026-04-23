@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomistic simulations of irradiation damage on the engineering timescale: examining the dose rate effect in tungsten</title>
+    <style>
+      :root {
+        --bg: #10151b;
+        --paper: #f7f2e8;
+        --ink: #17130f;
+        --muted: #6b5b4b;
+        --accent: #1e6b83;
+        --accent-2: #8a2d2d;
+        --rule: #d8c9ad;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(16, 21, 27, 0.72), rgba(16, 21, 27, 0.84)),
+          repeating-linear-gradient(90deg, #17202a 0 1px, transparent 1px 46px),
+          #10151b;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.72;
+      }
+      main {
+        width: min(980px, calc(100% - 32px));
+        margin: 32px auto;
+        padding: clamp(28px, 5vw, 58px);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      }
+      nav a {
+        color: var(--accent);
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      header {
+        margin: 26px 0 34px;
+        padding-bottom: 24px;
+        border-bottom: 3px double var(--rule);
+      }
+      h1 {
+        margin: 0 0 12px;
+        color: var(--ink);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.08;
+      }
+      .source {
+        margin: 0;
+        color: var(--muted);
+        font: 0.9rem Arial, sans-serif;
+      }
+      h2, h3, h4 {
+        color: var(--accent);
+        line-height: 1.22;
+        margin: 2rem 0 0.8rem;
+      }
+      h2 { font-size: 1.65rem; border-bottom: 2px solid var(--rule); padding-bottom: 0.35rem; }
+      h3 { color: var(--accent-2); font-size: 1.28rem; }
+      h4 { font-size: 1.05rem; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; }
+      p { margin: 0 0 1rem; }
+      ul { margin: 0 0 1.2rem 1.2rem; padding: 0; }
+      li { margin: 0.42rem 0; }
+      code {
+        padding: 0.1rem 0.28rem;
+        border-radius: 3px;
+        background: #eadfc9;
+        font-size: 0.9em;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 2rem 0;
+      }
+      strong { color: #2b2119; }
+      @media (max-width: 640px) {
+        main { width: min(100% - 18px, 980px); margin: 9px auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="../index.html">Volver al mapa</a></nav>
+      <header>
+        <h1>Atomistic simulations of irradiation damage on the engineering timescale: examining the dose rate effect in tungsten</h1>
+        <p class="source">Generado desde resumen_papper_para_citar_segun_eduardo.txt</p>
+      </header>
+      <article>
+        <p>Perfecto 👍</p>
+<p>Voy a explicarte <strong>este paper en detalle, en español y con interpretación física</strong>, como si lo estuviéramos estudiando juntos para investigación.</p>
+<p><strong>📄 Paper:</strong> <em>“Atomistic simulations of irradiation damage on the engineering timescale: examining the dose rate effect in tungsten”</em></p>
+<hr>
+<h2>🧠 Idea general del paper (visión global)</h2>
+<p>El trabajo propone un <strong>nuevo método de simulación atomística acelerada</strong> para estudiar <strong>daño por irradiación en metales (especialmente tungsteno)</strong> en <strong>escalas de tiempo reales (horas-años)</strong>.</p>
+<p>👉 Problema central:</p>
+<ul>
+<li>La <strong>dinámica molecular (MD)</strong> solo puede simular hasta <strong>microsegundos</strong></li>
+<li>Pero los experimentos y la vida útil de materiales nucleares ocurren en <strong>horas, días o años</strong></li>
+</ul>
+<p>✅ Entonces el paper propone:</p>
+<p>&gt; 🔥 <strong>Un método híbrido MD + kinetic Monte Carlo (kMC)</strong></p>
+<p>&gt; para acelerar el movimiento de vacancias sin perder la física real.</p>
+<hr>
+<h2>⚛️ Contexto físico: daño por irradiación</h2>
+<p>Cuando una partícula energética (neutrón, ion, etc.) golpea un material:</p>
+<ul>
+<li>Transfiere energía a un átomo</li>
+<li>Ese átomo se convierte en <strong>PKA (primary knock-on atom)</strong></li>
+<li>Produce una <strong>cascada de colisiones</strong></li>
+<li>Se generan defectos:</li>
+</ul>
+<ul>
+<li>Vacancias</li>
+<li>Intersticiales</li>
+<li>loops de dislocación</li>
+<li>voids</li>
+</ul>
+<p>La dosis se mide como:</p>
+<p>[</p>
+<p>\text{dpa} = \text{displacements per atom}</p>
+<p>]</p>
+<p>Y la <strong>dose rate</strong> es:</p>
+<p>[</p>
+<p>\dot{f} = \text{dpa/s}</p>
+<p>]</p>
+<p>👉 La microestructura final depende fuertemente de:</p>
+<ul>
+<li>temperatura</li>
+<li>dose rate</li>
+<li>movilidad de defectos</li>
+</ul>
+<hr>
+<h2>⏱️ Problema fundamental de MD</h2>
+<p>Los átomos vibran a:</p>
+<p>[</p>
+<p>10^{13},\text{Hz}</p>
+<p>]</p>
+<p>Entonces:</p>
+<ul>
+<li>timestep MD ≈ (10^{-15}) s</li>
+<li>incluso con miles de millones de pasos</li>
+</ul>
+<p>👉 solo se simulan microsegundos</p>
+<p>Pero:</p>
+<ul>
+<li>defectos térmicos evolucionan en horas o días</li>
+</ul>
+<p>👉 por eso MD pura no sirve.</p>
+<hr>
+<h2>💡 Idea clave del método del paper</h2>
+<p>El paper usa un concepto fundamental:</p>
+<h3>⭐ Separación de escalas de tiempo</h3>
+<p>En metales BCC:</p>
+<ul>
+<li>intersticiales → difunden MUY rápido</li>
+<li>vacancias → difunden lento</li>
+</ul>
+<p>👉 Entonces:</p>
+<ul>
+<li>procesos rápidos → MD normal</li>
+<li>procesos lentos → acelerar con kMC</li>
+</ul>
+<hr>
+<h2>⚙️ Método híbrido propuesto</h2>
+<p>Cada ciclo de simulación:</p>
+<h4>1️⃣ MD corta</h4>
+<p>Se corre MD por unos picosegundos</p>
+<p>→ relaja procesos rápidos</p>
+<h4>2️⃣ Detectar vacancias</h4>
+<p>Usan algoritmo geométrico:</p>
+<ul>
+<li>miran espacio vacío alrededor de átomos</li>
+<li>agrupan átomos vecinos</li>
+<li>comparan grafos de conectividad</li>
+<li>identifican:</li>
+</ul>
+<ul>
+<li>monovacancy</li>
+<li>divacancy</li>
+</ul>
+<p>👉 Muy importante:</p>
+<p>No deben romper clusters grandes por error.</p>
+<hr>
+<h4>3️⃣ Acelerar difusión de vacancias</h4>
+<p>Se usa:</p>
+<p>👉 <strong>rejection kinetic Monte Carlo</strong></p>
+<p>La tasa de salto:</p>
+<p>[</p>
+<p>\nu = \nu_D e^{-E_m/kT}</p>
+<p>]</p>
+<p>donde:</p>
+<ul>
+<li>(E_m ≈ 1.73) eV (barrera migración W)</li>
+<li>depende del <strong>stress local</strong></li>
+</ul>
+<p>Esto es clave:</p>
+<p>➡️ incluyen efecto del campo elástico en difusión</p>
+<p>(usando dipolo elástico).</p>
+<hr>
+<h2>🔥 Resultado conceptual del método</h2>
+<p>👉 Permite simular:</p>
+<ul>
+<li>evolución microestructural</li>
+<li>recombinación defectos</li>
+<li>formación voids</li>
+</ul>
+<p>en tiempos mucho más largos</p>
+<p>sin parámetros ajustables.</p>
+<hr>
+<h2>🧪 Simulaciones realizadas</h2>
+<p>Sistema:</p>
+<ul>
+<li>tungsteno BCC</li>
+<li>1 millón de átomos</li>
+<li>cascadas de 10 keV</li>
+</ul>
+<p>Condiciones:</p>
+<p>Dose rate:</p>
+<ul>
+<li>(10^3)</li>
+<li>(10^4)</li>
+<li>(10^5) dpa/s</li>
+</ul>
+<p>Temperatura:</p>
+<ul>
+<li>500–800 K aprox.</li>
+</ul>
+<hr>
+<h2>📉 Resultado físico principal</h2>
+<h3>⭐ Efecto fundamental:</h3>
+<p>👉 Aumentar temperatura</p>
+<p>o disminuir dose rate</p>
+<p>➡️ <strong>reduce la concentración de defectos</strong></p>
+<p>Porque:</p>
+<ul>
+<li>vacancias se vuelven móviles</li>
+<li>recombinan con intersticiales</li>
+</ul>
+<p>Entonces aparece:</p>
+<h4>steady-state defect concentration</h4>
+<p>balance:</p>
+<ul>
+<li>generación por cascadas</li>
+<li>recombinación térmica</li>
+</ul>
+<hr>
+<h2>🫧 Formación de voids</h2>
+<p>A alta temperatura:</p>
+<ul>
+<li>vacancias se agrupan</li>
+<li>forman void clusters nanoscale</li>
+</ul>
+<p>Especialmente si hay:</p>
+<p>👉 dislocation loop inicial</p>
+<p>(actúa como sink de intersticiales)</p>
+<p>Esto produce:</p>
+<ul>
+<li>menos recombinación</li>
+<li>más vacancias libres</li>
+<li>mayor swelling</li>
+</ul>
+<hr>
+<h2>📊 Modelo analítico simple (rate theory)</h2>
+<p>Derivan ecuación:</p>
+<p>[</p>
+<p>\frac{dc}{dt}</p>
+<p>=============</p>
+<p>-4\pi DZR c^2</p>
+<p>+</p>
+<p>\left(1-\frac{c}{c_{sat}}\right) g \dot{f}</p>
+<p>]</p>
+<p>Interpretación:</p>
+<ul>
+<li>primer término → recombinación</li>
+<li>segundo → generación por irradiación</li>
+</ul>
+<p>Resultado:</p>
+<p>[</p>
+<p>c_{steady}</p>
+<p>==========</p>
+<p>\frac{2c_{sat}}{1+\sqrt{1+w}}</p>
+<p>]</p>
+<p>👉 Muy importante:</p>
+<p>✔️ El modelo reproduce simulación</p>
+<p>✔️ Sin parámetros libres</p>
+<hr>
+<h2>📦 Swelling volumétrico</h2>
+<p>Aproximan:</p>
+<p>[</p>
+<p>\varepsilon_v ≈ 0.6,c(t)</p>
+<p>]</p>
+<p>porque:</p>
+<ul>
+<li>intersticial cluster → volumen ≈ 1 atómico</li>
+<li>vacancia → ≈ 0.4</li>
+</ul>
+<hr>
+<h2>🧠 Limitaciones del método</h2>
+<p>A temperatura alta:</p>
+<ul>
+<li>vacancias saltan millones de veces por hora</li>
+</ul>
+<p>Entonces:</p>
+<p>👉 incluso el método acelerado se vuelve caro</p>
+<p>Ejemplo:</p>
+<p>Simular 1 h a 900 K</p>
+<p>≈ (2\times10^{10}) pasos MD equivalentes.</p>
+<hr>
+<h2>🧪 Comparación con experimentos</h2>
+<p>Comparan con:</p>
+<ul>
+<li>retención de deuterio</li>
+<li>conductividad térmica</li>
+</ul>
+<p>Resultado:</p>
+<p>✔️ acuerdo cualitativo</p>
+<p>❗ subestiman defectos a alta T</p>
+<p>Posible causa:</p>
+<ul>
+<li>simulación no incluye impurezas</li>
+</ul>
+<p>(C, N, O estabilizan vacancias)</p>
+<hr>
+<h2>⭐ Conclusión científica del paper</h2>
+<p>Este paper demuestra:</p>
+<p>✅ Se puede extender simulación atomística a tiempos reales</p>
+<p>usando aceleración selectiva.</p>
+<p>Resultados físicos clave:</p>
+<ul>
+<li>steady state defect concentration depende de dose rate y T</li>
+<li>sinks (loops) aumentan swelling</li>
+<li>formación de voids requiere movilidad de vacancias</li>
+</ul>
+<hr>
+<h2>✅ Si quieres</h2>
+<p>Puedo ahora:</p>
+<p>⭐ hacerte:</p>
+<ul>
+<li>un <strong>resumen ultra-corto tipo abstract</strong></li>
+<li>una <strong>explicación matemática paso a paso</strong></li>
+<li>una <strong>interpretación física aplicada a tu simulación PKA</strong></li>
+<li>o ayudarte a <strong>replicar este método en LAMMPS</strong></li>
+</ul>
+<p>¿Qué prefieres?</p>
+<p>Perfecto 👍</p>
+<p>La <strong>Figura 2 es probablemente la más importante del paper</strong>, porque muestra <strong>el algoritmo central del método híbrido MD + kMC</strong>.</p>
+<p>Vamos a explicarla <strong>muy en detalle (física + computacional + conceptual)</strong>.</p>
+<hr>
+<h2>📊 Figura 2 — Algoritmo de aceleración de vacancias</h2>
+<p>(<em>vacancy-acceleration algorithm</em>)</p>
+<p>Esta figura muestra <strong>cómo el método acelera la evolución microestructural</strong>.</p>
+<p>La idea general:</p>
+<p>👉 En lugar de simular TODO con MD</p>
+<p>➡️ se acelera solamente la <strong>difusión de vacancias</strong></p>
+<p><strong>La figura tiene **3 partes:</strong> a, b, c**</p>
+<hr>
+<h2>🔵 (a) Identificación de átomos cerca de voids</h2>
+<h3>🔬 Qué muestra físicamente</h3>
+<p>Se parte de una microestructura irradiada:</p>
+<ul>
+<li>dislocation lines</li>
+<li>voids</li>
+<li>defectos puntuales</li>
+</ul>
+<p>El algoritmo debe encontrar:</p>
+<p>👉 <strong>Dónde hay vacancias</strong></p>
+<p>Pero:</p>
+<ul>
+<li>una vacancia no es un átomo</li>
+<li>entonces no es trivial detectarla</li>
+</ul>
+<hr>
+<h3>⚙️ Método geométrico</h3>
+<p>Para cada átomo:</p>
+<p>1️⃣ Se dibuja una esfera alrededor</p>
+<p>radio ≈ distancia primer vecino BCC</p>
+<p>2️⃣ Se muestrean puntos sobre esa esfera</p>
+<p>3️⃣ Si alguno de esos puntos:</p>
+<p>[</p>
+<p>\text{está suficientemente lejos de otros átomos}</p>
+<p>]</p>
+<p>👉 entonces hay <strong>espacio vacío</strong></p>
+<p>➡️ Ese átomo está <strong>junto a una vacancia</strong></p>
+<p>Esto es muy inteligente porque:</p>
+<p>✔️ no necesita lattice perfecto</p>
+<p>✔️ funciona con deformación</p>
+<p>✔️ funciona con defectos</p>
+<hr>
+<h3>🧠 Interpretación física</h3>
+<p>Una vacancia crea:</p>
+<ul>
+<li>volumen libre local</li>
+<li>reducción de coordinación</li>
+</ul>
+<p>Entonces:</p>
+<p>👉 el algoritmo detecta <strong>“regiones de baja densidad atómica”</strong></p>
+<p>Esto es básicamente:</p>
+<p>⭐ un detector topológico de defectos</p>
+<hr>
+<h2>🟠 (b) Clustering de átomos alrededor de la vacancia</h2>
+<p>Ahora ya sabemos:</p>
+<p>👉 qué átomos están cerca de vacío</p>
+<p>Pero falta:</p>
+<p>👉 saber si es</p>
+<ul>
+<li>monovacancy</li>
+<li>divacancy</li>
+<li>cluster</li>
+</ul>
+<hr>
+<h3>⚙️ Paso computacional</h3>
+<p>1️⃣ Se agrupan los átomos detectados</p>
+<p>por proximidad</p>
+<p>2️⃣ Se construye un <strong>grafo de conectividad</strong></p>
+<ul>
+<li>nodos = átomos</li>
+<li>enlaces = vecinos</li>
+</ul>
+<p>3️⃣ Ese grafo se compara con grafos pre-calculados</p>
+<p>👉 Si coincide:</p>
+<ul>
+<li>se identifica tipo de defecto</li>
+</ul>
+<p>Esto es:</p>
+<p>⭐ pattern recognition geométrico</p>
+<hr>
+<h3>🧠 Por qué es crucial</h3>
+<p>Si el algoritmo confundiera:</p>
+<ul>
+<li>un cluster grande con varias vacancias aisladas</li>
+</ul>
+<p>👉 el método kMC podría:</p>
+<p>❗ romper el cluster artificialmente</p>
+<p>➡️ destruir la física real de nucleación de voids.</p>
+<p>Entonces:</p>
+<p>👉 esta etapa es <strong>clave para la estabilidad del método</strong></p>
+<hr>
+<h2>🔴 (c) Propagación de vacancias con kinetic Monte Carlo</h2>
+<p>Ahora ya sabemos:</p>
+<ul>
+<li>dónde están las vacancias</li>
+<li>cuáles pueden moverse</li>
+</ul>
+<p>Entonces viene el corazón del método.</p>
+<hr>
+<h3>⚙️ Qué hace el algoritmo</h3>
+<p>Para cada vacancia:</p>
+<p>1️⃣ Calcula posibles sitios vecinos</p>
+<p>En BCC:</p>
+<ul>
+<li>hay 8 direcciones de salto</li>
+</ul>
+<p>2️⃣ Calcula la tasa de salto:</p>
+<p>[</p>
+<p>\nu_d</p>
+<p>]</p>
+<p>Dependiendo de:</p>
+<ul>
+<li>temperatura</li>
+<li>barrera migración</li>
+<li>stress local</li>
+</ul>
+<p>👉 esto es importante:</p>
+<p>⭐ el campo elástico modifica la difusión</p>
+<hr>
+<h3>🎲 Luego aplica rejection kMC</h3>
+<p>Proceso:</p>
+<ul>
+<li>se genera número aleatorio</li>
+<li>se decide si la vacancia salta</li>
+<li>si salta → se elige dirección probabilísticamente</li>
+</ul>
+<p>Si dos vacancias quieren ir al mismo sitio:</p>
+<p>👉 solo una se mueve.</p>
+<hr>
+<h3>🧠 Interpretación física</h3>
+<p>Esto representa:</p>
+<p>👉 difusión térmica estocástica de vacancias</p>
+<p>pero acelerada en el tiempo.</p>
+<p>Es equivalente a decir:</p>
+<p>“simulamos directamente el siguiente evento relevante”</p>
+<hr>
+<h2>⭐ Idea conceptual global de la figura</h2>
+<p>La figura representa:</p>
+<p>[</p>
+<p>\text{MD corta} \rightarrow</p>
+<p>\text{detectar vacancias} \rightarrow</p>
+<p>\text{kMC para difundir}</p>
+<p>]</p>
+<p>y repetir.</p>
+<p>Esto permite:</p>
+<p>✔️ conservar dinámica real de cascadas</p>
+<p>✔️ pero avanzar el tiempo térmico</p>
+<hr>
+<h2>🔥 Significado físico profundo</h2>
+<p>Esta figura formaliza una idea muy potente:</p>
+<p>👉 la evolución microestructural está dominada por:</p>
+<ul>
+<li>cascadas balísticas (rápidas)</li>
+<li>difusión de vacancias (lenta)</li>
+</ul>
+<p>Entonces el algoritmo:</p>
+<p>⭐ separa los procesos en escalas de tiempo</p>
+<p>Esto es exactamente lo que tú estás buscando para:</p>
+<ul>
+<li>PKA</li>
+<li>defect evolution</li>
+<li>swelling</li>
+</ul>
+<hr>
+<h2>📌 Resumen ultra claro</h2>
+<p>Figura 2 muestra:</p>
+<p>1️⃣ Cómo detectar vacancias</p>
+<p>2️⃣ Cómo clasificarlas</p>
+<p>3️⃣ Cómo moverlas probabilísticamente</p>
+<p>👉 para simular daño por irradiación en tiempos reales.</p>
+<hr>
+<h2>⭐ Si quieres</h2>
+<p>Puedo ahora:</p>
+<p>✅ hacerte un <strong>diagrama simplificado tipo pizarrón</strong></p>
+<p>✅ traducir la figura a <strong>pseudo-código paso a paso</strong></p>
+<p>✅ explicarte cómo implementarlo en LAMMPS + Python</p>
+<p>✅ o conectar esta figura con tu simulación PKA</p>
+<p>¿Qué te serviría más?</p>
+      </article>
+    </main>
+  </body>
+</html>

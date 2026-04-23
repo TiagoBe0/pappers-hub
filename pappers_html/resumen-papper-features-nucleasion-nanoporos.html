@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de nucleación de vacíos en microestructura con redes neuronales convolucionales</title>
+    <style>
+      :root {
+        --bg: #10151b;
+        --paper: #f7f2e8;
+        --ink: #17130f;
+        --muted: #6b5b4b;
+        --accent: #1e6b83;
+        --accent-2: #8a2d2d;
+        --rule: #d8c9ad;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(16, 21, 27, 0.72), rgba(16, 21, 27, 0.84)),
+          repeating-linear-gradient(90deg, #17202a 0 1px, transparent 1px 46px),
+          #10151b;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.72;
+      }
+      main {
+        width: min(980px, calc(100% - 32px));
+        margin: 32px auto;
+        padding: clamp(28px, 5vw, 58px);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      }
+      nav a {
+        color: var(--accent);
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      header {
+        margin: 26px 0 34px;
+        padding-bottom: 24px;
+        border-bottom: 3px double var(--rule);
+      }
+      h1 {
+        margin: 0 0 12px;
+        color: var(--ink);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.08;
+      }
+      .source {
+        margin: 0;
+        color: var(--muted);
+        font: 0.9rem Arial, sans-serif;
+      }
+      h2, h3, h4 {
+        color: var(--accent);
+        line-height: 1.22;
+        margin: 2rem 0 0.8rem;
+      }
+      h2 { font-size: 1.65rem; border-bottom: 2px solid var(--rule); padding-bottom: 0.35rem; }
+      h3 { color: var(--accent-2); font-size: 1.28rem; }
+      h4 { font-size: 1.05rem; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; }
+      p { margin: 0 0 1rem; }
+      ul { margin: 0 0 1.2rem 1.2rem; padding: 0; }
+      li { margin: 0.42rem 0; }
+      code {
+        padding: 0.1rem 0.28rem;
+        border-radius: 3px;
+        background: #eadfc9;
+        font-size: 0.9em;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 2rem 0;
+      }
+      strong { color: #2b2119; }
+      @media (max-width: 640px) {
+        main { width: min(100% - 18px, 980px); margin: 9px auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="../index.html">Volver al mapa</a></nav>
+      <header>
+        <h1>Predicción de nucleación de vacíos en microestructura con redes neuronales convolucionales</h1>
+        <p class="source">Generado desde resumen-papper-features-nucleasion-nanoporos.txt</p>
+      </header>
+      <article>
+        <p>Este es un paper técnico muy extenso sobre el uso de redes neuronales convolucionales para predecir la nucleación de vacíos en microestructuras de materiales. Te haré un resumen de los puntos más relevantes y luego puedo traducir las secciones específicas que te interesen.</p>
+<p>Resumen de Puntos Clave</p>
+<p><strong>Título:</strong> &quot;Predicción de nucleación de vacíos en microestructura con redes neuronales convolucionales&quot;</p>
+<p>Problema Principal</p>
+<p>Los materiales dúctiles sometidos a cargas de alta velocidad de deformación fallan principalmente por &quot;spallation&quot; (fractura por tensión dinámica)</p>
+<p>La nucleación de vacíos en los límites de grano es un fenómeno crítico pero difícil de predecir</p>
+<p>Los métodos tradicionales (experimentos, simulaciones moleculares) no capturan completamente los factores que llevan a la nucleación</p>
+<p>Metodología Innovadora</p>
+<p>Arquitectura de Red:</p>
+<p>Desarrollaron una U-Net modificada con &quot;attention gates&quot; (puertas de atención)</p>
+<p><strong>Entrada multi-canal:</strong> 4 canales de orientaciones de grano + 1 canal de energía de límites de grano</p>
+<p><strong>Dimensiones:</strong> 100x100x5 → 100x100x1 (mapa de probabilidad de nucleación)</p>
+<p>Dataset y Preparación:</p>
+<p>57 micrografías post-mortem de experimentos de impacto en tantalio BCC</p>
+<p>10,326 imágenes procesadas de microestructuras</p>
+<p>Técnica de reconstrucción de microestructura para obtener estados &quot;pristinos&quot; previos al daño</p>
+<p>Aspectos Técnicos Clave</p>
+<p>Arquitectura de ML:</p>
+<p>Encoder-Decoder con skip connections</p>
+<ul>
+<li>Attention gates para manejar el desbalance de clases</li>
+<li>Focal loss para lidiar con la escasez de píxeles de vacíos</li>
+<li>Leave-one-out cross validation (57 particiones)</li>
+</ul>
+<p>Métricas de Evaluación:</p>
+<p><strong>PCC (Pearson Correlation Coefficient):</strong> Métrica conservadora que evita falsos positivos por desbalance de clases</p>
+<p><strong>ROI (Region of Interest):</strong> Métrica permisiva enfocada en reducir falsos negativos</p>
+<p>Resultados Principales</p>
+<p>Rendimiento:</p>
+<p><strong>PCC promedio:</strong> 0.25 para el bin más grande (100-531 píxeles de vacío)</p>
+<p><strong>ROI accuracy:</strong> ~70% en testing, &gt;90% en training</p>
+<p>El modelo predice correctamente sitios de nucleación observados Y sitios potenciales adicionales</p>
+<p>Descubrimientos:</p>
+<p>La nucleación puede predecirse a partir de geometría microestructural y propiedades</p>
+<p>Los &quot;falsos positivos&quot; pueden representar sitios de nucleación potencial (naturaleza estocástica)</p>
+<p>El rendimiento mejora con el tamaño de los vacíos (más píxeles de vacío = mejor correlación)</p>
+<p>Limitaciones y Trabajo Futuro</p>
+<p>Dataset limitado (57 micrografías experimentales)</p>
+<p>Restricción a nucleación en límites de grano (elimina vacíos intragranulares)</p>
+<p>Necesidad de datos 3D y condiciones de carga variadas</p>
+<p>Incorporación de factores adicionales como puntos triples</p>
+<p>Relevancia para tu Background</p>
+<p>Como programador con experiencia en Python, este trabajo es particularmente interesante porque:</p>
+<p>Demuestra aplicación práctica de deep learning en ciencia de materiales</p>
+<p>Usa técnicas avanzadas de computer vision (U-Net, attention mechanisms)</p>
+<p>Maneja desafíos reales como desbalance extremo de clases</p>
+<p>Combina física de materiales con ML de manera innovadora</p>
+<p>Features Utilizados en el Modelo</p>
+<p>El trabajo utiliza un enfoque multi-canal con 5 features de entrada que capturan diferentes aspectos físicos de la microestructura del material.</p>
+<p>Input Features (Variables de Entrada)</p>
+<ul>
+<li>Orientaciones de Grano (4 canales - RGBA)</li>
+</ul>
+<p>Origen de los Datos:</p>
+<p>Obtenidos mediante EBSD (Electron Backscatter Diffraction)</p>
+<p>Convertidos de ángulos de Euler a cuaterniones para evitar &quot;gimbal lock&quot;</p>
+<p>Cada píxel representa la orientación cristalográfica local</p>
+<p>Por qué son Relevantes:</p>
+<ul>
+<li>Orientación cristalográfica determina propiedades mecánicas locales</li>
+<li>Diferentes orientaciones responden distinto al estrés</li>
+<li>Los límites entre granos con grandes diferencias de orientación</li>
+</ul>
+<p>son más susceptibles a nucleación de vacíos</p>
+<p>Información Implícita Capturada:</p>
+<p><strong>Tamaño de grano:</strong> Regiones de color uniforme = granos grandes</p>
+<p><strong>Desorientación:</strong> Cambios abruptos de color = alta desorientación</p>
+<p><strong>Relación de aspecto:</strong> Forma y elongación de los granos</p>
+<p><strong>Textura cristalográfica:</strong> Orientaciones preferentes del material</p>
+<ul>
+<li>Energía de Límites de Grano (1 canal)</li>
+</ul>
+<p><strong>Método de Cálculo:</strong> Lattice Matching</p>
+<h2>Concepto simplificado del cálculo</h2>
+<p>γ(R₁, R₂) = γ₀(1 - c(R₁, R₂)/c₀)</p>
+<p>donde:</p>
+<ul>
+<li>R₁, R₂: matrices de rotación de granos adyacentes</li>
+<li>c(R₁, R₂): función de covarianza entre redes cristalinas</li>
+<li>γ₀: factor de escala energético</li>
+<li>c₀: covarianza del estado fundamental</li>
+</ul>
+<p>Significado Físico:</p>
+<p>Mide la &quot;incompatibilidad&quot; entre dos granos adyacentes</p>
+<p>Alta energía = límite menos estable = mayor probabilidad de nucleación</p>
+<p>Incorpora los 5 grados de libertad de caracterización de límites de grano</p>
+<p>Limitación Importante:</p>
+<p>Solo usa información 2D (asume límites perpendiculares al plano)</p>
+<p>Pierde información del ángulo de inclinación fuera del plano</p>
+<p>Ground Truth (Variable Objetivo)</p>
+<p>Mapas de Probabilidad de Nucleación</p>
+<p>Construcción:</p>
+<p>D(x,y) = M̃(x,y) · G̃(x,y) = (M <em> σ) · (G </em> ε)</p>
+<p>donde:</p>
+<ul>
+<li>M: máscara de vacíos (de segmentación de imagen)</li>
+<li>G: energía de límites de grano</li>
+<li>σ, ε: desviaciones estándar para mollificación (suavizado gaussiano)</li>
+<li>·: multiplicación píxel por píxel</li>
+<li>*: convolución</li>
+</ul>
+<p>Normalización</p>
+<p>Todas las variables escaladas al rango [0,1]</p>
+<p>Crítico para convergencia del modelo</p>
+<p>Equilibra la influencia relativa de cada canal</p>
+<p>Features Implícitos Capturados</p>
+<p>El modelo aprende automáticamente representaciones de:</p>
+<p>Características Geométricas:</p>
+<p>Distribución de tamaños de grano</p>
+<p>Conectividad de límites de grano</p>
+<p>Densidad de puntos triples</p>
+<p>Tortuosidad de los límites</p>
+<p>Características Cristalográficas:</p>
+<p>Relaciones de orientación especiales (Σ3, Σ5, etc.)</p>
+<p>Gradientes de desorientación</p>
+<p>Patrones de textura local</p>
+<p>Características Energéticas:</p>
+<p>Distribución de energías de límite</p>
+<p>Correlaciones espaciales de alta/baja energía</p>
+<p>Interfaces preferenciales para nucleación</p>
+<p>Limitaciones de los Features</p>
+<p>Información Faltante:</p>
+<p><strong>Tensiones locales:</strong> No incluye campo de esfuerzos</p>
+<p><strong>Historia de deformación:</strong> No captura efectos de procesamiento</p>
+<p><strong>Defectos cristalinos:</strong> Dislocaciones, vacantes no modeladas</p>
+<p><strong>Información 3D:</strong> Efectos fuera del plano ignorados</p>
+<p>Simplificaciones:</p>
+<p>Asume límites perpendiculares al plano de observación</p>
+<p>Probabilidad uniforme a lo largo de cada límite</p>
+<p>No distingue entre diferentes tipos de puntos triples</p>
+<p>Validación de Features</p>
+<p>Coherencia con Literatura:</p>
+<p>Límites de alta energía correlacionan con nucleación observada</p>
+<p>Orientaciones perpendiculares al estrés son más susceptibles</p>
+<p>Ciertos límites especiales (Σ3) resisten nucleación</p>
+<p>Ablation Studies Implícitos:</p>
+<p>Performance degrada sin información de orientación</p>
+<p>Energía de límites de grano es predictiva por sí sola</p>
+<p>Combinación de ambos features es superior</p>
+<p>Innovación en Feature Engineering</p>
+<p>Aspectos Novedosos:</p>
+<p><strong>Integración multi-física:</strong> Combina geometría + energética</p>
+<p><strong>Representación continua:</strong> Campos suaves vs. descriptores discretos</p>
+<p><strong>Escalabilidad:</strong> Aplicable a grandes datasets microestructurales</p>
+<p><strong>Ground truth sintético:</strong> Construcción probabilística de etiquetas</p>
+<p>Comparación con Enfoques Tradicionales:</p>
+<p><strong>Tradicional:</strong> Descriptores manuales (tamaño grano, desorientación)</p>
+<p><strong>Este trabajo:</strong> Representación completa de campos microestructurales</p>
+<p>Los features elegidos representan un balance entre completitud física y tractabilidad computacional, capturando los mecanismos fundamentales de nucleación mientras mantienen eficiencia para ML.</p>
+      </article>
+    </main>
+  </body>
+</html>

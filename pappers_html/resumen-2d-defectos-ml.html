@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>### **Resumen del trabajo</title>
+    <style>
+      :root {
+        --bg: #10151b;
+        --paper: #f7f2e8;
+        --ink: #17130f;
+        --muted: #6b5b4b;
+        --accent: #1e6b83;
+        --accent-2: #8a2d2d;
+        --rule: #d8c9ad;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(16, 21, 27, 0.72), rgba(16, 21, 27, 0.84)),
+          repeating-linear-gradient(90deg, #17202a 0 1px, transparent 1px 46px),
+          #10151b;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.72;
+      }
+      main {
+        width: min(980px, calc(100% - 32px));
+        margin: 32px auto;
+        padding: clamp(28px, 5vw, 58px);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      }
+      nav a {
+        color: var(--accent);
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      header {
+        margin: 26px 0 34px;
+        padding-bottom: 24px;
+        border-bottom: 3px double var(--rule);
+      }
+      h1 {
+        margin: 0 0 12px;
+        color: var(--ink);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.08;
+      }
+      .source {
+        margin: 0;
+        color: var(--muted);
+        font: 0.9rem Arial, sans-serif;
+      }
+      h2, h3, h4 {
+        color: var(--accent);
+        line-height: 1.22;
+        margin: 2rem 0 0.8rem;
+      }
+      h2 { font-size: 1.65rem; border-bottom: 2px solid var(--rule); padding-bottom: 0.35rem; }
+      h3 { color: var(--accent-2); font-size: 1.28rem; }
+      h4 { font-size: 1.05rem; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; }
+      p { margin: 0 0 1rem; }
+      ul { margin: 0 0 1.2rem 1.2rem; padding: 0; }
+      li { margin: 0.42rem 0; }
+      code {
+        padding: 0.1rem 0.28rem;
+        border-radius: 3px;
+        background: #eadfc9;
+        font-size: 0.9em;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 2rem 0;
+      }
+      strong { color: #2b2119; }
+      @media (max-width: 640px) {
+        main { width: min(100% - 18px, 980px); margin: 9px auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="../index.html">Volver al mapa</a></nav>
+      <header>
+        <h1>### **Resumen del trabajo</h1>
+        <p class="source">Generado desde resumen_2d_defectos_ML.txt</p>
+      </header>
+      <article>
+        <p>Claro, aquí tienes un resumen completo y estructurado en español del trabajo titulado <strong>&quot;Agrupamiento no supervisado de defectos en microscopía de resolución atómica mediante un autoencoder convolucional variacional&quot;</strong>:</p>
+<hr>
+<h4><strong>Resumen del trabajo</strong></h4>
+<p>Este estudio presenta un <strong>marco de aprendizaje automático no supervisado</strong> para la identificación y agrupación automatizada de defectos estructurales en imágenes de microscopía electrónica de transmisión por barrido (STEM) de resolución atómica. El objetivo principal es superar las limitaciones de los métodos supervisados, que requieren grandes volúmenes de datos etiquetados, difíciles de obtener debido a la diversidad y complejidad de los defectos en materiales cristalinos.</p>
+<hr>
+<h4><strong>Metodología</strong></h4>
+<p>El enfoque propuesto se basa en un <strong>autoencoder convolucional variacional (CVAE)</strong> entrenado exclusivamente en regiones libres de defectos de una imagen STEM. Una vez entrenado, el modelo es capaz de reconstruir versiones ideales (sin defectos) de cualquier parche de imagen, lo que permite generar <strong>imágenes diferencia</strong> que resaltan únicamente las anomalías estructurales.</p>
+<p>A partir de estas imágenes diferencia, se extraen <strong>47 características cuantitativas</strong> que describen propiedades geométricas, de intensidad, frecuencia y periodicidad. Estas características se someten a un <strong>proceso de selección de tres etapas</strong> para eliminar redundancias y ruido:</p>
+<ul>
+<li><strong>Eliminación de características altamente correlacionadas</strong> (coeficiente de Pearson &gt; 0.95).</li>
+<li><strong>Filtrado por puntuación de silueta</strong> (\(S \leq 0\)), descartando características que no contribuyen a la separación de grupos.</li>
+<li><strong>Filtrado por varianza</strong> (\(\sigma^2 &lt; 0.1\)), eliminando características con poca variabilidad.</li>
+</ul>
+<p>Posteriormente, se aplica un <strong>análisis de componentes principales (PCA)</strong> para reducir la dimensionalidad, y se determina automáticamente el <strong>número óptimo de clústeres</strong> y dimensiones PCA mediante la <strong>maximización de la puntuación de silueta</strong> en un proceso de búsqueda en cuadrícula. Finalmente, se utiliza el algoritmo <strong>k-means</strong> para agrupar las imágenes según el tipo de defecto, y se visualizan los resultados con <strong>t-SNE</strong>.</p>
+<hr>
+<h4><strong>Validación experimental</strong></h4>
+<p>El modelo se validó en dos materiales:</p>
+<ul>
+<li><strong>CdTe (telururo de cadmio)</strong>: con 1120 imágenes de siete tipos distintos (bulk, vacancias, átomos intersticiales, fallas de apilamiento tipo 1 y 2, dislocación Lomer-Cottrell y borde de macla). Se logró una <strong>precisión de agrupamiento del 98.46%</strong>.</li>
+<li><strong>SrTiO₃ (titanato de estroncio)</strong>: con 764 imágenes de cuatro tipos (bulk, intersticiales, sustitucionales y vacancias), se alcanzó una <strong>precisión del 95.03%</strong>.</li>
+</ul>
+<p>En ambos casos, el proceso de selección de características fue clave para identificar correctamente el número real de clústeres y mejorar la precisión.</p>
+<hr>
+<h4><strong>Análisis de estabilidad y rendimiento</strong></h4>
+<p>Se realizaron pruebas de estabilidad variando la inicialización aleatoria, el número de reinicios del centroide y el submuestreo de datos. En todos los casos, la desviación estándar de la puntuación de silueta fue inferior a 0.015, lo que demuestra la <strong>robustez y reproducibilidad del método</strong>.</p>
+<p>Además, se evaluó la contribución de cada componente del modelo:</p>
+<ul>
+<li>Sin CVAE ni selección de características: precisión baja (~73% en CdTe, ~30% en SrTiO₃).</li>
+<li>Con CVAE pero sin selección de características: mejora parcial (~88% y ~85%).</li>
+<li>Con CVAE y selección completa: máximos de precisión (~98% y ~95%).</li>
+</ul>
+<hr>
+<h4><strong>Conclusiones y perspectivas</strong></h4>
+<p>El marco propuesto permite:</p>
+<ul>
+<li>Detectar y agrupar defectos sin necesidad de etiquetado previo.</li>
+<li>Superar problemas como los efectos de borde inducidos por traslación de imágenes.</li>
+<li>Ser aplicable a cualquier material con estructura periódica.</li>
+<li>Ejecutarse en estaciones de trabajo estándar, facilitando su uso en laboratorios.</li>
+</ul>
+<p>Como limitación, se señala que la presencia de múltiples defectos en un mismo parche puede solapar características y dificultar la separación. Sin embargo, esto puede mitigarse ajustando el tamaño del parche.</p>
+<p>Finalmente, se destaca el potencial de este enfoque para integrarse en flujos de trabajo automatizados de microscopía, permitiendo el descubrimiento autónomo de defectos, el análisis en tiempo real y la exploración de relaciones estructura-propiedad en materiales funcionales.</p>
+<hr>
+<p>¿Te gustaría que también resuma las <strong>figuras</strong>, los <strong>métodos</strong> con más detalle técnico, o que lo adapte para una presentación o informe?</p>
+      </article>
+    </main>
+  </body>
+</html>

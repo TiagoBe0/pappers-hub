@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen Detallado: Aprendizaje Automático Atomístico con Tensores Naturales Cartesianos</title>
+    <style>
+      :root {
+        --bg: #10151b;
+        --paper: #f7f2e8;
+        --ink: #17130f;
+        --muted: #6b5b4b;
+        --accent: #1e6b83;
+        --accent-2: #8a2d2d;
+        --rule: #d8c9ad;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(16, 21, 27, 0.72), rgba(16, 21, 27, 0.84)),
+          repeating-linear-gradient(90deg, #17202a 0 1px, transparent 1px 46px),
+          #10151b;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.72;
+      }
+      main {
+        width: min(980px, calc(100% - 32px));
+        margin: 32px auto;
+        padding: clamp(28px, 5vw, 58px);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      }
+      nav a {
+        color: var(--accent);
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      header {
+        margin: 26px 0 34px;
+        padding-bottom: 24px;
+        border-bottom: 3px double var(--rule);
+      }
+      h1 {
+        margin: 0 0 12px;
+        color: var(--ink);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.08;
+      }
+      .source {
+        margin: 0;
+        color: var(--muted);
+        font: 0.9rem Arial, sans-serif;
+      }
+      h2, h3, h4 {
+        color: var(--accent);
+        line-height: 1.22;
+        margin: 2rem 0 0.8rem;
+      }
+      h2 { font-size: 1.65rem; border-bottom: 2px solid var(--rule); padding-bottom: 0.35rem; }
+      h3 { color: var(--accent-2); font-size: 1.28rem; }
+      h4 { font-size: 1.05rem; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; }
+      p { margin: 0 0 1rem; }
+      ul { margin: 0 0 1.2rem 1.2rem; padding: 0; }
+      li { margin: 0.42rem 0; }
+      code {
+        padding: 0.1rem 0.28rem;
+        border-radius: 3px;
+        background: #eadfc9;
+        font-size: 0.9em;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 2rem 0;
+      }
+      strong { color: #2b2119; }
+      @media (max-width: 640px) {
+        main { width: min(100% - 18px, 980px); margin: 9px auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="../index.html">Volver al mapa</a></nav>
+      <header>
+        <h1>Resumen Detallado: Aprendizaje Automático Atomístico con Tensores Naturales Cartesianos</h1>
+        <p class="source">Generado desde resumen_carnet.txt</p>
+      </header>
+      <article>
+        <p><strong>Resumen Detallado:</strong> Aprendizaje Automático Atomístico con Tensores Naturales Cartesianos</p>
+<p>Resumen General</p>
+<p>Este paper presenta CarNet (Cartesian Natural Tensor Networks), un nuevo marco teórico y computacional para el aprendizaje automático atomístico que trabaja directamente en coordenadas cartesianas en lugar de coordenadas esféricas.</p>
+<ul>
+<li>Contexto y Problema</li>
+</ul>
+<p>¿Qué es el ML Atomístico?</p>
+<p>El aprendizaje automático atomístico predice propiedades de materiales y moléculas directamente desde su estructura atómica:</p>
+<p><strong>Entradas:</strong> Coordenadas espaciales y tipos de átomos</p>
+<p><strong>Salidas:</strong> Energías, fuerzas, propiedades tensoriales (momento dipolar, tensor de elasticidad, etc.)</p>
+<p>Problema Principal</p>
+<p>Los métodos actuales transforman las coordenadas cartesianas {x, y, z} a coordenadas esféricas (distancias y ángulos), pero:</p>
+<p>Las estructuras atómicas se describen naturalmente en coordenadas cartesianas</p>
+<p>Los métodos cartesianos existentes carecen de un marco teórico sistemático</p>
+<p>No pueden predecir tensores complejos de alto rango (como el tensor elástico)</p>
+<ul>
+<li>Solución Propuesta: Teoría de Tensores Naturales Cartesianos</li>
+</ul>
+<p>¿Qué es un Tensor Natural?</p>
+<p>Un tensor natural es un tensor cartesiano que cumple dos propiedades:</p>
+<p><strong>Simétrico:</strong> Invariante bajo permutación de índices</p>
+<p><strong>Sin traza:</strong> La traza sobre cualquier par de índices es cero</p>
+<p>Propiedades clave:</p>
+<p>Un tensor natural de rango n tiene solo 2n+1 componentes independientes</p>
+<p>Son representaciones irreducibles del grupo SO(3) (rotaciones 3D)</p>
+<p>Preservan la equivarianza geométrica</p>
+<p>Tres Operaciones Fundamentales</p>
+<p>a) Construcción desde un vector unitario:</p>
+<p>De r̂ → Generar tensores X₀, X₁, X₂, X₃...</p>
+<p>X₀ = 1 (escalar)</p>
+<p>X₁ = r̂ (vector)</p>
+<p>X₂ = r̂⊗r̂ (sin traza)</p>
+<p>X₃ = r̂⊗r̂⊗r̂ (sin traza)</p>
+<p>b) Producto de tensores naturales:</p>
+<p>X_l₁ ⊗̂ Y_l₂ = Z_l₃</p>
+<p>donde |l₁ - l₂| ≤ l₃ ≤ l₁ + l₂</p>
+<p>c) Descomposición y reconstrucción:</p>
+<p>Cualquier tensor físico puede descomponerse en suma de tensores naturales</p>
+<p>Y puede reconstruirse desde ellos</p>
+<p><strong>Ejemplo:</strong> tensor rango-2 = tensor rango-0 + tensor rango-1 + tensor rango-2</p>
+<ul>
+<li>Arquitectura del Modelo CarNet</li>
+</ul>
+<p>Flujo del Modelo:</p>
+<p>Entrada → Codificación → Capas GNN → Salida</p>
+<p>Componentes Principales:</p>
+<ul>
+<li>Codificación de Posición:</li>
+</ul>
+<p>Vector relativo r → distancia escalar r y dirección r̂</p>
+<p>r se expande con polinomios de Chebyshev (parte radial R)</p>
+<p>r̂ se transforma en tensores naturales X</p>
+<ul>
+<li>Embedding de Especies:</li>
+</ul>
+<p>Número atómico z → características iniciales aprendibles h</p>
+<ul>
+<li>Momento Atómico:</li>
+</ul>
+<p>M = R · h ⊗̂ X</p>
+<ul>
+<li>Hiper-momento:</li>
+</ul>
+<p>H = M ⊗̂ M ⊗̂ ... ⊗̂ M</p>
+<p>Captura interacciones de muchos cuerpos (3, 4, n-cuerpos)</p>
+<ul>
+<li>Actualización de Características:</li>
+</ul>
+<p>Se aplican 2-3 capas de GNN</p>
+<p>Conexión residual entre capas</p>
+<ul>
+<li>Construcción de Salida:</li>
+</ul>
+<p><strong>Para potenciales:</strong> Extraer componente escalar (rango-0)</p>
+<p><strong>Para tensores:</strong> Seleccionar y reconstruir desde componentes naturales relevantes</p>
+<ul>
+<li>Resultados Experimentales</li>
+</ul>
+<p>A) Potenciales Interatómicos</p>
+<p>LiPS (Electrolito sólido):</p>
+<p><strong>MAE energía:</strong> 0.09 meV (mejor que NequIP: 0.12)</p>
+<p><strong>MAE fuerzas:</strong> 5.6 meV/Å (mejor que NequIP: 7.7)</p>
+<p>Agua líquida:</p>
+<p><strong>RMSE energía:</strong> 0.54 meV (mejor que MACE: 0.63)</p>
+<p><strong>RMSE fuerzas:</strong> 31 meV/Å (mejor que MACE: 36)</p>
+<p>Simulaciones MD:</p>
+<p>Estables durante 50 ps sin colapso</p>
+<p>RDF (función de distribución radial) coincide con AIMD y experimentos</p>
+<p>Coeficientes de difusión precisos:</p>
+<p><strong>Li⁺ en LiPS:</strong> D = 1.09×10⁻⁵ cm²/s (ref: 1.37×10⁻⁵)</p>
+<p><strong>Agua:</strong> D = 2.92×10⁻⁵ cm²/s (ref: 2.67×10⁻⁵)</p>
+<p>B) Moléculas de Etanol</p>
+<p>Mejoras sobre TensorNet:</p>
+<p><strong>Momento dipolar μ:</strong> 3× menor error</p>
+<p><strong>Desplazamiento químico nuclear δ:</strong> 3× menor error</p>
+<p><strong>Tensor de apantallamiento nuclear σ:</strong> Predicción completa (antes inaccesible)</p>
+<p>Capacidades únicas:</p>
+<p>Predice el tensor elástico completo (rango-4, hasta 21 componentes)</p>
+<p>Preserva simetrías cristalinas automáticamente</p>
+<p>Calcula módulo de Young direccional Ed para analizar anisotropía</p>
+<ul>
+<li>Innovaciones Técnicas</li>
+</ul>
+<p>Selección de Rutas de Producto Tensorial</p>
+<p>Tres modos:</p>
+<p><strong>Full:</strong> Todas las rutas posibles (máxima expresividad, más lento)</p>
+<p><strong>Lite:</strong> Rutas restringidas (60% del tiempo de full, mejor generalización)</p>
+<p><strong>Level:</strong> Intermedio</p>
+<p><strong>Hallazgo:</strong> El modo &quot;lite&quot; es óptimo para la mayoría de casos.</p>
+<p>Dependencia de Especies Atómicas</p>
+<p>Incorporar número atómico z en los pesos mejora precisión</p>
+<p>Excepto para datasets con muchos elementos (84+) y pocos datos</p>
+<ul>
+<li>Limitaciones y Trabajo Futuro</li>
+</ul>
+<p>Limitaciones actuales:</p>
+<p>Selección de rutas tensoriales guiada empíricamente (no teóricamente)</p>
+<p>Falta optimización GPU específica (existe para esféricos)</p>
+<p>Aplicaciones potenciales:</p>
+<p>Extensión a nubes de puntos generales (imágenes médicas 3D, LiDAR)</p>
+<p>Modelos fundacionales con muchos elementos</p>
+<p>Predicción de propiedades tensoriales complejas</p>
+<ul>
+<li>Conclusiones Principales</li>
+</ul>
+<p>CarNet es el primer marco sistemático para ML atomístico cartesiano con teoría completa</p>
+<p>Supera el estado del arte en:</p>
+<p>Potenciales interatómicos (materiales y moléculas)</p>
+<p>Predicción de propiedades tensoriales</p>
+<p>Tensor elástico completo (nunca antes logrado)</p>
+<p>Elimina barreras teóricas para enfoques cartesianos en ML atomístico</p>
+<p>Abre nuevas posibilidades:</p>
+<p>Modelado de tensores arbitrarios</p>
+<p>Relaciones estructura-propiedad más ricas</p>
+<p>Mejor interpretabilidad física</p>
+<p>Marco matemático completo para operaciones con tensores naturales (creación, producto, descomposición/reconstrucción)</p>
+<p>Disponibilidad</p>
+<p><strong>Código:</strong> https://github.com/wengroup/carnet</p>
+<p><strong>Tensores naturales:</strong> https://github.com/wengroup/natt</p>
+<p><strong>Datasets:</strong> Públicamente disponibles</p>
+<p>Este trabajo representa un avance fundamental en la teoría y práctica del aprendizaje automático para ciencia de materiales.</p>
+      </article>
+    </main>
+  </body>
+</html>

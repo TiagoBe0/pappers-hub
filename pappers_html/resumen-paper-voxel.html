@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Te resumo y te explico en detalle técnico y conceptual el paper “Voxel based parallel post processor for void nucleation and growth analysis of atomistic simulations of material fracture” (Hemani et al., 2014), que es fundamental para análisis de cavitación en simulaciones atómicas.</title>
+    <style>
+      :root {
+        --bg: #10151b;
+        --paper: #f7f2e8;
+        --ink: #17130f;
+        --muted: #6b5b4b;
+        --accent: #1e6b83;
+        --accent-2: #8a2d2d;
+        --rule: #d8c9ad;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(16, 21, 27, 0.72), rgba(16, 21, 27, 0.84)),
+          repeating-linear-gradient(90deg, #17202a 0 1px, transparent 1px 46px),
+          #10151b;
+        font-family: Georgia, "Times New Roman", serif;
+        line-height: 1.72;
+      }
+      main {
+        width: min(980px, calc(100% - 32px));
+        margin: 32px auto;
+        padding: clamp(28px, 5vw, 58px);
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.36);
+      }
+      nav a {
+        color: var(--accent);
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      header {
+        margin: 26px 0 34px;
+        padding-bottom: 24px;
+        border-bottom: 3px double var(--rule);
+      }
+      h1 {
+        margin: 0 0 12px;
+        color: var(--ink);
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        line-height: 1.08;
+      }
+      .source {
+        margin: 0;
+        color: var(--muted);
+        font: 0.9rem Arial, sans-serif;
+      }
+      h2, h3, h4 {
+        color: var(--accent);
+        line-height: 1.22;
+        margin: 2rem 0 0.8rem;
+      }
+      h2 { font-size: 1.65rem; border-bottom: 2px solid var(--rule); padding-bottom: 0.35rem; }
+      h3 { color: var(--accent-2); font-size: 1.28rem; }
+      h4 { font-size: 1.05rem; font-family: Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.06em; }
+      p { margin: 0 0 1rem; }
+      ul { margin: 0 0 1.2rem 1.2rem; padding: 0; }
+      li { margin: 0.42rem 0; }
+      code {
+        padding: 0.1rem 0.28rem;
+        border-radius: 3px;
+        background: #eadfc9;
+        font-size: 0.9em;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid var(--rule);
+        margin: 2rem 0;
+      }
+      strong { color: #2b2119; }
+      @media (max-width: 640px) {
+        main { width: min(100% - 18px, 980px); margin: 9px auto; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav><a href="../index.html">Volver al mapa</a></nav>
+      <header>
+        <h1>Te resumo y te explico en detalle técnico y conceptual el paper “Voxel based parallel post processor for void nucleation and growth analysis of atomistic simulations of material fracture” (Hemani et al., 2014), que es fundamental para análisis de cavitación en simulaciones atómicas.</h1>
+        <p class="source">Generado desde resumen-paper-voxel.txt</p>
+      </header>
+      <article>
+        <p>Perfecto, Santiago ⚛️</p>
+<p>Te resumo y te explico en detalle técnico y conceptual el paper “Voxel based parallel post processor for void nucleation and growth analysis of atomistic simulations of material fracture” (Hemani et al., 2014), que es fundamental para análisis de cavitación en simulaciones atómicas.</p>
+<p>🧠 RESUMEN GENERAL</p>
+<p>El artículo propone y valida un método basado en vóxeles (volúmenes discretos) para analizar la nucleación, crecimiento y coalescencia de vacíos (voids) en materiales sometidos a fractura bajo tracción, usando datos obtenidos de simulaciones de dinámica molecular (MD).</p>
+<p>El objetivo es reemplazar el método tradicional basado en tesselación de Voronoi, que es muy preciso pero extremadamente costoso computacionalmente, por un método más simple y rápido que además pueda paralelizarse eficientemente y analizar dominios de miles de millones de átomos.</p>
+<p>🔬 CONTEXTO</p>
+<p>Las simulaciones MD generan posiciones atómicas cada pocos femtosegundos.</p>
+<p>Para estudiar la fractura, se necesitan conocer cómo se forman y crecen los vacíos entre átomos.</p>
+<p>El método clásico (Voronoi/Delaunay) calcula volúmenes y caras de celdas atómicas, pero tiene complejidad O(n²) en el peor caso.</p>
+<p>Esto lo hace inviable para simulaciones grandes (multimillón de átomos × miles de pasos de tiempo).</p>
+<p>🧩 PROPUESTA DEL PAPER</p>
+<p>Idea central</p>
+<p>Discretizar el dominio de la simulación en una rejilla regular de vóxeles, donde cada voxel representa una celda unitaria del cristal.</p>
+<p>Luego:</p>
+<p>Marcar cada voxel como ocupado (1) si contiene el centro de un átomo, o vacío (0) si no.</p>
+<p>Los vóxeles vacíos conectados representan un vacío físico (void).</p>
+<p>Analizando las conexiones y tamaño de estos grupos de vóxeles se puede medir:</p>
+<p>número de vacíos,</p>
+<p>volumen de cada vacío,</p>
+<p>crecimiento y coalescencia temporal.</p>
+<p>⚙️ ALGORITMOS</p>
+<ul>
+<li>Voxelización (Algorithm 1)</li>
+</ul>
+<p>Transforma la nube de átomos → rejilla 3D (OccFlag[i][j][k]).</p>
+<p><strong>Complejidad:</strong> O(n), donde n = número de átomos.</p>
+<p><strong>Salida:</strong> matriz de ocupación 3D (0 = vacío, 1 = ocupado).</p>
+<ul>
+<li>Análisis de vacíos – algoritmo serial (Algorithm 2–4)</li>
+</ul>
+<p>Realiza una búsqueda tipo Depth-First Search (DFS):</p>
+<p>Recorre todos los vóxeles.</p>
+<p>Si encuentra un voxel vacío (0), le asigna un nuevo label (&gt;1).</p>
+<p>Explora recursivamente sus 6 vecinos (frente, atrás, izquierda, derecha, arriba, abajo).</p>
+<p>Cada conjunto conectado de voxeles vacíos → un vacío único.</p>
+<p>El tamaño del vacío se obtiene contando los vóxeles con el mismo label.</p>
+<p><strong>Complejidad:</strong> O(n_voxels).</p>
+<p><strong>Resultado:</strong> número total de vacíos y su volumen.</p>
+<p>💡 Ejemplo:</p>
+<p>En una prueba con 10 millones de puntos:</p>
+<p><strong>Voro++:</strong> 42 minutos</p>
+<p><strong>Voxel method:</strong> 2.53 segundos (!)</p>
+<p>🧮 PARALELIZACIÓN (MPI)</p>
+<p>Tres versiones paralelas fueron desarrolladas con MPI-C:</p>
+<p>🔹 1. Paralelización temporal</p>
+<p>Cada proceso analiza diferentes pasos de tiempo.</p>
+<p>Simple, buena escalabilidad (speedup casi lineal).</p>
+<p>Limitado por el número de timesteps.</p>
+<p>Ideal para análisis post-processing.</p>
+<p><strong>🧠 Problema:</strong> cada nodo debe leer sus propios archivos → costoso en I/O.</p>
+<p>🔹 2. Pseudo domain decomposition</p>
+<p>Divide el dominio espacial en subdominios cúbicos.</p>
+<p>Cada proceso tiene una copia completa del dominio (por eso “pseudo”).</p>
+<p>Los procesos exploran sus subdominios, pero pueden acceder a los vecinos si el vacío cruza el límite.</p>
+<p>Se usa una jerarquía de prioridad por rank MPI para evitar duplicar trabajo.</p>
+<p>📉 Escala bien cuando los vacíos son locales, pero se degrada cuando los vacíos se extienden entre subdominios.</p>
+<p>Aún limitado por memoria.</p>
+<p>🔹 3. Domain decomposition pura</p>
+<p>Cada proceso almacena solo su subdominio local.</p>
+<p>Intercambia información con vecinos en las caras compartidas (6 direcciones).</p>
+<p>Los vacíos que cruzan fronteras se resuelven construyendo una tabla de conectividad global.</p>
+<p>Solo el proceso con menor rank calcula el tamaño de un vacío compartido.</p>
+<p>🚀 Permite analizar miles de millones de átomos, eliminando limitación de memoria.</p>
+<p>📉 Pero requiere más comunicación MPI y sincronización.</p>
+<p>📊 RESULTADOS</p>
+<p>Caso de prueba:</p>
+<p>Molybdeno (Mo) bajo tracción isotrópica.</p>
+<p>20 millones de átomos, Δt = 1 fs, salida cada 500 pasos.</p>
+<p>Simulación 20 ps.</p>
+<p>Resultados físicos:</p>
+<p>Volumen de vacíos crece primero exponencialmente, luego linealmente → coincide con el modelo NAG (Nucleation And Growth).</p>
+<p>Número de vacíos aumenta, alcanza un máximo y luego decrece → evidencia de coalescencia.</p>
+<p>Performance:</p>
+<p><strong>Serial:</strong> mucho más rápido que Voronoi.</p>
+<p><strong>Paralel temporal:</strong> mejor speedup (~40x en 140 cores).</p>
+<p><strong>Paralel espacial:</strong> escalabilidad limitada por I/O.</p>
+<p>Integrado en LAMMPS (como compute module):</p>
+<p>Lectura in-memory (sin I/O).</p>
+<p>Escalabilidad casi lineal.</p>
+<p>Mejor performance de todas las versiones.</p>
+<p>🧭 CONCLUSIONES</p>
+<p>El método basado en vóxeles es mucho más rápido que el método Voronoi, con una pérdida mínima de precisión.</p>
+<p>Los resultados reproducen correctamente la física esperada del modelo de nucleación y crecimiento (NAG).</p>
+<p>Se propusieron tres esquemas paralelos, siendo el tercero (domain decomposition) el más escalable.</p>
+<p>Integrar el algoritmo dentro de LAMMPS evita el cuello de botella del I/O y mejora significativamente la velocidad.</p>
+<p>Permite analizar dominios de miles de millones de átomos en tiempos razonables.</p>
+<p>🧩 EN POCAS PALABRAS</p>
+<p>Método	Ventaja	Desventaja	Complejidad</p>
+<p>Voronoi (Voro++)	Muy preciso	O(n²), lentísimo	Alta</p>
+<p>Voxel serial	10⁴ veces más rápido	Requiere memoria proporcional al dominio	O(n)</p>
+<p>Paralel temporal	Simple, speedup casi lineal	Limitado por timesteps	—</p>
+<p>Pseudo DD	Mejora parcial en speedup	Requiere memoria total	—</p>
+<p>Domain Decomp.	Escalable, sin límite de memoria	Mucho intercambio MPI	—</p>
+<p>Integrado en LAMMPS	Casi lineal, sin I/O	Requiere modificar LAMMPS	Mejor caso</p>
+      </article>
+    </main>
+  </body>
+</html>
