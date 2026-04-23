@@ -1,0 +1,61 @@
+Claro, aquí tienes un resumen completo y estructurado en español del trabajo titulado **"Agrupamiento no supervisado de defectos en microscopía de resolución atómica mediante un autoencoder convolucional variacional"**:
+
+---
+
+### **Resumen del trabajo**
+
+Este estudio presenta un **marco de aprendizaje automático no supervisado** para la identificación y agrupación automatizada de defectos estructurales en imágenes de microscopía electrónica de transmisión por barrido (STEM) de resolución atómica. El objetivo principal es superar las limitaciones de los métodos supervisados, que requieren grandes volúmenes de datos etiquetados, difíciles de obtener debido a la diversidad y complejidad de los defectos en materiales cristalinos.
+
+---
+
+### **Metodología**
+
+El enfoque propuesto se basa en un **autoencoder convolucional variacional (CVAE)** entrenado exclusivamente en regiones libres de defectos de una imagen STEM. Una vez entrenado, el modelo es capaz de reconstruir versiones ideales (sin defectos) de cualquier parche de imagen, lo que permite generar **imágenes diferencia** que resaltan únicamente las anomalías estructurales.
+
+A partir de estas imágenes diferencia, se extraen **47 características cuantitativas** que describen propiedades geométricas, de intensidad, frecuencia y periodicidad. Estas características se someten a un **proceso de selección de tres etapas** para eliminar redundancias y ruido:
+
+1. **Eliminación de características altamente correlacionadas** (coeficiente de Pearson > 0.95).
+2. **Filtrado por puntuación de silueta** (\(S \leq 0\)), descartando características que no contribuyen a la separación de grupos.
+3. **Filtrado por varianza** (\(\sigma^2 < 0.1\)), eliminando características con poca variabilidad.
+
+Posteriormente, se aplica un **análisis de componentes principales (PCA)** para reducir la dimensionalidad, y se determina automáticamente el **número óptimo de clústeres** y dimensiones PCA mediante la **maximización de la puntuación de silueta** en un proceso de búsqueda en cuadrícula. Finalmente, se utiliza el algoritmo **k-means** para agrupar las imágenes según el tipo de defecto, y se visualizan los resultados con **t-SNE**.
+
+---
+
+### **Validación experimental**
+
+El modelo se validó en dos materiales:
+
+- **CdTe (telururo de cadmio)**: con 1120 imágenes de siete tipos distintos (bulk, vacancias, átomos intersticiales, fallas de apilamiento tipo 1 y 2, dislocación Lomer-Cottrell y borde de macla). Se logró una **precisión de agrupamiento del 98.46%**.
+- **SrTiO₃ (titanato de estroncio)**: con 764 imágenes de cuatro tipos (bulk, intersticiales, sustitucionales y vacancias), se alcanzó una **precisión del 95.03%**.
+
+En ambos casos, el proceso de selección de características fue clave para identificar correctamente el número real de clústeres y mejorar la precisión.
+
+---
+
+### **Análisis de estabilidad y rendimiento**
+
+Se realizaron pruebas de estabilidad variando la inicialización aleatoria, el número de reinicios del centroide y el submuestreo de datos. En todos los casos, la desviación estándar de la puntuación de silueta fue inferior a 0.015, lo que demuestra la **robustez y reproducibilidad del método**.
+
+Además, se evaluó la contribución de cada componente del modelo:
+- Sin CVAE ni selección de características: precisión baja (~73% en CdTe, ~30% en SrTiO₃).
+- Con CVAE pero sin selección de características: mejora parcial (~88% y ~85%).
+- Con CVAE y selección completa: máximos de precisión (~98% y ~95%).
+
+---
+
+### **Conclusiones y perspectivas**
+
+El marco propuesto permite:
+- Detectar y agrupar defectos sin necesidad de etiquetado previo.
+- Superar problemas como los efectos de borde inducidos por traslación de imágenes.
+- Ser aplicable a cualquier material con estructura periódica.
+- Ejecutarse en estaciones de trabajo estándar, facilitando su uso en laboratorios.
+
+Como limitación, se señala que la presencia de múltiples defectos en un mismo parche puede solapar características y dificultar la separación. Sin embargo, esto puede mitigarse ajustando el tamaño del parche.
+
+Finalmente, se destaca el potencial de este enfoque para integrarse en flujos de trabajo automatizados de microscopía, permitiendo el descubrimiento autónomo de defectos, el análisis en tiempo real y la exploración de relaciones estructura-propiedad en materiales funcionales.
+
+---
+
+¿Te gustaría que también resuma las **figuras**, los **métodos** con más detalle técnico, o que lo adapte para una presentación o informe?

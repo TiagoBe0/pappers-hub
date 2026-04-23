@@ -1,0 +1,94 @@
+laro, aquí tienes un resumen detallado del artículo de revisión “Recent advances and applications of deep learning methods in materials science”, haciendo especial énfasis en los pies de figura y las ilustraciones clave mencionadas:
+Resumen General
+
+El artículo presenta una revisión exhaustiva de los métodos de aprendizaje profundo (DL) aplicados a la ciencia de materiales, abarcando representaciones atomísticas, imágenes, espectros y procesamiento de lenguaje natural. Destaca cómo el DL acelera el descubrimiento y diseño de materiales, superando limitaciones de métodos tradicionales.
+Figuras y Captiones Importantes
+Figura 1: Esquema de IA, ML y DL en Ciencia de Materiales
+
+    Caption: “Esquema que muestra una visión general de la inteligencia artificial (IA), el aprendizaje automático (ML) y el aprendizaje profundo (DL), y sus aplicaciones en ciencia e ingeniería de materiales. El DL se considera parte del ML, que a su vez está contenido en el término general de IA.”
+
+    Importancia: Establece el contexto jerárquico y la relación entre IA, ML y DL, y cómo se aplican en el dominio de los materiales.
+
+Figura 2: Modelos de Redes Neuronales de Grafos para Predicción de Propiedades
+
+    Caption: “Esquema de modelos como SchNet, CGCNN, MEGNet, iCGCNN, DimeNet y ALIGNN utilizados para predecir propiedades de materiales cristalinos y moleculares a partir de configuraciones atomísticas.”
+
+    Importancia: Ilustra cómo las redes neuronales de grafos (GNN) capturan interacciones atómicas y predicen propiedades como energía de formación, bandgap, módulo elástico, etc.
+
+Figura 3: Aplicaciones de DL para Datos Espectrales
+
+    Caption (3a): “Predicción de información estructural a partir de difracción de rayos X (XRD).”
+
+    Caption (3b): “Predicción de propiedades de catálisis a partir de datos computacionales de densidad de estados electrónicos.”
+
+    Importancia: Muestra cómo el DL se utiliza para:
+
+        Identificar fases y estructuras cristalinas a partir de espectros de XRD.
+
+        Relacionar espectros de densidad de estados (DOS) con propiedades de adsorción catalítica.
+
+Figura 4: Segmentación de Átomos con U-Net en Imágenes STEM
+
+    Caption: “Algoritmo basado en DL (U-Net) para clasificación de sitios atómicos en imágenes de STEM de WSe₂. (a) Arquitectura U-Net. (b) Ejemplos de datos de entrenamiento para cinco especies atómicas. (c) Precisión del modelo durante el entrenamiento. (d) Comparación de precisión entre el modelo y mediciones humanas.”
+
+    Importancia: Demuestra la capacidad del DL para:
+
+        Identificar y clasificar átomos y vacantes en imágenes de microscopía de alta resolución.
+
+        Lograr una precisión superior a la humana en la cuantificación de defectos atómicos.
+
+Aplicaciones Clave por Modalidad de Datos
+
+    Representaciones Atomísticas:
+
+        Force Fields (FF): Desarrollo de potenciales interatómicos con redes neuronales (ej. BPNN, GNNFF).
+
+        Predicción Directa de Propiedades: Modelos como CGCNN, ALIGNN predicen energías, bandgaps, propiedades elásticas, etc.
+
+    Datos Espectrales:
+
+        XRD, XAS, Raman: Clasificación de grupos espaciales, identificación de fases, y predicción de parámetros estructurales.
+
+        Ejemplo: CNNs entrenadas con datos sintéticos logran >90% de precisión en clasificación de sistemas cristalinos.
+
+    Imágenes:
+
+        Clasificación y Segmentación: Identificación de fases, defectos, y orientaciones cristalinas en SEM, TEM, EBSD.
+
+        Super-Resolución y Ajuste Automático: GANs para mejorar resolución y modelos que ajustan parámetros experimentales en tiempo real.
+
+    Procesamiento de Lenguaje Natural (NLP):
+
+        Extracción automática de datos de síntesis y propiedades desde la literatura.
+
+        Predicción de aplicaciones materiales mediante embeddings de palabras (ej. Word2Vec).
+
+Limitaciones y Desafíos
+
+    Calidad de Datos: Ruido en datos experimentales, falta de estandarización.
+
+    Interpretabilidad: Naturaleza de “caja negra” de los modelos DL.
+
+    Generalización: Dificultad para extrapolar más allá de los datos de entrenamiento.
+
+    Cuantificación de Incertidumbre: Necesidad de métodos robustos para evaluar la confiabilidad de las predicciones.
+
+Recursos Destacados
+
+    Repositorio GitHub: https://github.com/deepmaterials/dlmatreview
+
+    Bases de Datos Públicas: Materials Project, JARVIS, OQMD, AFLOW, entre otras.
+
+    Software Común: PyTorch, TensorFlow, SchNetPack, CGCNN, ALIGNN, DeepChem.
+
+Conclusión
+
+El DL está transformando la ciencia de materiales al permitir:
+
+    Análisis automatizado de grandes volúmenes de datos complejos.
+
+    Descubrimiento acelerado de materiales con propiedades deseadas.
+
+    Integración con métodos físicos y experimentales para un diseño racional.
+
+Si necesitas que profundice en alguna figura, aplicación o técnica específica, házmelo saber.

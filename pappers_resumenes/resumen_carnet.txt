@@ -1,0 +1,173 @@
+Resumen Detallado: Aprendizaje Automático Atomístico con Tensores Naturales Cartesianos
+Resumen General
+Este paper presenta CarNet (Cartesian Natural Tensor Networks), un nuevo marco teórico y computacional para el aprendizaje automático atomístico que trabaja directamente en coordenadas cartesianas en lugar de coordenadas esféricas.
+
+1. Contexto y Problema
+¿Qué es el ML Atomístico?
+El aprendizaje automático atomístico predice propiedades de materiales y moléculas directamente desde su estructura atómica:
+
+Entradas: Coordenadas espaciales y tipos de átomos
+Salidas: Energías, fuerzas, propiedades tensoriales (momento dipolar, tensor de elasticidad, etc.)
+
+Problema Principal
+Los métodos actuales transforman las coordenadas cartesianas {x, y, z} a coordenadas esféricas (distancias y ángulos), pero:
+
+Las estructuras atómicas se describen naturalmente en coordenadas cartesianas
+Los métodos cartesianos existentes carecen de un marco teórico sistemático
+No pueden predecir tensores complejos de alto rango (como el tensor elástico)
+
+
+2. Solución Propuesta: Teoría de Tensores Naturales Cartesianos
+¿Qué es un Tensor Natural?
+Un tensor natural es un tensor cartesiano que cumple dos propiedades:
+
+Simétrico: Invariante bajo permutación de índices
+Sin traza: La traza sobre cualquier par de índices es cero
+
+Propiedades clave:
+
+Un tensor natural de rango n tiene solo 2n+1 componentes independientes
+Son representaciones irreducibles del grupo SO(3) (rotaciones 3D)
+Preservan la equivarianza geométrica
+
+Tres Operaciones Fundamentales
+a) Construcción desde un vector unitario:
+De r̂ → Generar tensores X₀, X₁, X₂, X₃...
+X₀ = 1 (escalar)
+X₁ = r̂ (vector)
+X₂ = r̂⊗r̂ (sin traza)
+X₃ = r̂⊗r̂⊗r̂ (sin traza)
+b) Producto de tensores naturales:
+X_l₁ ⊗̂ Y_l₂ = Z_l₃
+donde |l₁ - l₂| ≤ l₃ ≤ l₁ + l₂
+c) Descomposición y reconstrucción:
+
+Cualquier tensor físico puede descomponerse en suma de tensores naturales
+Y puede reconstruirse desde ellos
+Ejemplo: tensor rango-2 = tensor rango-0 + tensor rango-1 + tensor rango-2
+
+
+3. Arquitectura del Modelo CarNet
+Flujo del Modelo:
+
+Entrada → Codificación → Capas GNN → Salida
+Componentes Principales:
+1. Codificación de Posición:
+
+Vector relativo r → distancia escalar r y dirección r̂
+r se expande con polinomios de Chebyshev (parte radial R)
+r̂ se transforma en tensores naturales X
+
+2. Embedding de Especies:
+
+Número atómico z → características iniciales aprendibles h
+
+3. Momento Atómico:
+M = R · h ⊗̂ X
+
+4. Hiper-momento:
+H = M ⊗̂ M ⊗̂ ... ⊗̂ M
+Captura interacciones de muchos cuerpos (3, 4, n-cuerpos)
+5. Actualización de Características:
+
+Se aplican 2-3 capas de GNN
+Conexión residual entre capas
+
+6. Construcción de Salida:
+
+Para potenciales: Extraer componente escalar (rango-0)
+Para tensores: Seleccionar y reconstruir desde componentes naturales relevantes
+
+
+4. Resultados Experimentales
+A) Potenciales Interatómicos
+LiPS (Electrolito sólido):
+
+MAE energía: 0.09 meV (mejor que NequIP: 0.12)
+MAE fuerzas: 5.6 meV/Å (mejor que NequIP: 7.7)
+
+Agua líquida:
+
+RMSE energía: 0.54 meV (mejor que MACE: 0.63)
+RMSE fuerzas: 31 meV/Å (mejor que MACE: 36)
+
+Simulaciones MD:
+
+Estables durante 50 ps sin colapso
+RDF (función de distribución radial) coincide con AIMD y experimentos
+Coeficientes de difusión precisos:
+
+Li⁺ en LiPS: D = 1.09×10⁻⁵ cm²/s (ref: 1.37×10⁻⁵)
+Agua: D = 2.92×10⁻⁵ cm²/s (ref: 2.67×10⁻⁵)
+
+
+
+B) Moléculas de Etanol
+Mejoras sobre TensorNet:
+
+Momento dipolar μ: 3× menor error
+Desplazamiento químico nuclear δ: 3× menor error
+Tensor de apantallamiento nuclear σ: Predicción completa (antes inaccesible)
+Capacidades únicas:
+
+Predice el tensor elástico completo (rango-4, hasta 21 componentes)
+Preserva simetrías cristalinas automáticamente
+Calcula módulo de Young direccional Ed para analizar anisotropía
+
+
+5. Innovaciones Técnicas
+Selección de Rutas de Producto Tensorial
+Tres modos:
+
+Full: Todas las rutas posibles (máxima expresividad, más lento)
+Lite: Rutas restringidas (60% del tiempo de full, mejor generalización)
+Level: Intermedio
+
+Hallazgo: El modo "lite" es óptimo para la mayoría de casos.
+Dependencia de Especies Atómicas
+
+Incorporar número atómico z en los pesos mejora precisión
+Excepto para datasets con muchos elementos (84+) y pocos datos
+7. Limitaciones y Trabajo Futuro
+Limitaciones actuales:
+
+Selección de rutas tensoriales guiada empíricamente (no teóricamente)
+Falta optimización GPU específica (existe para esféricos)
+
+Aplicaciones potenciales:
+
+Extensión a nubes de puntos generales (imágenes médicas 3D, LiDAR)
+Modelos fundacionales con muchos elementos
+Predicción de propiedades tensoriales complejas
+
+
+8. Conclusiones Principales
+
+CarNet es el primer marco sistemático para ML atomístico cartesiano con teoría completa
+Supera el estado del arte en:
+
+Potenciales interatómicos (materiales y moléculas)
+Predicción de propiedades tensoriales
+Tensor elástico completo (nunca antes logrado)
+
+
+Elimina barreras teóricas para enfoques cartesianos en ML atomístico
+Abre nuevas posibilidades:
+
+Modelado de tensores arbitrarios
+Relaciones estructura-propiedad más ricas
+Mejor interpretabilidad física
+
+
+Marco matemático completo para operaciones con tensores naturales (creación, producto, descomposición/reconstrucción)
+
+
+Disponibilidad
+
+Código: https://github.com/wengroup/carnet
+Tensores naturales: https://github.com/wengroup/natt
+Datasets: Públicamente disponibles
+
+Este trabajo representa un avance fundamental en la teoría y práctica del aprendizaje automático para ciencia de materiales.
+
+

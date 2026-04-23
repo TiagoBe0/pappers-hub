@@ -1,0 +1,200 @@
+Aquí tienes un **resumen en español** del libro/artículo:
+
+**“State of the art, gaps, and prospects in fusion materials theory and modelling”**
+(Luca Reali et al., *Journal of Nuclear Materials*, 2026)
+
+
+
+---
+
+# 📘 Resumen General
+
+Este trabajo presenta una revisión exhaustiva del estado actual de la **teoría y modelado de materiales para fusión nuclear**, basada principalmente en los resultados del 7º Workshop de *Fusion Materials Theory & Modelling* (2024). El objetivo central es identificar:
+
+* 🔬 El estado del arte en modelado de materiales sometidos a irradiación.
+* ⚠️ Las principales brechas científicas y técnicas.
+* 🚀 Las direcciones futuras necesarias para el desarrollo de reactores de fusión comerciales.
+
+El artículo enfatiza que el modelado computacional es esencial porque muchos materiales deben diseñarse **antes de que existan datos experimentales completos**, especialmente en condiciones de irradiación por neutrones de 14 MeV típicas de la fusión D-T.
+
+---
+
+# 1️⃣ Efectos de Transmutación
+
+Cuando los materiales estructurales y los *plasma-facing materials (PFM)* son expuestos a flujos intensos de neutrones:
+
+* Se producen **transmutaciones nucleares** (cambio de elementos).
+* Se generan **He y H**, que favorecen hinchamiento por cavidades.
+* Aparecen nuevos elementos (como Re y Os en tungsteno) que modifican propiedades mecánicas.
+* Se produce activación radiactiva del material.
+
+Se destaca el uso del código **FISPACT-II** para modelar la evolución isotópica bajo irradiación.
+
+Un hallazgo clave es que los efectos de transmutación pueden ser tan importantes como el daño por desplazamiento atómico.
+
+También se analiza la propagación de incertidumbres en datos nucleares, fundamental para evaluar seguridad y gestión de residuos.
+
+---
+
+# 2️⃣ Aleaciones Convencionales y Nuevas
+
+El artículo estudia distintas familias de materiales:
+
+## 🔹 Tungsteno (W) y aleaciones W-Re-Os
+
+* Bajo irradiación, Re y Os segregan y decoran vacíos.
+* Se emplean métodos de primeros principios (DFT + Cluster Expansion + Monte Carlo).
+* Se explica la formación de precipitados inducidos por radiación.
+
+## 🔹 SMART alloys (W-Cr-Y-Zr)
+
+* Diseñadas para evitar oxidación catastrófica en accidentes.
+* Modelado termodinámico muestra descomposición de fases y ordenamiento químico.
+
+## 🔹 High-Entropy Alloys (HEA)
+
+* Aleaciones multicomponente con alta resistencia a irradiación.
+* Modeladas mediante DFT + Monte Carlo + potenciales de machine learning.
+* Pequeñas variaciones composicionales (ej. V en W-Ta) modifican fuertemente la tolerancia al daño.
+
+## 🔹 Aceros Fe-Cr y Fe-Cr-Mn-Ni
+
+* Modelado de estabilidad de fases (bcc vs fcc).
+* Influencia de vacancias e intersticiales en la segregación de Cr.
+
+---
+
+# 3️⃣ Daño a Alta Dosis
+
+Se analiza cómo evoluciona la microestructura bajo irradiación prolongada:
+
+* El modelo clásico NRT-dpa sobreestima defectos sobrevivientes.
+* Correcciones ARC-DPA y CRC-DPA reducen significativamente el daño efectivo.
+* Se estudian:
+
+  * Formación y evolución de loops de dislocación.
+  * Hinchamiento por cavidades.
+  * Endurecimiento por irradiación.
+  * Segregación inducida por radiación (RIS).
+
+Se enfatiza que el endurecimiento debe modelarse considerando:
+
+* Barreras débiles y fuertes.
+* Superposición cuadrática y lineal correcta.
+
+---
+
+# 4️⃣ Simulación Atomística a Alta Dosis
+
+Simular millones de cascadas es computacionalmente inviable con DFT.
+
+Se presentan métodos alternativos:
+
+## 🔹 Creation Relaxation Algorithm (CRA)
+
+* Inserta pares de Frenkel artificiales.
+* Permite alcanzar altas dosis de forma eficiente.
+* Microestructuras obtenidas son comparables a simulaciones MD masivas.
+
+## 🔹 Limitaciones actuales:
+
+* Escalas de longitud limitadas (≈100 nm).
+* Necesidad de mejores potenciales interatómicos.
+* Alto costo computacional.
+
+---
+
+# 5️⃣ Potenciales Interatómicos basados en Machine Learning
+
+Una sección clave del artículo.
+
+Se desarrollan potenciales ML para:
+
+* Mejorar predicción de energías de enlace He-vacancia.
+* Simular HEAs complejas.
+* Modelar hidrógeno en metales.
+
+Los potenciales ML permiten:
+
+* Precisión cercana a DFT.
+* Escalas mucho mayores que DFT.
+* Simulación realista de daño acumulado.
+
+---
+
+# 6️⃣ Materiales No Metálicos
+
+Incluye:
+
+* Superconductores de alta temperatura.
+* Cerámicos de litio para breeding de tritio.
+
+Estos materiales también requieren modelado multiescala.
+
+---
+
+# 7️⃣ Modelado Multiescala
+
+Uno de los puntos centrales del libro:
+
+Se busca conectar:
+
+```
+DFT → Monte Carlo → MD → KMC → Modelos mesoscópicos → Modelos estructurales → Simulación del reactor completo
+```
+
+El desafío es integrar:
+
+* Defectos microscópicos
+* Evolución microestructural
+* Propiedades mecánicas
+* Comportamiento estructural del componente
+
+---
+
+# 🔮 Perspectivas Futuras
+
+El artículo concluye que los principales desafíos son:
+
+* Mejorar datos nucleares y matrices de covarianza.
+* Integrar transmutación + daño + evolución química.
+* Desarrollar potenciales ML robustos para aleaciones complejas.
+* Validación experimental en condiciones representativas de fusión.
+* Integración multiescala realista.
+* Uso de HPC y visualización avanzada.
+
+---
+
+# 🎯 Conclusión Global
+
+El modelado teórico es absolutamente esencial para:
+
+* Diseñar materiales antes de que existan reactores comerciales.
+* Reducir costos experimentales.
+* Acelerar el desarrollo de DEMO y futuros reactores.
+
+La comunidad está avanzando fuertemente en:
+
+* Modelado atomístico avanzado.
+* Aleaciones resistentes a irradiación.
+* Machine Learning aplicado a materiales.
+* Integración multiescala.
+
+Pero aún existen brechas importantes en:
+
+* Validación experimental.
+* Escalas de tiempo largas.
+* Incertidumbre en datos nucleares.
+* Acoplamiento completo microestructura–ingeniería.
+
+---
+
+Si quieres, puedo ahora:
+
+* 🔎 Hacer un resumen más corto tipo “para presentación”.
+* 🧠 Explicártelo conectado a tu pipeline DGCNN.
+* 📊 Prepararte diapositivas listas para PowerPoint.
+* 📘 Hacer un resumen más técnico sección por sección.
+* ✍️ Convertirlo en un texto estilo introducción para tesis.
+
+¿Para qué lo necesitas?

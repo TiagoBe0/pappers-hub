@@ -1,0 +1,57 @@
+¡Vamos! Aquí tienes un resumen detallado y accionable del paper que subiste.
+
+# ¿Qué estudia?
+
+Simulan por dinámica molecular (MD) cómo se forma el daño primario por irradiación en aleaciones binarias Cu–Ni y cómo ese daño impacta en sus propiedades a tracción. Exploran un espacio 3D de variables: temperatura (300–700 K), energía del PKA (2–10 keV) y orientación cristalina (\[100], \[110], \[111]), y comparan distintas fracciones atómicas de Ni (0, 5, 10, 20%). También evalúan el cambio en el esfuerzo de fluencia tras irradiar.&#x20;
+
+# Cómo lo hacen (métodos y setup)
+
+* **Modelos y potenciales:** superceldas FCC de tamaño 50a×50a×50a (≈500 000 átomos); Cu con potencial de Mishin y Cu–Ni con EAM modificado con corrección ZBL (Bonny/Tramontina) para colisiones de corto alcance. &#x20;
+* **Rangos explorados:** T = 300–700 K; E\_PKA = 2–10 keV; orientaciones \[100], \[110], \[111]. &#x20;
+* **Protocolo MD:** relajación NPT y termostatización (Nose–Hoover), cascadas en NVE con PKA cercano al centro; cada evento 50–100 ps hasta estabilizar defectos. Defectos identificados por **Wigner–Seitz** en **OVITO**; se promedian 20 simulaciones independientes por condición. &#x20;
+* **Ensayos mecánicos:** tracción cuasiestática del mismo bloque (pre y post-irradiación); preparación por CG, control térmico a 300 K, deformación bajo NVE con tasa 0.005 ps⁻¹; análisis de dislocaciones (DXA) y CNA en OVITO. &#x20;
+
+# Resultados principales
+
+## 1) Temperatura
+
+* En todas las composiciones, el número de **pares de Frenkel** crece rápido (pico), luego decae y se estabiliza. A mayor **temperatura**, en estado estable quedan **menos** pares por mayor movilidad y recombinación vacancia–intersticial; además, la distribución se vuelve más **localizada/compacta**.&#x20;
+
+## 2) Energía del PKA
+
+* Al subir **E\_PKA** (2→10 keV) aumentan fuertemente los defectos por cascadas más energéticas y más desplazamientos atómicos; en estado estable persiste un conteo mayor de defectos.&#x20;
+
+## 3) Orientación cristalina
+
+* El comportamiento de defectos es **anisotrópico**: las orientaciones \[100], \[110], \[111] muestran respuestas distintas (picos y remanentes), coherente con la diferente periodicidad y espaciamiento de planos deslizantes.&#x20;
+
+## 4) Efecto del contenido de Ni
+
+* Agregar **Ni** reduce la formación de defectos retenidos (particularmente con Ni alto) y, en mecánica, **eleva la resistencia**: antes de irradiar, el límite de fluencia crece con %Ni; tras irradiar, los Cu–Ni **pierden** resistencia, pero cuanto **más Ni**, **menor** es la caída (mejor resistencia a irradiación).&#x20;
+
+## 5) Propiedades a tracción (números)
+
+* A 300 K, tracción post-irradiación (dirección \[100]) muestra que el **esfuerzo de fluencia** disminuye con E\_PKA y aumenta con %Ni. Tabla 2 (GPa):
+
+  * **Cu**: 16.86 (0 keV) → 15.82 (10 keV)
+  * **Cu-5 %Ni**: 18.91 → 17.05
+  * **Cu-10 %Ni**: 19.27 → 17.82
+  * **Cu-20 %Ni**: 19.77 → 18.86
+    En conjunto, más Ni → más fuerte y más inmune a la degradación por irradiación.&#x20;
+
+# Qué aportan (interpretación)
+
+* **Mapa integral** del daño primario y performance mecánica en Cu–Ni bajo un rango amplio de T, E\_PKA y orientación, con estadísticas (20 réplicas). El **Ni** actúa como estabilizador: favorece recombinación de defectos y amortigua la pérdida de fluencia tras irradiar. La **temperatura** acelera recombinación; la **energía PKA** eleva la producción de defectos; la **anisotropía** de la red FCC modula la cascada y la retención. &#x20;
+
+# Cómo podrías usarlo (si estás simulando Cu–Ni)
+
+* Si tu objetivo es **minimizar vacancias/intersticiales retenidos**, opera a **T más alta** (dentro de límites de servicio) y considera **Ni ≥10–20 at.%**.
+* Para estudios mecánicos, reportá **fluencia vs. E\_PKA** y **vs. %Ni**, como en la Tabla 2, y analiza defectos por **Wigner–Seitz** + **DXA/CNA** para enlazar microestructura con pérdida de resistencia. &#x20;
+
+# Limitaciones (implícitas del setup)
+
+* **Escalas de tiempo** (≤100 ps) y **tasa de deformación** altas típicas de MD; extrapolar con cuidado a experimentos.
+* **Tamaños finitos** (≈0.5 M átomos) y **potenciales EAM/ZBL** (parametrización específica) pueden influir en cinética y morfología de defectos. Aun así, validan potencial y propiedades base (DFT/MD) y realizan promedios de 20 simulaciones para robustez. &#x20;
+
+Si querés, te hago un **gráfico** con los datos de la Tabla 2 (fluencia vs. E\_PKA para cada %Ni) a partir del PDF, o te armo un **checklist** para reproducir su pipeline en LAMMPS → OVITO (W–S, DXA, CNA) con tus dumps.
+

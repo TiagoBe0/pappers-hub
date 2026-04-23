@@ -1,0 +1,84 @@
+Leí tu archivo y aquí te dejo la traducción resumida de los puntos más importantes del trabajo sobre el dataset Open Molecular Crystals 2025 (OMC25):
+
+🔑 Puntos Clave del Trabajo
+
+Objetivo principal
+
+Crear un gran dataset abierto para acelerar el desarrollo de modelos de machine learning aplicados a cristales moleculares.
+
+Problema previo: había escasez de bases de datos públicas con estructuras y propiedades.
+
+El dataset OMC25
+
+Contiene más de 27 millones de estructuras de cristales moleculares.
+
+Incluye 12 elementos químicos y hasta 300 átomos por celda unitaria.
+
+Generado a partir de trayectorias de relajación por DFT (teoría del funcional de la densidad) de 230.000 estructuras candidatas construidas con ~50.000 moléculas orgánicas únicas.
+
+Diversidad y representatividad
+
+Amplia variedad de interacciones intermoleculares y motivos de empaquetamiento cristalino.
+
+Cubre 167 grupos espaciales y múltiples sistemas cristalinos.
+
+Incluye tanto estructuras densa y holgadamente empaquetadas para muestrear todo el espacio de energía potencial.
+
+Propiedades disponibles en el dataset
+
+Energía total de la estructura.
+
+Fuerzas atómicas.
+
+Tensiones de la celda unitaria.
+
+División del dataset
+
+Entrenamiento: 90% (~24,8 M estructuras).
+
+Validación: 5% (~1,38 M estructuras).
+
+Test: 5% (~1,35 M estructuras).
+
+Validación técnica
+
+Se filtraron estructuras no físicas (con energías/ fuerzas irreales).
+
+Alta consistencia en la relajación de estructuras.
+
+Muestra representativa del paisaje de energía potencial.
+
+Modelos de Machine Learning probados
+
+Se entrenaron y evaluaron varios modelos de última generación: UMA, eSEN, EquiformerV2.
+
+Los modelos muestran alta precisión en predicción de energías, fuerzas y tensiones.
+
+También funcionan bien en tareas externas como:
+
+Benchmark X23b (energías de red cristalina y volúmenes).
+
+Ranking de polimorfos (estructuras alternativas de la misma molécula).
+
+Limitaciones actuales
+
+Solo incluye cristales orgánicos de un solo componente (no co-cristales, MOFs, solvatos, etc.).
+
+El nivel de teoría usado (PBE-D3) es bueno, pero no tan preciso como otros más avanzados.
+
+Falta de modelado robusto de interacciones a largo alcance.
+
+Necesidad de más pruebas con datos “fuera de distribución” para medir la generalización real.
+
+Impacto esperado
+
+Recurso abierto y gratuito (CC BY 4.0).
+
+Facilita el desarrollo de modelos más rápidos y precisos que el DFT.
+
+Acelera investigación en áreas como farmacéutica, electrónica orgánica y predicción de estructuras cristalinas.
+
+Disponibilidad
+
+Dataset y modelos en HuggingFace:
+👉 https://huggingface.co/facebook/OMC25
