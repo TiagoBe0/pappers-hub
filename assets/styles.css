@@ -50,15 +50,50 @@ body {
 }
 
 .center-node {
+  position: relative;
   margin: 0;
+  padding: 1.1rem 2.4rem;
   font-family: var(--font-main);
   font-size: clamp(2.5rem, 7vw, 5rem);
   letter-spacing: 0.06em;
   text-transform: lowercase;
   font-weight: 700;
   color: var(--accent-2);
-  text-shadow: 0 0 20px rgba(106, 196, 255, 0.2);
+  border: 1px solid rgba(216, 236, 255, 0.28);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 18% 38%, rgba(216, 236, 255, 0.28) 0 20%, transparent 21%),
+    radial-gradient(circle at 78% 34%, rgba(106, 196, 255, 0.2) 0 22%, transparent 23%),
+    linear-gradient(140deg, rgba(24, 41, 62, 0.98), rgba(13, 25, 39, 0.94));
+  box-shadow:
+    0 22px 60px rgba(3, 10, 18, 0.48),
+    0 0 42px rgba(106, 196, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  text-shadow: 0 0 20px rgba(106, 196, 255, 0.24);
   z-index: 2;
+}
+
+.center-node::before,
+.center-node::after {
+  content: "";
+  position: absolute;
+  bottom: 56%;
+  width: 2.15rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: inherit;
+  border: inherit;
+  box-shadow: inherit;
+  z-index: -1;
+}
+
+.center-node::before {
+  left: 12%;
+}
+
+.center-node::after {
+  right: 14%;
+  width: 2.55rem;
 }
 
 .subtitle {
@@ -87,6 +122,8 @@ body {
 .paper-node {
   --x: 0px;
   --y: 0px;
+  --float-distance: -10px;
+  --float-tilt: 0.8deg;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -104,8 +141,10 @@ body {
   display: grid;
   place-items: center;
   text-align: center;
-  transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
-  animation: fadeIn 620ms ease both;
+  transition: border-color 260ms ease, box-shadow 260ms ease, filter 260ms ease;
+  animation:
+    fadeIn 620ms ease both,
+    floatNode 4.8s ease-in-out infinite;
 }
 
 .paper-node::before {
@@ -113,19 +152,36 @@ body {
   position: absolute;
   inset: 50% auto auto 50%;
   width: var(--line-length, 180px);
-  height: 1px;
-  background: linear-gradient(90deg, rgba(216, 236, 255, 0.55), transparent 70%);
+  height: 2px;
+  background: linear-gradient(90deg, rgba(216, 236, 255, 0.65), rgba(106, 196, 255, 0.24) 78%, transparent);
   transform-origin: left center;
-  transform: rotate(var(--angle)) translateX(0);
+  transform: rotate(var(--connector-angle)) translateX(16px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.paper-node::after {
+  content: "";
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 0;
+  height: 0;
+  border-block: 6px solid transparent;
+  border-left: 10px solid rgba(216, 236, 255, 0.72);
+  filter: drop-shadow(0 0 8px rgba(106, 196, 255, 0.45));
+  transform:
+    rotate(var(--connector-angle))
+    translateX(calc(var(--line-length, 180px) - 10px));
+  transform-origin: 0 50%;
   z-index: -1;
   pointer-events: none;
 }
 
 .paper-node:hover,
 .paper-node:focus-visible {
-  transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.04);
   border-color: rgba(106, 196, 255, 0.8);
   box-shadow: 0 18px 40px rgba(5, 13, 22, 0.58), 0 0 22px rgba(106, 196, 255, 0.35);
+  filter: brightness(1.08);
   outline: none;
 }
 
@@ -143,6 +199,24 @@ body {
   to {
     opacity: 1;
     filter: blur(0);
+  }
+}
+
+@keyframes floatNode {
+  0%,
+  100% {
+    transform:
+      translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+      translateY(0)
+      rotate(0deg)
+      scale(1);
+  }
+  50% {
+    transform:
+      translate(calc(-50% + var(--x)), calc(-50% + var(--y)))
+      translateY(var(--float-distance))
+      rotate(var(--float-tilt))
+      scale(1.025);
   }
 }
 

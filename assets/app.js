@@ -74,8 +74,11 @@ const renderNodes = (files) => {
     node.style.setProperty("--x", `${x}px`);
     node.style.setProperty("--y", `${y}px`);
     node.style.setProperty("--angle", `${angle}rad`);
+    node.style.setProperty("--connector-angle", `${angle + Math.PI}rad`);
     node.style.setProperty("--line-length", `${Math.max(radius - 44, 1)}px`);
-    node.style.animationDelay = `${index * 55}ms`;
+    node.style.setProperty("--float-distance", `${index % 2 === 0 ? -12 : 12}px`);
+    node.style.setProperty("--float-tilt", `${index % 2 === 0 ? -0.8 : 0.8}deg`);
+    node.style.animationDelay = `${index * 55}ms, ${index * -320}ms`;
     node.querySelector(".paper-id").textContent = paperId;
 
     mapNodes.appendChild(node);
