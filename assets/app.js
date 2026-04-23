@@ -53,7 +53,18 @@ const formatPaperLabel = (file) => {
   return words.charAt(0).toUpperCase() + words.slice(1);
 };
 
-const loadPaperTitle = async (file) => {
+const cleanText = (value) => value?.replace(/\s+/g, " ").trim() || "";
+
+const buildSummary = (doc, title) => {
+  const candidates = [...doc.querySelectorAll("main p, article p, p")]
+    .map((paragraph) => cleanText(paragraph.textContent))
+    .filter((text) => text.length > 70 && text !== title && !text.startsWith("Archivo fuente:"));
+
+  const summary = candidates[0] || "Resumen disponible en la ficha completa del paper.";
+  return summary.length > 220 ? `${summary.slice(0, 217).trim()}...` : summary;
+};
+
+const loadPaperMeta = async (file) => {
   try {
     const response = await fetch(`${PAPERS_FOLDER}/${file}`, { cache: "no-store" });
     if (!response.ok) {
@@ -62,33 +73,36 @@ const loadPaperTitle = async (file) => {
 
     const pageText = await response.text();
     const doc = new DOMParser().parseFromString(pageText, "text/html");
-    const title = doc.querySelector("h1")?.textContent || doc.querySelector("title")?.textContent;
-    return title?.replace(/\s+/g, " ").trim() || formatPaperLabel(file);
+    const title = cleanText(doc.querySelector("h1")?.textContent || doc.querySelector("title")?.textContent) || formatPaperLabel(file);
+    return {
+      file,
+      label: title,
+      summary: buildSummary(doc, title),
+    };
   } catch {
-    return formatPaperLabel(file);
+    return {
+      file,
+      label: formatPaperLabel(file),
+      summary: "Resumen disponible en la ficha completa del paper.",
+    };
   }
 };
 
 const loadPaperItems = async (files) => {
-  const items = await Promise.all(
-    files.map(async (file) => ({
-      file,
-      label: await loadPaperTitle(file),
-    })),
-  );
+  const items = await Promise.all(files.map((file) => loadPaperMeta(file)));
 
   return items.sort((a, b) => a.label.localeCompare(b.label, "es"));
 };
 
 const computeBaseRadius = (count) => {
-  if (count <= 4) return 220;
-  if (count <= 8) return 285;
-  if (count <= 14) return 340;
-  return 385;
+  if (count <= 4) return 640;
+  if (count <= 8) return 860;
+  if (count <= 14) return 1250;
+  return 1480;
 };
 
 const computeNodeRadius = (baseRadius, index, count) => {
-  const ringOffsets = count <= 6 ? [0, 42] : [-54, 18, 86, -18, 58];
+  const ringOffsets = count <= 6 ? [-120, 150] : [-260, 100, 390, -80, 250];
   return baseRadius + ringOffsets[index % ringOffsets.length];
 };
 
@@ -105,7 +119,7 @@ const renderNodes = (items) => {
   const baseRadius = computeBaseRadius(items.length);
   const slice = (Math.PI * 2) / items.length;
 
-  items.forEach(({ file, label }, index) => {
+  items.forEach(({ file, label, summary }, index) => {
     const node = template.content.firstElementChild.cloneNode(true);
     const angle = -Math.PI / 2 + slice * index;
     const radius = computeNodeRadius(baseRadius, index, items.length);
@@ -117,12 +131,13 @@ const renderNodes = (items) => {
     node.style.setProperty("--y", `${y}px`);
     node.style.setProperty("--angle", `${angle}rad`);
     node.style.setProperty("--connector-angle", `${angle + Math.PI}rad`);
-    node.style.setProperty("--line-length", `${Math.max(radius - 64, 1)}px`);
-    node.style.setProperty("--float-distance", `${index % 2 === 0 ? -13 : 11}px`);
-    node.style.setProperty("--float-tilt", `${index % 2 === 0 ? -0.7 : 0.7}deg`);
+    node.style.setProperty("--line-length", `${Math.max(radius - 120, 1)}px`);
+    node.style.setProperty("--float-distance", `${index % 2 === 0 ? -16 : 13}px`);
+    node.style.setProperty("--float-tilt", `${index % 2 === 0 ? -0.55 : 0.55}deg`);
     node.style.animationDelay = `${index * 55}ms, ${index * -320}ms`;
     node.title = label;
     node.querySelector(".paper-id").textContent = label;
+    node.querySelector(".paper-summary").textContent = summary;
 
     mapNodes.appendChild(node);
   });

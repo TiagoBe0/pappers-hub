@@ -44,11 +44,11 @@ body {
   display: grid;
   place-content: center;
   place-items: center;
-  width: max(100vw, 1120px);
-  min-height: max(100vh, 940px);
+  width: max(100vw, 3400px);
+  min-height: max(100vh, 3200px);
   gap: 1rem;
   isolation: isolate;
-  padding: 2rem;
+  padding: 5rem;
 }
 
 .center-node {
@@ -133,11 +133,11 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y)));
-  width: min(248px, 42vw);
-  min-height: 68px;
-  padding: 0.9rem 1.05rem;
+  width: 360px;
+  min-height: 214px;
+  padding: 1.35rem 1.45rem 1.25rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 6px;
   background:
     radial-gradient(circle at 20% 12%, rgba(255, 255, 255, 0.95), transparent 32%),
     linear-gradient(145deg, #ffffff, #f4f4f1);
@@ -145,13 +145,16 @@ body {
   text-decoration: none;
   box-shadow: var(--shadow);
   pointer-events: auto;
-  display: grid;
-  place-items: center;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  text-align: left;
   transition: border-color 260ms ease, box-shadow 260ms ease, color 260ms ease, filter 260ms ease;
   animation:
     fadeIn 620ms ease both,
-    floatNode 4.8s ease-in-out infinite;
+    floatNode 6.2s ease-in-out infinite;
 }
 
 .paper-node::before {
@@ -162,7 +165,7 @@ body {
   height: 1px;
   background: linear-gradient(90deg, var(--line-strong), rgba(86, 86, 78, 0.12) 78%, transparent);
   transform-origin: left center;
-  transform: rotate(var(--connector-angle)) translateX(16px);
+  transform: rotate(var(--connector-angle)) translateX(24px);
   z-index: -1;
   pointer-events: none;
 }
@@ -187,21 +190,57 @@ body {
 .paper-node:hover,
 .paper-node:focus-visible {
   border-color: var(--accent);
-  color: var(--accent);
   box-shadow: 0 18px 40px rgba(20, 20, 20, 0.16);
   filter: brightness(1.01);
   outline: none;
 }
 
+.paper-card-kicker {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
 .paper-id {
   display: -webkit-box;
-  max-height: 5.4em;
   overflow: hidden;
   font-family: var(--font-main);
-  font-size: clamp(0.82rem, 2vw, 1rem);
-  line-height: 1.35;
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1.22;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.paper-summary {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--ink-muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
+}
+
+.paper-card-action {
+  align-self: flex-start;
+  padding-top: 0.2rem;
+  border-top: 2px solid var(--accent);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.paper-node:hover .paper-id,
+.paper-node:focus-visible .paper-id,
+.paper-node:hover .paper-card-action,
+.paper-node:focus-visible .paper-card-action {
+  color: var(--accent);
 }
 
 @keyframes fadeIn {
@@ -235,16 +274,17 @@ body {
 
 @media (max-width: 700px) {
   .concept-map {
-    width: max(100vw, 920px);
-    min-height: 900px;
-    padding: 1.5rem 1rem 3rem;
+    width: 3000px;
+    min-height: 3000px;
+    padding: 3rem;
   }
 
   .paper-node {
-    width: 220px;
+    width: 320px;
+    min-height: 214px;
   }
 
   .paper-id {
-    font-size: 0.82rem;
+    font-size: 1.06rem;
   }
 }
