@@ -1,14 +1,16 @@
 :root {
-  --bg: #0e151f;
-  --bg-soft: #152131;
-  --ink: #ecf1f7;
-  --ink-muted: #a6b3c6;
-  --accent: #6ac4ff;
-  --accent-2: #d8ecff;
-  --line: rgba(138, 174, 210, 0.35);
-  --shadow: 0 22px 48px rgba(0, 0, 0, 0.35);
-  --font-main: "Merriweather", "Times New Roman", serif;
-  --font-ui: "Inter", "Segoe UI", sans-serif;
+  --bg: #f7f7f4;
+  --paper: #ffffff;
+  --paper-soft: #f1f1ee;
+  --ink: #1b1b1b;
+  --ink-muted: #5f625f;
+  --accent: #c32126;
+  --accent-soft: #f7e8e8;
+  --line: rgba(86, 86, 78, 0.28);
+  --line-strong: rgba(195, 33, 38, 0.44);
+  --shadow: 0 16px 34px rgba(20, 20, 20, 0.12);
+  --font-main: Georgia, "Times New Roman", serif;
+  --font-ui: Arial, "Helvetica Neue", sans-serif;
 }
 
 * {
@@ -20,21 +22,20 @@ body {
   min-height: 100vh;
   color: var(--ink);
   background:
-    radial-gradient(circle at 20% 20%, #243449 0%, transparent 30%),
-    radial-gradient(circle at 80% 15%, #16283f 0%, transparent 40%),
-    linear-gradient(160deg, var(--bg), #081019 65%);
+    linear-gradient(90deg, rgba(195, 33, 38, 0.08) 0 6px, transparent 6px),
+    linear-gradient(var(--bg), #ffffff 48%, var(--bg));
   font-family: var(--font-ui);
-  overflow: hidden;
+  overflow: auto;
 }
 
 .bg-grid {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(circle at center, black 40%, transparent 82%);
+    linear-gradient(rgba(27, 27, 27, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 27, 27, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at center, black 28%, transparent 78%);
   pointer-events: none;
 }
 
@@ -43,33 +44,31 @@ body {
   display: grid;
   place-content: center;
   place-items: center;
-  width: 100vw;
-  min-height: 100vh;
+  width: max(100vw, 1120px);
+  min-height: max(100vh, 940px);
   gap: 1rem;
   isolation: isolate;
+  padding: 2rem;
 }
 
 .center-node {
   position: relative;
   margin: 0;
-  padding: 1.1rem 2.4rem;
+  padding: 1.05rem 2.55rem 1rem;
   font-family: var(--font-main);
-  font-size: clamp(2.5rem, 7vw, 5rem);
-  letter-spacing: 0.06em;
-  text-transform: lowercase;
+  font-size: clamp(2.2rem, 6vw, 4.45rem);
+  letter-spacing: 0;
   font-weight: 700;
-  color: var(--accent-2);
-  border: 1px solid rgba(216, 236, 255, 0.28);
+  color: var(--ink);
+  border: 1px solid rgba(27, 27, 27, 0.16);
   border-radius: 999px;
   background:
-    radial-gradient(circle at 18% 38%, rgba(216, 236, 255, 0.28) 0 20%, transparent 21%),
-    radial-gradient(circle at 78% 34%, rgba(106, 196, 255, 0.2) 0 22%, transparent 23%),
-    linear-gradient(140deg, rgba(24, 41, 62, 0.98), rgba(13, 25, 39, 0.94));
+    radial-gradient(circle at 18% 38%, rgba(255, 255, 255, 0.92) 0 20%, transparent 21%),
+    radial-gradient(circle at 78% 34%, rgba(247, 232, 232, 0.9) 0 22%, transparent 23%),
+    linear-gradient(140deg, #ffffff, #f7f7f4);
   box-shadow:
-    0 22px 60px rgba(3, 10, 18, 0.48),
-    0 0 42px rgba(106, 196, 255, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  text-shadow: 0 0 20px rgba(106, 196, 255, 0.24);
+    0 18px 42px rgba(25, 25, 25, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
   z-index: 2;
 }
 
@@ -107,10 +106,16 @@ body {
 
 .helper {
   margin: 0;
-  color: #c7d8eb;
-  font-size: 0.95rem;
-  opacity: 0.9;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
   z-index: 2;
+}
+
+.helper code {
+  padding: 0.1rem 0.28rem;
+  border-radius: 3px;
+  background: var(--paper-soft);
+  color: var(--ink);
 }
 
 .node-ring {
@@ -128,12 +133,14 @@ body {
   left: 50%;
   top: 50%;
   transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y)));
-  width: min(220px, 40vw);
-  min-height: 56px;
-  padding: 0.85rem 1rem;
+  width: min(248px, 42vw);
+  min-height: 68px;
+  padding: 0.9rem 1.05rem;
   border: 1px solid var(--line);
-  border-radius: 0.8rem;
-  background: linear-gradient(140deg, rgba(16, 29, 45, 0.96), rgba(15, 24, 35, 0.86));
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 20% 12%, rgba(255, 255, 255, 0.95), transparent 32%),
+    linear-gradient(145deg, #ffffff, #f4f4f1);
   color: var(--ink);
   text-decoration: none;
   box-shadow: var(--shadow);
@@ -141,7 +148,7 @@ body {
   display: grid;
   place-items: center;
   text-align: center;
-  transition: border-color 260ms ease, box-shadow 260ms ease, filter 260ms ease;
+  transition: border-color 260ms ease, box-shadow 260ms ease, color 260ms ease, filter 260ms ease;
   animation:
     fadeIn 620ms ease both,
     floatNode 4.8s ease-in-out infinite;
@@ -152,8 +159,8 @@ body {
   position: absolute;
   inset: 50% auto auto 50%;
   width: var(--line-length, 180px);
-  height: 2px;
-  background: linear-gradient(90deg, rgba(216, 236, 255, 0.65), rgba(106, 196, 255, 0.24) 78%, transparent);
+  height: 1px;
+  background: linear-gradient(90deg, var(--line-strong), rgba(86, 86, 78, 0.12) 78%, transparent);
   transform-origin: left center;
   transform: rotate(var(--connector-angle)) translateX(16px);
   z-index: -1;
@@ -166,12 +173,12 @@ body {
   inset: 50% auto auto 50%;
   width: 0;
   height: 0;
-  border-block: 6px solid transparent;
-  border-left: 10px solid rgba(216, 236, 255, 0.72);
-  filter: drop-shadow(0 0 8px rgba(106, 196, 255, 0.45));
+  border-block: 5px solid transparent;
+  border-left: 9px solid var(--accent);
+  filter: drop-shadow(0 1px 2px rgba(20, 20, 20, 0.18));
   transform:
     rotate(var(--connector-angle))
-    translateX(calc(var(--line-length, 180px) - 10px));
+    translateX(calc(var(--line-length, 180px) - 9px));
   transform-origin: 0 50%;
   z-index: -1;
   pointer-events: none;
@@ -179,9 +186,10 @@ body {
 
 .paper-node:hover,
 .paper-node:focus-visible {
-  border-color: rgba(106, 196, 255, 0.8);
-  box-shadow: 0 18px 40px rgba(5, 13, 22, 0.58), 0 0 22px rgba(106, 196, 255, 0.35);
-  filter: brightness(1.08);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 18px 40px rgba(20, 20, 20, 0.16);
+  filter: brightness(1.01);
   outline: none;
 }
 
@@ -226,12 +234,17 @@ body {
 }
 
 @media (max-width: 700px) {
-  body {
-    overflow: auto;
+  .concept-map {
+    width: max(100vw, 920px);
+    min-height: 900px;
+    padding: 1.5rem 1rem 3rem;
   }
 
-  .concept-map {
-    min-height: 120vh;
-    padding: 2rem 1rem 4rem;
+  .paper-node {
+    width: 220px;
+  }
+
+  .paper-id {
+    font-size: 0.82rem;
   }
 }

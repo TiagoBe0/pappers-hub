@@ -80,11 +80,16 @@ const loadPaperItems = async (files) => {
   return items.sort((a, b) => a.label.localeCompare(b.label, "es"));
 };
 
-const computeRadius = (count) => {
-  if (count <= 4) return 210;
-  if (count <= 8) return 280;
-  if (count <= 14) return 350;
-  return 420;
+const computeBaseRadius = (count) => {
+  if (count <= 4) return 220;
+  if (count <= 8) return 285;
+  if (count <= 14) return 340;
+  return 385;
+};
+
+const computeNodeRadius = (baseRadius, index, count) => {
+  const ringOffsets = count <= 6 ? [0, 42] : [-54, 18, 86, -18, 58];
+  return baseRadius + ringOffsets[index % ringOffsets.length];
 };
 
 const renderNodes = (items) => {
@@ -97,12 +102,13 @@ const renderNodes = (items) => {
 
   statusLabel.textContent = `Encontrados ${items.length} pappers.`;
 
-  const radius = computeRadius(items.length);
+  const baseRadius = computeBaseRadius(items.length);
   const slice = (Math.PI * 2) / items.length;
 
   items.forEach(({ file, label }, index) => {
     const node = template.content.firstElementChild.cloneNode(true);
     const angle = -Math.PI / 2 + slice * index;
+    const radius = computeNodeRadius(baseRadius, index, items.length);
     const x = Math.cos(angle) * radius;
     const y = Math.sin(angle) * radius;
 
@@ -111,9 +117,9 @@ const renderNodes = (items) => {
     node.style.setProperty("--y", `${y}px`);
     node.style.setProperty("--angle", `${angle}rad`);
     node.style.setProperty("--connector-angle", `${angle + Math.PI}rad`);
-    node.style.setProperty("--line-length", `${Math.max(radius - 44, 1)}px`);
-    node.style.setProperty("--float-distance", `${index % 2 === 0 ? -12 : 12}px`);
-    node.style.setProperty("--float-tilt", `${index % 2 === 0 ? -0.8 : 0.8}deg`);
+    node.style.setProperty("--line-length", `${Math.max(radius - 64, 1)}px`);
+    node.style.setProperty("--float-distance", `${index % 2 === 0 ? -13 : 11}px`);
+    node.style.setProperty("--float-tilt", `${index % 2 === 0 ? -0.7 : 0.7}deg`);
     node.style.animationDelay = `${index * 55}ms, ${index * -320}ms`;
     node.title = label;
     node.querySelector(".paper-id").textContent = label;
