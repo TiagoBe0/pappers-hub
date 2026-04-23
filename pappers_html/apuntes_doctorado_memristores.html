@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apuntes Doctorales — Memristores y Nanohilos de Ag</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --paper: #f5f0e8;
+    --paper-dark: #ece5d5;
+    --accent: #8b1a1a;
+    --accent2: #1a4a8b;
+    --gold: #b8860b;
+    --rule: #c8b89a;
+    --mono: #3d2b1a;
+    --margin: 220px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #d4c9b0;
+    font-family: 'EB Garamond', Georgia, serif;
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.75;
+  }
+
+  .notebook {
+    max-width: 960px;
+    margin: 40px auto;
+    background: var(--paper);
+    box-shadow: 4px 4px 0 #a09070, 8px 8px 0 #8a7a60, 12px 12px 0 #746655;
+    position: relative;
+  }
+
+  /* Spine */
+  .spine {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 28px;
+    background: linear-gradient(to right, #5a3e28, #8b6040, #5a3e28);
+    z-index: 10;
+  }
+  .ring { position: absolute; left: 5px; width: 18px; height: 18px; border: 3px solid #c0a060; border-radius: 50%; background: #3a2815; }
+
+  .content {
+    margin-left: 28px;
+    padding: 50px 60px 60px 60px;
+    background: repeating-linear-gradient(
+      transparent,
+      transparent 28px,
+      #ddd0b8 28px,
+      #ddd0b8 29px
+    );
+    min-height: 100vh;
+  }
+
+  /* Red margin line */
+  .content::before {
+    content: '';
+    position: absolute;
+    left: 118px; top: 0; bottom: 0;
+    width: 2px;
+    background: rgba(180, 60, 60, 0.35);
+  }
+
+  .cover {
+    text-align: center;
+    padding: 60px 20px 40px;
+    border-bottom: 3px double var(--rule);
+    margin-bottom: 50px;
+    background: none;
+  }
+
+  .cover-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  h1.main-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 2.4em;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-style: italic;
+    font-size: 1.1em;
+    color: #5a4535;
+    margin-bottom: 20px;
+  }
+
+  .meta {
+    font-size: 0.82em;
+    font-family: 'JetBrains Mono', monospace;
+    color: #7a6550;
+    letter-spacing: 0.03em;
+  }
+
+  /* Section headers */
+  .section {
+    margin: 50px 0 30px;
+  }
+
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9em;
+    letter-spacing: 4px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  h2 {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.7em;
+    font-weight: 600;
+    color: var(--ink);
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 6px;
+    margin-bottom: 22px;
+  }
+
+  h3 {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--accent2);
+    margin: 28px 0 10px;
+    font-style: italic;
+  }
+
+  h4 {
+    font-size: 1.05em;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 20px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+  }
+
+  p { margin-bottom: 14px; }
+
+  /* Equations */
+  .eq-box {
+    background: var(--paper-dark);
+    border-left: 4px solid var(--accent2);
+    border-radius: 0 4px 4px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.93em;
+    color: var(--mono);
+    overflow-x: auto;
+  }
+
+  .eq-box .eq-label {
+    float: right;
+    color: var(--accent);
+    font-size: 0.85em;
+    font-style: italic;
+  }
+
+  .eq-line {
+    display: block;
+    margin: 4px 0;
+    white-space: pre;
+  }
+
+  /* Boxes */
+  .warning-box {
+    background: #fff5f5;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 24px 0;
+  }
+
+  .warning-box::before {
+    content: '⚠ ALERTA FÍSICA';
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .insight-box {
+    background: #f0f5ff;
+    border: 2px solid var(--accent2);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 24px 0;
+  }
+
+  .insight-box::before {
+    content: '💡 CONCEPTO CLAVE';
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    color: var(--accent2);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .question-box {
+    background: #fffbf0;
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 24px 0;
+  }
+
+  .question-box::before {
+    content: '❓ PREGUNTA PROBABLE DE DEFENSA';
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .question-box ol { padding-left: 20px; }
+  .question-box li { margin-bottom: 10px; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.88em;
+  }
+
+  th {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8px 12px;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    letter-spacing: 0.03em;
+  }
+
+  td {
+    padding: 7px 12px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td { background: var(--paper-dark); }
+
+  /* Comparison */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .col-pro {
+    background: #f0fff4;
+    border: 2px solid #2d7a4a;
+    border-radius: 4px;
+    padding: 14px;
+  }
+
+  .col-pro::before {
+    content: '✓ A FAVOR';
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75em;
+    color: #2d7a4a;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .col-con {
+    background: #fff5f5;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px;
+  }
+
+  .col-con::before {
+    content: '✗ EN CONTRA / LÍMITES';
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75em;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  ul { padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 6px; }
+
+  .ref {
+    font-size: 0.82em;
+    color: #7a6050;
+    font-style: italic;
+  }
+
+  .code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    background: var(--paper-dark);
+    padding: 2px 6px;
+    border-radius: 2px;
+    color: var(--mono);
+  }
+
+  .divider {
+    border: none;
+    border-top: 2px solid var(--rule);
+    margin: 40px 0;
+  }
+
+  .page-note {
+    font-size: 0.78em;
+    color: #9a8a70;
+    font-style: italic;
+    text-align: right;
+    margin-top: 8px;
+  }
+
+  .highlight { color: var(--accent); font-weight: 600; }
+  .hl2 { color: var(--accent2); font-weight: 600; }
+
+  .toc { padding-left: 0; list-style: none; }
+  .toc li { border-bottom: 1px dotted var(--rule); padding: 4px 0; }
+  .toc a { color: var(--ink); text-decoration: none; }
+  .toc a:hover { color: var(--accent2); text-decoration: underline; }
+  .toc .toc-num { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.85em; margin-right: 10px; }
+
+  @media (max-width: 700px) {
+    .two-col { grid-template-columns: 1fr; }
+    .content { padding: 30px 25px; }
+    .content::before { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="notebook">
+  <!-- Rings -->
+  <div class="spine">
+    <div class="ring" style="top:80px"></div>
+    <div class="ring" style="top:200px"></div>
+    <div class="ring" style="top:320px"></div>
+    <div class="ring" style="top:440px"></div>
+    <div class="ring" style="top:560px"></div>
+    <div class="ring" style="top:680px"></div>
+    <div class="ring" style="top:800px"></div>
+    <div class="ring" style="top:920px"></div>
+    <div class="ring" style="top:1040px"></div>
+    <div class="ring" style="top:1160px"></div>
+    <div class="ring" style="top:1280px"></div>
+    <div class="ring" style="top:1400px"></div>
+    <div class="ring" style="top:1520px"></div>
+    <div class="ring" style="top:1640px"></div>
+    <div class="ring" style="top:1760px"></div>
+    <div class="ring" style="top:1880px"></div>
+    <div class="ring" style="top:2000px"></div>
+    <div class="ring" style="top:2120px"></div>
+    <div class="ring" style="top:2240px"></div>
+    <div class="ring" style="top:2360px"></div>
+    <div class="ring" style="top:2480px"></div>
+    <div class="ring" style="top:2600px"></div>
+    <div class="ring" style="top:2720px"></div>
+    <div class="ring" style="top:2840px"></div>
+    <div class="ring" style="top:2960px"></div>
+    <div class="ring" style="top:3080px"></div>
+    <div class="ring" style="top:3200px"></div>
+    <div class="ring" style="top:3320px"></div>
+    <div class="ring" style="top:3440px"></div>
+    <div class="ring" style="top:3560px"></div>
+  </div>
+
+  <div class="content">
+
+    <!-- COVER -->
+    <div class="cover">
+      <div class="cover-label">Cuaderno Doctoral — CONICET · IB Balseiro</div>
+      <h1 class="main-title">Memristores y Nanohilos de Plata<br>Simulación MD con LAMMPS</h1>
+      <p class="subtitle">Fundamentos físicos · ECM · Two-Temperature Model · Filamentos conductores</p>
+      <p class="meta">Preparado: Abril 2026 &nbsp;|&nbsp; Becario Doctoral — Ciencia de Materiales</p>
+    </div>
+
+    <!-- ÍNDICE -->
+    <div class="section">
+      <span class="section-num">ÍNDICE</span>
+      <h2>Contenido</h2>
+      <ul class="toc">
+        <li><span class="toc-num">§1</span><a href="#s1">El memristor: cuarto elemento de circuito</a></li>
+        <li><span class="toc-num">§2</span><a href="#s2">Comportamiento memristivo: firma física esencial</a></li>
+        <li><span class="toc-num">§3</span><a href="#s3">Mecanismos de conmutación resistiva (RS)</a></li>
+        <li><span class="toc-num">§4</span><a href="#s4">Mecanismo ECM — El caso Ag (nuestro sistema)</a></li>
+        <li><span class="toc-num">§5</span><a href="#s5">El experimento del Instituto Balseiro: qué se hace y por qué</a></li>
+        <li><span class="toc-num">§6</span><a href="#s6">Simulación MD con LAMMPS: fundamentos físicos</a></li>
+        <li><span class="toc-num">§7</span><a href="#s7">El Two-Temperature Model (TTM) y Langevin</a></li>
+        <li><span class="toc-num">§8</span><a href="#s8">El potencial EAM para Ag y su corrección física</a></li>
+        <li><span class="toc-num">§9</span><a href="#s9">Puntos en común y contradicciones en la bibliografía</a></li>
+        <li><span class="toc-num">§10</span><a href="#s10">Preguntas probables de defensa y respuestas</a></li>
+      </ul>
+    </div>
+
+    <hr class="divider">
+
+    <!-- §1 -->
+    <div class="section" id="s1">
+      <span class="section-num">SECCIÓN 1</span>
+      <h2>El Memristor: Cuarto Elemento de Circuito</h2>
+
+      <h3>Motivación de Chua (1971)</h3>
+      <p>Los tres elementos clásicos de circuito — resistor, capacitor e inductor — relacionan pares de las cuatro variables fundamentales (carga <em>q</em>, tensión <em>v</em>, corriente <em>i</em>, flujo magnético <em>φ</em>). La simetría matemática demandaba un cuarto elemento que relacionara <em>q</em> con <em>φ</em>. Chua lo denominó <span class="highlight">memristor</span> (memory + resistor). <span class="ref">[Chua, IEEE Trans. Circuit Theory, 1971]</span></p>
+
+      <table>
+        <tr><th>Elemento</th><th>Relación constitutiva</th><th>Variable relacionada</th></tr>
+        <tr><td>Resistor</td><td>v = R · i</td><td>v ↔ i</td></tr>
+        <tr><td>Capacitor</td><td>q = C · v</td><td>q ↔ v</td></tr>
+        <tr><td>Inductor</td><td>φ = L · i</td><td>φ ↔ i</td></tr>
+        <tr><td><strong>Memristor</strong></td><td>φ = φ̂(q)</td><td>φ ↔ q</td></tr>
+      </table>
+
+      <h3>La Relación Constitutiva</h3>
+      <div class="eq-box">
+        <span class="eq-label">(1.1)</span>
+        <span class="eq-line">  φ = φ̂(q)           ← memristor controlado por carga</span>
+        <span class="eq-line">  q = q̂(φ)           ← memristor controlado por flujo</span>
+      </div>
+      <div class="eq-box">
+        <span class="eq-label">(1.2)</span>
+        <span class="eq-line">  v = R(q) · i</span>
+        <span class="eq-line">  donde  R(q) = dφ̂(q)/dq   [Memristancia en Ω]</span>
+      </div>
+
+      <div class="insight-box">
+        La memristancia <strong>R(q)</strong> depende de <em>toda la historia pasada</em> de la corriente i(t) desde t = −∞ hasta t = t₀. Esto es la esencia del "efecto memoria": el sistema sabe por dónde pasó carga anteriormente.
+      </div>
+
+      <h3>Realización física — HP (2008)</h3>
+      <p>Williams et al. demostraron que un dispositivo de TiO₂ nanoscalar se comporta como memristor. La capa de TiO₂ fue recocida en atmósfera reductora (N₂ + 5% H₂ a 550°C) para generar una subcapa de <em>vacantes de oxígeno</em> (dopantes tipo n). La migración de estas vacantes bajo campo eléctrico modifica la resistencia del dispositivo de manera no volátil. <span class="ref">[Strukov, Williams et al., Nature, 2008]</span></p>
+
+      <p>En 2011 Chua extendió la definición: <span class="highlight">cualquier dispositivo con curva I-V pellizcada (pinched) en el origen es un memristor</span>. Esto unifica todo el campo de ReRAM. <span class="ref">[Chua, Appl. Phys. A, 2011]</span></p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- §2 -->
+    <div class="section" id="s2">
+      <span class="section-num">SECCIÓN 2</span>
+      <h2>Comportamiento Memristivo: Firma Física Esencial</h2>
+
+      <h3>Los tres "dedos dactilares" del memristor (Adhikari, Chua, 2013)</h3>
+      <ol>
+        <li><strong>Curva I-V es un lazo de histéresis pellizcado en el origen</strong> cuando se excita con corriente/tensión sinusoidal.</li>
+        <li><strong>El área del lazo disminuye con la frecuencia</strong> y se reduce a un segmento lineal en el límite f → ∞.</li>
+        <li><strong>La memristancia R(q) siempre es positiva</strong> para un memristor pasivo (la función φ̂(q) es monótonamente creciente).</li>
+      </ol>
+
+      <div class="eq-box">
+        <span class="eq-label">(2.1) Ejemplo canónico</span>
+        <span class="eq-line">  φ = q + (1/3)q³</span>
+        <span class="eq-line">  R(q) = dφ/dq = 1 + q²</span>
+        <span class="eq-line">  Con i(t) = A sin(ωt) → lazo de histéresis en I-V</span>
+      </div>
+
+      <h3>Modelos de estado — TEAM y VTEAM</h3>
+      <p>Kvatinsky et al. propusieron el modelo TEAM (ThrEshold Adaptive Memristor) con ecuación de estado:</p>
+      <div class="eq-box">
+        <span class="eq-label">(2.2) TEAM</span>
+        <span class="eq-line">  dw/dt = f(i) · g(w)</span>
+        <span class="eq-line">  f(i) = k_off · (i/i_off - 1)^α_off    si i > i_off</span>
+        <span class="eq-line">  f(i) = k_on  · (i/i_on  - 1)^α_on     si i &lt; i_on</span>
+        <span class="eq-line">  f(i) = 0                                 si i_on ≤ i ≤ i_off</span>
+      </div>
+      <p>El modelo <strong>VTEAM</strong> usa tensión en lugar de corriente como variable de control, con umbral de tensión v_off y v_on. Ambos modelos se implementan en Verilog-A para SPICE. <span class="ref">[Kvatinsky et al., IEEE TCAS, 2015]</span></p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- §3 -->
+    <div class="section" id="s3">
+      <span class="section-num">SECCIÓN 3</span>
+      <h2>Mecanismos de Conmutación Resistiva (RS)</h2>
+
+      <p>La conmutación resistiva (RS, Resistive Switching) es el mecanismo físico subyacente del comportamiento memristivo en dispositivos reales. Existen tres categorías principales:</p>
+
+      <table>
+        <tr><th>Mecanismo</th><th>Driver</th><th>Tipo de RS</th><th>Ejemplo</th></tr>
+        <tr><td><strong>ECM</strong> (Electrochemical Metallization)</td><td>Migración de iones metálicos (Ag⁺, Cu⁺)</td><td>Bipolar no-volátil</td><td>Ag/SiO₂/Pt</td></tr>
+        <tr><td><strong>VCM</strong> (Valence Change Memory)</td><td>Vacantes de oxígeno</td><td>Bipolar no-volátil</td><td>TiO₂, HfO₂, Ta₂O₅</td></tr>
+        <tr><td><strong>TCM</strong> (Thermochemical Memory)</td><td>Efecto Joule + cambio estequiométrico</td><td>Unipolar</td><td>NiO</td></tr>
+        <tr><td><strong>TS</strong> (Threshold Switching)</td><td>CF volátil</td><td>Volátil</td><td>Ag/HfO₂, NbO₂</td></tr>
+      </table>
+
+      <h3>El filamento conductor (CF): estructura general</h3>
+      <p>En el mecanismo de filamento conductor (el más estudiado), el proceso SET corresponde a la <em>formación</em> del CF que conecta los electrodos (HRS → LRS), y el proceso RESET corresponde a la <em>ruptura</em> del CF (LRS → HRS). <span class="ref">[Sun et al., Adv. Funct. Mater., 2020]</span></p>
+
+      <div class="warning-box">
+        El CF no se disuelve completamente en todos los ciclos RESET. Esto es fuente de variabilidad estocástica. Por eso los dispositivos de CF suelen tener un proceso de "forming" inicial donde el SET voltage es mayor que en ciclos posteriores.
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- §4 -->
+    <div class="section" id="s4">
+      <span class="section-num">SECCIÓN 4</span>
+      <h2>Mecanismo ECM — El Caso Ag (Nuestro Sistema)</h2>
+
+      <p>El mecanismo ECM es el directamente relevante para los nanohilos de plata. Es también llamado <strong>Conductive Bridge RAM (CBRAM)</strong> o <em>Atomic Switch</em>.</p>
+
+      <h3>Proceso físico paso a paso</h3>
+      <ol>
+        <li><strong>Oxidación anódica (SET):</strong> Al aplicar bias positivo al electrodo de Ag activo, ocurre:
+          <div class="eq-box" style="margin:10px 0;">
+            <span class="eq-line">  Ag → Ag⁺ + e⁻   (en la interfaz TE/dieléctrico)</span>
+          </div>
+        </li>
+        <li><strong>Migración iónica:</strong> Los iones Ag⁺ migran a través de la capa de conmutación bajo el campo eléctrico, con movilidad µ:
+          <div class="eq-box" style="margin:10px 0;">
+            <span class="eq-line">  J_ion = n · q · µ · E   (corriente iónica)</span>
+          </div>
+        </li>
+        <li><strong>Reducción catódica (SET, continuación):</strong> Ag⁺ se reduce en el electrodo inerte (Pt, Au):
+          <div class="eq-box" style="margin:10px 0;">
+            <span class="eq-line">  Ag⁺ + e⁻ → Ag   (nucleación del CF)</span>
+          </div>
+        </li>
+        <li><strong>Crecimiento del CF:</strong> Con la acumulación de átomos de Ag, el filamento crece desde el electrodo inerte hacia el electrodo activo (si µ_{Ag⁺} > µ_{e⁻}) o viceversa, hasta conectar ambos electrodos → <span class="highlight">HRS → LRS</span>.</li>
+        <li><strong>RESET (ruptura del CF):</strong> Al aplicar bias negativo, los átomos de Ag en el CF se oxidan y disuelven nuevamente → <span class="highlight">LRS → HRS</span>.</li>
+      </ol>
+
+      <div class="insight-box">
+        <strong>Punto clave para la defensa:</strong> La dirección de crecimiento del CF (de TE hacia BE, o de BE hacia TE) depende de la movilidad relativa de Ag⁺ respecto a los electrones. En electrolitos sólidos con As₂S₃ o similar, µ(Ag⁺) > µ(e⁻) y el CF crece de BE hacia TE. En óxidos (SiO₂, HfO₂), µ(Ag⁺) &lt; µ(e⁻) y el CF crece de TE hacia BE.
+      </div>
+
+      <h3>Escala atómica: el Atomic Switch</h3>
+      <p>Terabe et al. (Nature, 2005) demostraron que este efecto puede escalarse al nivel de un átomo individual, observando escalones de conductancia de Landauer (cuantización de conductancia) a temperatura ambiente. Esto valida el potencial de escalabilidad extrema del mecanismo ECM. <span class="ref">[Terabe, Hasegawa, Nakayama, Aono, Nature 433, 2005]</span></p>
+
+      <div class="eq-box">
+        <span class="eq-label">(4.1) Conductancia cuantizada</span>
+        <span class="eq-line">  G₀ = 2e²/h ≈ 7.748 × 10⁻⁵ S</span>
+        <span class="eq-line">  G = N · G₀  (N = número de canales de conducción)</span>
+        <span class="eq-line">  Para un filamento de un átomo: G ≈ G₀, R ≈ 12.9 kΩ</span>
+      </div>
+
+      <h3>Relevancia para nuestro experimento con nanohilos de Ag</h3>
+      <p>Los nanohilos de Ag sintetizados en el Balseiro son el <em>análogo directo</em> del filamento conductor que se forma en un dispositivo ECM. La idea experimental es:</p>
+      <ol>
+        <li>Sintetizar el nanohilo (material del filamento ya formado).</li>
+        <li>Cortarlo mediante un thermal spike controlado (simular el proceso RESET térmico).</li>
+        <li>Obtener los filamentos residuales en el gap → material de entrada para DFT.</li>
+        <li>Con DFT, calcular las propiedades de transporte cuántico (conductancia, función de transmisión) de la juntura atómica.</li>
+      </ol>
+    </div>
+
+    <hr class="divider">
+
+    <!-- §5 -->
+    <div class="section" id="s5">
+      <span class="section-num">SECCIÓN 5</span>
+      <h2>El Experimento del Balseiro: Qué Se Hace y Por Qué</h2>
+
+      <h3>Flujo experimental / computacional completo</h3>
+      <table>
+        <tr><th>Etapa</th><th>Método</th><th>Objetivo</th></tr>
+        <tr><td>1. Síntesis del NW</td><td>Experimental (wet chemistry)</td><td>Obtener nanohilo Ag cilíndrico, ~5 nm radio</td></tr>
+        <tr><td>2. Construcción del modelo MD</td><td>LAMMPS + EAM (Ag_u3.eam)</td><td>Replicar la estructura cristalina del NW</td></tr>
+        <tr><td>3. Termalización</td><td>MD NVT (Langevin) a 300 K</td><td>Equilibrar el NW antes del spike</td></tr>
+        <tr><td>4. Thermal spike</td><td>temp/rescale → T_spike ~ 4600 K en zona central</td><td>Simular el efecto del pulso de corriente que rompe el CF</td></tr>
+        <tr><td>5. Quenching rápido</td><td>TTM (two-temperature model) o Langevin agresivo</td><td>Congelar la morfología del gap antes de que los filamentos colapsen</td></tr>
+        <tr><td>6. Post-procesado DFT</td><td>VASP, Quantum ESPRESSO o similar</td><td>Calcular conductancia cuántica de la juntura atómica</td></tr>
+      </table>
+
+      <h3>¿Por qué el nanohilo se corta "demasiado lejos"?</h3>
+      <p>El problema que señala tu director es físicamente sólido: si se aplica el spike y luego se deja evolucionar el sistema libremente (NVE), la energía disipada es tan grande que el material se evapora en exceso, alejando los dos extremos del gap más de lo que ocurriría en el experimento real. En el experimento real, el pulso de corriente que rompe el CF dura nanosegundos y la disipación al entorno (substrato, electrolito) es muy rápida.</p>
+
+      <div class="warning-box">
+        <strong>Error físico grave que evitar:</strong> Aplicar un spike a T > T_fusión (Ag: 1234 K) en la región central y luego dejar evolucionar en NVE implica que los átomos líquidos/vaporizados se dispersan indefinidamente en la celda periódica vacía. Esto no representa ninguna condición experimental real. El quenching rápido (TTM o Langevin fuerte) modela correctamente la disipación al substrato/electrolito.
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- §6 -->
+    <div class="section" id="s6">
+      <span class="section-num">SECCIÓN 6</span>
+      <h2>Simulación MD con LAMMPS: Fundamentos Físicos</h2>
+
+      <h3>Ecuación de movimiento (fundamento)</h3>
+      <div class="eq-box">
+        <span class="eq-label">(6.1) Newton en MD</span>
+        <span class="eq-line">  m_i · ẍ_i = F_i = -∇_{r_i} U({r_j})</span>
+        <span class="eq-line">  U = Σ_i Σ_{j>i} φ(r_{ij}) + Σ_i F_i(ρ̄_i)  ← EAM</span>
+      </div>
+
+      <h3>Ensambles usados en la simulación</h3>
+      <table>
+        <tr><th>Ensamble</th><th>Conserva</th><th>Uso en el script</th></tr>
+        <tr><td>NVE (microcanónico)</td><td>N, V, E</td><td>Evolución libre post-spike (cascada)</td></tr>
+        <tr><td>NVT Langevin</td><td>N, V, T̄</td><td>Termalización inicial a 300 K; quenching final</td></tr>
+        <tr><td>TTM (dos temperaturas)</td><td>N, V (con baño electrónico)</td><td>Quenching físicamente correcto para metales</td></tr>
+      </table>
+
+      <h3>Parámetros clave del script actual</h3>
+      <ul>
+        <li><span class="code">units metal</span>: longitudes en Å, tiempo en ps, energía en eV, temperatura en K.</li>
+        <li><span class="code">timestep 0.001</span> ps = 1 fs (estándar para MD de Ag a T moderada).</li>
+        <li><span class="code">timestep 0.0001</span> ps = 0.1 fs durante el spike (alta temperatura exige pasos menores por las fuerzas atómicas extremas).</li>
+        <li>Región del spike: cilindro de radio 35 Å centrado en el nanohilo → grupo <span class="code">track</span>.</li>
+        <li>T_spike = 4600 K → supera ampliamente T_fusión de Ag (1234 K), garantizando la ruptura.</li>
+      </ul>
+
+      <div class="warning-box">
+        Al usar <code>change_box all y scale 3.0 z scale 3.0</code>, se agranda la celda para dar vacío al NW. Es esencial que el vacío sea suficientemente grande (≥ 2× radio del NW) para que los átomos evaporados no interactúen con imágenes periódicas. Verificar siempre con: <code>print "Ly=$(ly) Lz=$(lz)"</code>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- §7 -->
+    <div class="section" id="s7">
+      <span class="section-num">SECCIÓN 7</span>
+      <h2>El Two-Temperature Model (TTM) y Langevin</h2>
+
+      <h3>Motivación física del TTM</h3>
+      <p>En metales, los portadores de carga son los electrones libres. Cuando se deposita energía súbitamente (spike de temperatura, pulso láser, irradiación), los electrones se calientan mucho más rápido que la red cristalina (fonones), porque su capacidad calorífica es ~100 veces menor. La energía fluye de e⁻ calientes → fonones en un tiempo característico τ_{e-ph} ~ 1-10 ps para Ag.</p>
+
+      <h3>Ecuaciones del TTM</h3>
+      <div class="eq-box">
+        <span class="eq-label">(7.1) Ecuaciones de calor acopladas</span>
+        <span class="eq-line">  C_e(T_e) · ∂T_e/∂t = ∇·[κ_e(T_e)·∇T_e] - g(T_e - T_l) + S(r,t)</span>
+        <span class="eq-line">  C_l       · ∂T_l/∂t = g(T_e - T_l)</span>
+        <span class="eq-line"></span>
+        <span class="eq-line">  T_e = temperatura electrónica</span>
+        <span class="eq-line">  T_l = temperatura de la red (fonones) ← lo que mide MD</span>
+        <span class="eq-line">  C_e ≈ γ·T_e  (Ag: γ ≈ 65 J/m³K²)</span>
+        <span class="eq-line">  g   = constante de acoplamiento e-fonón (Ag: g ≈ 3.1×10¹⁶ W/m³K)</span>
+        <span class="eq-line">  κ_e = conductividad térmica electrónica</span>
+        <span class="eq-line">  S   = fuente de calor (spike)</span>
+      </div>
+
+      <h3>Implementación en LAMMPS: <code>fix ttm/grid</code></h3>
+      <div class="eq-box">
+        <span class="eq-label">(7.2) Parámetros del script</span>
+        <span class="eq-line">  fix TTM all ttm/grid seed C_e κ_e g T_env 0 0 Nx Ny Nz set T_init</span>
+        <span class="eq-line"></span>
+        <span class="eq-line">  En el script actual:</span>
+        <span class="eq-line">  C_e = 1.216×10⁻⁶  (J/m³K² → γ del Ag)</span>
+        <span class="eq-line">  κ_e = 0.0586       (W/cmK)</span>
+        <span class="eq-line">  g   = 2.683        (×10¹⁶ W/m³K)</span>
+        <span class="eq-line">  T_env = 3.5 K  ← ¡OJO! Este parámetro controla la velocidad de quench</span>
+      </div>
+
+      <div class="warning-box">
+        El parámetro <code>T_env</code> en <code>fix ttm/grid</code> es la temperatura del baño electrónico en los bordes de la grilla (condición de contorno). Si se pone demasiado bajo (ej. 3.5 K en el script), el quenching es artificialmente rápido. Un valor físicamente más representativo del substrato/ambiente es 300 K. Discutir con el director cuál es más apropiado para el experimento que se quiere modelar.
+      </div>
+
+      <h3>Alternativa: Langevin agresivo</h3>
+      <p>La ecuación de Langevin para el átomo i es:</p>
+      <div class="eq-box">
+        <span class="eq-label">(7.3) Langevin</span>
+        <span class="eq-line">  m_i · ẍ_i = F_i - γ·m_i·ẋ_i + R_i(t)</span>
+        <span class="eq-line">  γ = 1/τ_damp  (amortiguamiento)</span>
+        <span class="eq-line">  〈R_i(t)·R_j(t')〉 = 2·γ·m_i·k_B·T·δ_{ij}·δ(t-t')</span>
+      </div>
+      <p>Para un quenching rápido se usa τ_damp pequeño (ej. 0.1 ps). Para equilibración suave se usa τ_damp grande (ej. 0.5–1.0 ps). El Langevin actúa como un baño térmico sin la física de los electrones.</p>
+
+      <div class="two-col">
+        <div class="col-pro">
+          <strong>TTM</strong><br>
+          • Físicamente correcto para metales<br>
+          • Modela explícitamente el rol de los electrones<br>
+          • Captura la dinámica de transferencia e⁻ → fonón<br>
+          • Indispensable si el spike es inducido por pulso láser o corriente<br>
+          • Publicable como "método riguroso"
+        </div>
+        <div class="col-con">
+          <strong>Langevin</strong><br>
+          • No distingue T_electrónica de T_iónica<br>
+          • Tasa de quenching es parámetro empírico<br>
+          • No captura la fase de "electron-phonon non-equilibrium"<br>
+          • Sin embargo: más fácil de implementar y más estable numéricamente<br>
+          • Aceptable como primera aproximación o para benchmark
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- §8 -->
+    <div class="section" id="s8">
+      <span class="section-num">SECCIÓN 8</span>
+      <h2>El Potencial EAM para Ag y su Corrección Física</h2>
+
+      <h3>El Embedded Atom Method (EAM)</h3>
+      <div class="eq-box">
+        <span class="eq-label">(8.1) Energía total EAM</span>
+        <span class="eq-line">  U = Σ_i F_i(ρ̄_i) + (1/2)Σ_i Σ_{j≠i} φ(r_{ij})</span>
+        <span class="eq-line"></span>
+        <span class="eq-line">  ρ̄_i = Σ_{j≠i} ρ_j(r_{ij})   ← densidad electrónica en sitio i</span>
+        <span class="eq-line">  F_i(ρ̄)  = energía de embedding (energía para insertar átomo i en densidad ρ̄)</span>
+        <span class="eq-line">  φ(r_ij) = potencial par repulsivo</span>
+      </div>
+
+      <p>El potencial <span class="code">Ag_u3.eam</span> (Foiles, Baskes, Daw, 1986) es un potencial EAM clásico para Ag FCC. Reproduce correctamente la constante de red (4.09 Å), energía de cohesión (~2.85 eV/átomo), y módulo de bulk de la plata.</p>
+
+      <h3>Propiedades críticas del Ag para la simulación</h3>
+      <table>
+        <tr><th>Propiedad</th><th>Valor experimental</th><th>Relevancia</th></tr>
+        <tr><td>T_fusión</td><td>1234 K</td><td>Límite para el spike: T_spike >> T_fusión para garantizar corte</td></tr>
+        <tr><td>T_ebullición</td><td>2435 K</td><td>Cerca de T_spike (4600 K) → pueden generarse átomos gaseosos</td></tr>
+        <tr><td>Constante de red</td><td>4.086 Å (FCC)</td><td>Verificar en la termalización inicial</td></tr>
+        <tr><td>Energía de cohesión</td><td>2.85 eV/átomo</td><td>Verificar con <code>compute peAtom</code></td></tr>
+        <tr><td>Conductividad térmica</td><td>429 W/(m·K)</td><td>Parámetro TTM: κ_e</td></tr>
+        <tr><td>Capacidad calorífica electrónica</td><td>γ ≈ 65 J/(m³K²)</td><td>Parámetro TTM: C_e</td></tr>
+      </table>
+
+      <div class="warning-box">
+        El potencial EAM clásico NO incluye efectos cuánticos de los electrones. Para temperaturas T >> T_Debye (Ag: ~215 K), el EAM es apropiado. Sin embargo, para modelar conductancia cuántica (que es el objetivo del DFT posterior), el EAM solo debe usarse para preparar la geometría, no para calcular propiedades electrónicas.
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- §9 -->
+    <div class="section" id="s9">
+      <span class="section-num">SECCIÓN 9</span>
+      <h2>Puntos en Común y Contradicciones en la Bibliografía</h2>
+
+      <h3>Puntos en común identificados</h3>
+      <ul>
+        <li><strong>Unanimidad sobre el mecanismo ECM para Ag:</strong> Sun 2020, Mazumder 2012, Waser 2012 y Jeong 2016 coinciden en que el mecanismo de conmutación en dispositivos basados en Ag es el ECM con crecimiento/ruptura de CF metálicos.</li>
+        <li><strong>El pinched hysteresis loop como fingerprint:</strong> Chua (1971, 2011) y Di Ventra & Pershin (2009) coinciden: cualquier sistema con lazo I-V pellizcado en el origen es memristivo, independientemente del mecanismo subyacente.</li>
+        <li><strong>Variabilidad estocástica del CF:</strong> Todos reconocen que la nucleación y crecimiento del CF tiene componente aleatoria significativa.</li>
+        <li><strong>Importancia del campo eléctrico y temperatura en la deformación de nanoelectrodos:</strong> Li et al. (Nature Comm., 2025) sobre nanoelectrodos de W y Sun et al. 2014 sobre Ag nanoscalar coinciden en que los efectos de superficie dominan a escalas &lt;10 nm.</li>
+      </ul>
+
+      <h3>Tensiones y contradicciones identificadas</h3>
+
+      <h4>1. ¿Fue HP el "primer" memristor real?</h4>
+      <div class="two-col">
+        <div class="col-pro">
+          <strong>Williams, Strukov et al. (2008)</strong>: reclaman el primer memristor físico en TiO₂. El artículo en Nature galvanizó el campo.
+        </div>
+        <div class="col-con">
+          <strong>Chua (2011) y Di Ventra:</strong> los dispositivos de RS de Ag (Hirose & Hirose, 1976), NiO (Gibbons & Beadle, 1964) y otros preceden por décadas al HP. El "descubrimiento" de 2008 fue reconocer que eran memristores, no inventarlos.
+        </div>
+      </div>
+
+      <h4>2. TTM vs. Langevin para quenching de metales</h4>
+      <div class="two-col">
+        <div class="col-pro">
+          <strong>Posición "TTM es necesario":</strong> Li et al. (Nature Comm., 2025) usan explícitamente TTM (vía FEcMD) para modelar el calentamiento de nanotips de W bajo emisión de campo. Los efectos e-fonón son dominantes en los primeros picosegundos.
+        </div>
+        <div class="col-con">
+          <strong>Posición "Langevin es suficiente":</strong> Para muchos estudios de quenching post-cascada, el Langevin con τ_damp adecuado produce estructuras finales estadísticamente equivalentes al TTM, con mayor estabilidad numérica. La elección depende de la escala de tiempo de interés.
+        </div>
+      </div>
+
+      <h4>3. Dirección de crecimiento del CF de Ag</h4>
+      <p>Hay discrepancia entre grupos experimentales sobre si el CF de Ag crece de TE → BE o de BE → TE. La respuesta correcta (Sun 2020, Jeong 2016) es que depende de la movilidad relativa de Ag⁺ vs. electrones en el material de la capa de conmutación específico, y varía de sistema en sistema. No hay una respuesta universal.</p>
+
+      <h4>4. ¿Es el "memristor de HP" realmente el memristor de Chua?</h4>
+      <p>Jeong 2016 señala que el dispositivo HP podría describirse más precisamente como un "resistor variable no-volátil controlado por carga" que como el memristor ideal de Chua (que exige una relación φ–q de función única). La distinción es teórica pero importante para la discusión rigurosa.</p>
+
+      <h4>5. El papel del calentamiento Joule en RS unipolar vs. bipolar</h4>
+      <p>En RS bipolar (típico ECM), el campo eléctrico es el driver primario. En RS unipolar (típico TCM/NiO), el calentamiento Joule es el driver primario. Sin embargo, en dispositivos reales, ambos efectos coexisten y su importancia relativa depende del material y la geometría. Los modelos simples que ignoran uno u otro pueden predecir incorrectamente el tipo de conmutación.</p>
+    </div>
+
+    <hr class="divider">
+
+    <!-- §10 -->
+    <div class="section" id="s10">
+      <span class="section-num">SECCIÓN 10</span>
+      <h2>Preguntas Probables de Defensa y Respuestas</h2>
+
+      <div class="question-box">
+        <ol>
+          <li>
+            <strong>¿Por qué usás un EAM y no un potencial de pares simple (Lennard-Jones) para Ag?</strong><br>
+            <em>Respuesta:</em> El Ag es un metal FCC. Los metales FCC tienen energía que depende de la densidad electrónica local, no solo de distancias de pares. El EAM incluye el término de "embedding" F(ρ̄) que captura el efecto de los electrones de conducción. Un LJ simple no reproduce correctamente la energía de cohesión, módulos elásticos, ni la energía de defectos (vacantes, superficies). El EAM es el estándar mínimo para metales en MD.
+          </li>
+          <li>
+            <strong>¿Qué es un thermal spike y por qué es válido usarlo para modelar el corte del nanohilo?</strong><br>
+            <em>Respuesta:</em> Un thermal spike es una deposición localizada y súbita de energía en una región del sistema. En el experimento real, el pulso de corriente que rompe el CF deposita energía por calentamiento Joule (Q = I²·R·Δt) en una zona muy pequeña del filamento. En MD se modela esto escalando las velocidades de los átomos en esa región a T >> T_fusión durante un tiempo muy corto (aquí, ~1 ps). La física del corte resulta de que en esa zona la energía cinética supera la energía de cohesión del Ag, causando la ruptura del enlace colectivo.
+          </li>
+          <li>
+            <strong>¿Por qué el Two-Temperature Model es más adecuado que Langevin para metales?</strong><br>
+            <em>Respuesta:</em> En metales, los electrones libres tienen capacidad calorífica C_e ≪ C_l (red), por lo que absorben energía y se calientan a miles de K mientras la red sigue fría. La transferencia e⁻ → fonón ocurre en τ_{e-ph} ≈ 1–10 ps. Ignorar este no-equilibrio (como hace Langevin, que acopla todos los grados de libertad a la misma temperatura) subestima la temperatura de la red inmediatamente después del spike y sobrestima la tasa de quenching electrónica. El TTM resuelve dos ecuaciones de calor acopladas (una para T_e, otra para T_l), capturando correctamente esta dinámica.
+          </li>
+          <li>
+            <strong>¿Qué diferencia hay entre ECM y VCM y cuál aplica a tus nanohilos de Ag?</strong><br>
+            <em>Respuesta:</em> En ECM, los portadores móviles son iones del metal activo del electrodo (Ag⁺, Cu⁺) que se oxidan, migran, y se reducen para formar un filamento metálico. En VCM, los portadores son vacantes de oxígeno en un óxido metálico; no hay reacción electroquímica en la interfaz electrodo/capa. Nuestros nanohilos de Ag son metálicos puros, así que el mecanismo relevante es ECM (el nanohilo mismo ES el filamento conductor; el "quiebre" equivale al proceso RESET del ECM).
+          </li>
+          <li>
+            <strong>¿Cómo verificás que la simulación del nanohilo está bien termalizada antes del spike?</strong><br>
+            <em>Respuesta:</em> Se verifica: (1) que la temperatura alcanza 300 K y se estabiliza (fluctuaciones &lt; 2%), (2) que la energía potencial por átomo converge al valor de cohesión del Ag (~-2.85 eV/átomo para bulk, ligeramente mayor para superficie), (3) que la función de distribución radial g(r) muestra los picos correctos para FCC Ag (primer vecino a ~2.89 Å, segundo a ~4.09 Å), (4) ausencia de drift en el MSD (mean square displacement) durante NVE corta.
+          </li>
+          <li>
+            <strong>¿Por qué el hueco (gap) obtenido en la simulación es "demasiado grande"?</strong><br>
+            <em>Respuesta:</em> Porque sin quenching rápido, la energía del spike se redistribuye en NVE a través de todo el NW, y la región fundida "fluye" por tensión superficial hacia los extremos. Además, el vacío en la celda periódica no impone la restricción geométrica del substrato real (que ancla el NW). Con TTM o Langevin agresivo aplicado inmediatamente post-spike, se congela la morfología del gap en la escala de picosegundos antes de que este flujo ocurra.
+          </li>
+          <li>
+            <strong>¿Qué se obtiene de la etapa DFT y cómo se conecta con la memristividad?</strong><br>
+            <em>Respuesta:</em> Con DFT + transporte cuántico (ej. NEGF: Non-Equilibrium Green's Functions, códigos como Transiesta o Smeagol), se calcula la función de transmisión T(E) de la juntura atómica formada por los filamentos. La conductancia a voltaje cero es G = (2e²/h)·T(E_F). Si T(E_F) ≈ 1 (un canal abierto), G ≈ G₀ (conductancia cuántica). Variando la geometría del gap (distancia interatómica en la juntura), se obtiene la curva G vs. posición que modela el estado LRS ↔ HRS del dispositivo memristivo.
+          </li>
+          <li>
+            <strong>¿Por qué usar condiciones de contorno periódicas (PBC) si el nanohilo es finito?</strong><br>
+            <em>Respuesta:</em> Las PBC en la dirección axial (x) permiten modelar un NW largo (esencialmente infinito en esa dirección) usando una celda unitaria pequeña, lo que reduce dramáticamente el costo computacional. El truco es que la celda debe ser suficientemente larga para que el gap post-corte quede físicamente contenido y los extremos del NW no "vean" sus imágenes periódicas. Las PBC en y y z con espacio de vacío suficiente aseguran que el NW es aislado lateralmente.
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- Referencias -->
+    <div class="section">
+      <span class="section-num">REFERENCIAS PRINCIPALES</span>
+      <h2>Bibliografía</h2>
+      <ul style="font-size:0.88em; color:#5a4535;">
+        <li>Chua, L. (1971). Memristor — the missing circuit element. <em>IEEE Trans. Circuit Theory</em>, 18(5), 507–519.</li>
+        <li>Chua, L. (2011). Resistance switching memories are memristors. <em>Appl. Phys. A</em>, 102, 765–783.</li>
+        <li>Strukov, D. B., Snider, G. S., Stewart, D. R., & Williams, R. S. (2008). The missing memristor found. <em>Nature</em>, 453, 80–83.</li>
+        <li>Di Ventra, M., Pershin, Y. V., & Chua, L. O. (2009). Circuit elements with memory. <em>Proc. IEEE</em>, 97(10), 1717–1724.</li>
+        <li>Sun, W. et al. (2020). Understanding memristive switching via in situ characterization. <em>Adv. Funct. Mater.</em>, 2006773.</li>
+        <li>Jeong, D. S. et al. (2016). Memristors for energy-efficient new computing paradigms. <em>Adv. Electron. Mater.</em>, 2, 1600090.</li>
+        <li>Mazumder, P. et al. (2012). Memristors: Devices, Models, and Applications. <em>Proc. IEEE</em>, 100(6), 1911–1919.</li>
+        <li>Kvatinsky, S. et al. (2015). VTEAM: A general model for voltage-controlled memristors. <em>IEEE TCAS-II</em>, 62(8), 786–790.</li>
+        <li>Li, Y. et al. (2025). Unveiling electric-field-driven deformation dynamics in metal nanostructures. <em>Nature Commun.</em>, 16, 11575.</li>
+        <li>Terabe, K. et al. (2005). Quantized conductance atomic switch. <em>Nature</em>, 433, 47–50.</li>
+        <li>Foiles, S. M., Baskes, M. I., & Daw, M. S. (1986). Embedded-atom-method functions for the FCC metals. <em>Phys. Rev. B</em>, 33, 7983.</li>
+      </ul>
+    </div>
+
+    <p class="page-note">Apuntes preparados con base en la bibliografía del proyecto · Balseiro / CONICET · 2026</p>
+
+  </div><!-- end content -->
+</div><!-- end notebook -->
+</body>
+</html>
