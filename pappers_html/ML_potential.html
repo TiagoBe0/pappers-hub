@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumen detallado - Machine-learned interatomic potentials</title>
+  <style>
+    :root{
+      --bg:#f6f7f9; --paper:#ffffff; --ink:#1d2430; --muted:#5d6778;
+      --blue:#173b67; --cyan:#0f766e; --line:#d8dee8; --soft:#eef4fb; --warn:#fff7ed;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:Inter,Segoe UI,Roboto,Arial,sans-serif; background:var(--bg); color:var(--ink); line-height:1.62}
+    header{background:linear-gradient(135deg,#102a43,#1d4e89); color:white; padding:54px 8vw 42px}
+    header h1{margin:0 0 14px; font-size:clamp(2rem,4vw,3.3rem); line-height:1.1}
+    header p{max-width:1050px; margin:8px 0; color:#e8f1fb; font-size:1.05rem}
+    main{max-width:1160px; margin:0 auto; padding:30px 18px 70px}
+    section{background:var(--paper); border:1px solid var(--line); border-radius:18px; padding:28px; margin:22px 0; box-shadow:0 6px 22px rgba(13,35,67,.05)}
+    h2{color:var(--blue); margin:0 0 16px; font-size:1.75rem}
+    h3{color:#14324f; margin-top:28px; margin-bottom:10px; font-size:1.22rem}
+    h4{margin:20px 0 8px; color:#0f3e58}
+    .meta{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin-top:20px}
+    .box{background:var(--soft); border:1px solid #cfe0f1; border-radius:14px; padding:15px}
+    .key{font-weight:700; color:#0c3658}
+    .toc a{display:inline-block; margin:4px 10px 4px 0; padding:7px 10px; border-radius:999px; background:#edf2f7; color:#183b56; text-decoration:none; font-size:.92rem}
+    ul{padding-left:1.25rem} li{margin:6px 0}
+    .highlight{border-left:5px solid var(--cyan); background:#ecfdf5; padding:14px 18px; border-radius:12px; margin:16px 0}
+    .warning{border-left:5px solid #f97316; background:var(--warn); padding:14px 18px; border-radius:12px; margin:16px 0}
+    .formula{font-family:Georgia,serif; background:#f8fafc; border:1px dashed #b8c4d4; border-radius:10px; padding:12px 14px; margin:10px 0; overflow:auto}
+    figure{margin:24px 0; padding:14px; border:1px solid var(--line); border-radius:16px; background:#fbfdff}
+    figure img{max-width:100%; display:block; margin:0 auto; border-radius:10px; border:1px solid #dbe3ee}
+    figcaption{font-size:.96rem; color:#3d4a5c; margin-top:12px}
+    .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:14px}
+    .card{border:1px solid var(--line); border-radius:14px; padding:15px; background:#fcfdff}
+    .card h4{margin-top:0}
+    table{width:100%; border-collapse:collapse; margin:16px 0; font-size:.95rem}
+    th,td{border:1px solid var(--line); padding:10px; vertical-align:top}
+    th{background:#edf4fb; color:#14324f}
+    .small{font-size:.92rem;color:var(--muted)}
+    footer{color:var(--muted); text-align:center; padding:30px}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Resumen detallado en español</h1>
+  <p><strong>Paper:</strong> <em>Machine-learned interatomic potentials: Recent developments and prospective applications</em></p>
+  <p><strong>Autores:</strong> Volker Eyert, Jonathan Wormald, William A. Curtin y Erich Wimmer. <strong>Revista:</strong> Journal of Materials Research, Vol. 38, Issue 24, diciembre de 2023. DOI: 10.1557/s43578-023-01239-8.</p>
+</header>
+<main>
+<section class="toc">
+  <h2>Mapa rápido del documento</h2>
+  <a href="#idea">Idea central</a><a href="#contexto">Contexto</a><a href="#mlp">Qué es un MLP</a><a href="#metodos">Métodos</a><a href="#figuras">Figuras clave</a><a href="#aplicaciones">Aplicaciones</a><a href="#issue">Focus Issue</a><a href="#desafios">Desafíos</a><a href="#claves">Claves finales</a>
+</section>
+
+<section id="idea">
+  <h2>1. Idea central del paper</h2>
+  <p>El artículo es una revisión general sobre los potenciales interatómicos aprendidos por máquina, conocidos como <strong>MLPs</strong> o <strong>MLIPs</strong>. La tesis principal es que la combinación de datos <em>ab initio</em> generados de manera masiva y consistente con técnicas modernas de aprendizaje automático permite construir potenciales interatómicos con una calidad cercana a DFT, pero utilizables en simulaciones atomísticas mucho más grandes y largas.</p>
+  <div class="highlight"><strong>Mensaje esencial:</strong> los MLPs intentan ocupar el espacio intermedio entre DFT y los potenciales clásicos. DFT es preciso pero caro; los potenciales clásicos son rápidos pero rígidos y poco transferibles. Los MLPs buscan mantener gran parte de la precisión cuántica con un costo compatible con dinámica molecular de gran escala.</div>
+  <p>El paper destaca dos ventajas principales. Primero, los MLPs son aplicables a muchas clases de materiales y combinaciones químicas, no solo a una familia restringida como ocurre con muchos potenciales clásicos. Segundo, al no imponer explícitamente enlaces fijos, funcionan por diseño como campos de fuerza reactivos: pueden describir ruptura y formación de enlaces siempre que esas configuraciones estén representadas en el entrenamiento.</p>
+</section>
+
+<section id="contexto">
+  <h2>2. Contexto: por qué los potenciales clásicos no alcanzan</h2>
+  <p>Los autores comienzan comparando los MLPs con los potenciales clásicos. Los campos de fuerza moleculares tradicionales, como CHARMM, AMBER, OPLS o CVFF, se basan en términos físicos/químicos explícitos: enlaces, ángulos, diedros, cargas, términos de van der Waals y parámetros ajustados a datos experimentales o <em>ab initio</em>. En metales, métodos como EAM o Finnis-Sinclair incorporan efectos de muchos cuerpos, permitiendo estudiar defectos, difusión, dislocaciones y daño por radiación.</p>
+  <p>El problema es que muchos fenómenos materiales importantes dependen de superficies de energía potencial de alta dimensión. Esas superficies no se describen bien con pocas funciones analíticas simples. En aleaciones, defectos complejos, interfaces, dislocaciones, grietas, reacciones químicas, óxidos con transferencia de carga o sistemas magnéticos, los potenciales clásicos pueden fallar o requerir parametrizaciones muy especializadas.</p>
+  <div class="warning"><strong>Punto crítico:</strong> un potencial clásico puede ser muy bueno dentro del dominio para el que fue calibrado, pero puede comportarse mal fuera de ese dominio. Un MLP también puede fallar fuera de su dominio de entrenamiento; la diferencia es que su forma matemática permite representar superficies mucho más complejas si el entrenamiento es adecuado.</div>
+</section>
+
+<section id="mlp">
+  <h2>3. Qué es un MLP y cómo funciona</h2>
+  <p>Un MLP representa la energía total de un sistema como suma de contribuciones atómicas locales. La energía de cada átomo depende del tipo químico y de la geometría de sus vecinos dentro de un radio de corte. El entorno local se transforma en un descriptor numérico invariante a traslaciones, rotaciones y permutaciones de átomos equivalentes. Luego, un regresor o una red neuronal aprende el mapa entre esos descriptores y las cantidades de referencia: energías, fuerzas y tensores de estrés calculados por métodos cuánticos.</p>
+  <div class="formula">E = Σ<sub>i</sub> E<sub>i</sub></div>
+  <div class="formula">E<sub>i</sub> = β<sub>0</sub> + Σ<sub>k=1</sub><sup>K</sup> β<sub>k</sub>B<sub>i,k</sub></div>
+  <div class="formula">F<sub>j</sub> = -∇<sub>j</sub>E</div>
+  <p>En estas expresiones, <em>B<sub>i,k</sub></em> representa las funciones descriptoras del entorno local del átomo <em>i</em>, y los coeficientes o pesos se ajustan a datos de referencia. En redes neuronales, el ajuste no es una regresión lineal simple, sino una función no lineal con muchos parámetros.</p>
+  <h3>Consecuencias importantes</h3>
+  <ul>
+    <li>No hay enlaces químicos explícitos. El potencial aprende energías y fuerzas a partir de geometría local.</li>
+    <li>No hay cargas atómicas explícitas en muchos MLPs estándar. Esto funciona sorprendentemente bien incluso en sistemas iónicos, pero puede fallar cuando dominan interacciones electrostáticas de largo alcance.</li>
+    <li>El MLP hereda los errores del método cuántico usado para generar el entrenamiento. Si DFT-GGA predice mal una propiedad, el MLP entrenado con esos datos tenderá a reproducir ese sesgo.</li>
+    <li>El entrenamiento debe cubrir las configuraciones físicamente relevantes. Si no se incluyeron colisiones cercanas, rupturas de enlace, defectos raros o fases metaestables, el MLP puede producir dinámica no física.</li>
+  </ul>
+</section>
+
+<section id="metodos">
+  <h2>4. Métodos principales discutidos</h2>
+  <div class="grid">
+    <div class="card"><h4>NNP</h4><p>Potenciales de redes neuronales, asociados especialmente a Behler-Parrinello. Usan funciones de simetría para describir entornos atómicos y una red neuronal para mapear esos descriptores a energías atómicas.</p></div>
+    <div class="card"><h4>GAP</h4><p>Gaussian Approximation Potential. Usa descriptores basados en funciones radiales, armónicos esféricos y regresión bayesiana. Fue clave para demostrar precisión tipo DFT en carbono, silicio, germanio, hierro, tungsteno y otros sistemas.</p></div>
+    <div class="card"><h4>SNAP / qSNAP</h4><p>Spectral Neighbor Analysis Potential. Usa coeficientes de bispectrum para representar entornos locales con invariancias adecuadas. qSNAP agrega términos cuadráticos para mayor flexibilidad.</p></div>
+    <div class="card"><h4>MTP</h4><p>Moment Tensor Potential. Representa entornos mediante polinomios/tensores de momento. Es muy usado con aprendizaje activo y aplicaciones a difusión, defectos y búsquedas de aleaciones.</p></div>
+    <div class="card"><h4>ACE</h4><p>Atomic Cluster Expansion. Presentado como un marco más general que incluye varios enfoques previos como casos límite. Es flexible, sistemático y muy relevante en desarrollos recientes.</p></div>
+    <div class="card"><h4>Δ-learning</h4><p>Aprende la diferencia entre un método barato y uno caro, por ejemplo PBE frente a SCAN. Permite aproximar precisión de alto nivel con menos cálculos caros.</p></div>
+  </div>
+</section>
+
+<section id="figuras">
+  <h2>5. Figuras principales y claves para entenderlas</h2>
+
+  <figure>
+    <img src="mlip_html_assets/fig1_workflow.png" alt="Figura 1 workflow MLP" />
+    <figcaption><strong>Figura 1 - Flujo de construcción, optimización y uso de un MLP.</strong> La figura resume el ciclo completo: definir propiedades de interés, elegir tipo de MLP, crear un set inicial de entrenamiento, entrenar el potencial, calcular propiedades objetivo y evaluar. Si el MLP falla o sale de su dominio de confiabilidad, se expande el conjunto de entrenamiento mediante aprendizaje activo. La clave es que un MLP no se debe considerar terminado solo porque ajusta bien el conjunto inicial; debe ser probado contra configuraciones relevantes para el problema físico.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="mlip_html_assets/fig2_delta_learning.png" alt="Figura 2 delta learning ZrO2" />
+    <figcaption><strong>Figura 2 - Δ-learning en ZrO<sub>2</sub>.</strong> Compara dispersiones de fonones de fases monoclínica, tetragonal y cúbica de zirconia. El objetivo es mostrar que un MLP corregido mediante Δ-learning puede reproducir resultados de SCAN usando muchos datos de bajo nivel y un subconjunto pequeño recalculado con un funcional más preciso. La lectura correcta es que las curvas casi superpuestas indican que el modelo corregido captura la física vibracional de alto nivel con menor costo computacional.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="mlip_html_assets/fig3_local_environment.png" alt="Figura 3 entorno local" />
+    <figcaption><strong>Figura 3 - Entorno local de un átomo.</strong> La energía asignada al átomo central depende de los vecinos dentro de un radio de corte. Esta figura explica la hipótesis de localidad de muchos MLPs: no se calcula la energía de cada átomo mirando todo el sistema, sino solo una vecindad. Esta idea permite escalamiento lineal con el número de átomos, pero también introduce una limitación para efectos de largo alcance como electrostática, polarización o defectos cargados.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="mlip_html_assets/fig4_al_mg_si_precipitate.png" alt="Figura 4 precipitados Al-Mg-Si" />
+    <figcaption><strong>Figura 4 - Fortalecimiento en aleaciones Al-6xxx.</strong> Se simula la interacción entre una dislocación de borde y precipitados β'' Mg<sub>5</sub>Si<sub>6</sub>. La figura muestra que, para el mismo precipitado y orientación, la dislocación puede cortar el precipitado o rodearlo según el sentido de cizalla. La clave física es la asimetría en la energía de cizalla del precipitado y en los esfuerzos residuales de desajuste. Esto requiere un potencial capaz de describir simultáneamente matriz de Al, dislocaciones, precipitados e interfaces, a escalas inaccesibles para DFT directa.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="mlip_html_assets/fig5_zr_dislocations.png" alt="Figura 5 dislocaciones Zr" />
+    <figcaption><strong>Figura 5 - Sistemas de deslizamiento en Zr hcp.</strong> La figura compara posibles núcleos de dislocación tornillo con vector de Burgers &lt;a&gt; en zirconio hcp. El NNP predice que el deslizamiento prismático es estable, el piramidal es metaestable y el basal se transforma de manera inestable hacia el prismático. El punto importante es de escala: celdas pequeñas DFT dan diferencias de energía muy pequeñas e inciertas, mientras que el MLP permite estudiar tamaños más grandes y obtener una jerarquía energética más clara.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="mlip_html_assets/fig6_applications.png" alt="Figura 6 aplicaciones MLP" />
+    <figcaption><strong>Figura 6 - Ejemplos de aplicaciones.</strong> Esta figura agrupa varios casos: fonones en Zr usando GAP, desempeño estadístico de SNAP multicomponente, predicción de defectos en W para daño por radiación y expansión térmica de Na con NNP. La lectura general es que los MLPs no son una técnica para un único tipo de cálculo; pueden aplicarse a propiedades vibracionales, defectos, daño por radiación, aleaciones multicomponente y propiedades termoelásticas.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="mlip_html_assets/fig7_proton_transfer.png" alt="Figura 7 transferencia protónica" />
+    <figcaption><strong>Figura 7 - Transferencia protónica en agua.</strong> Muestra transferencia de carga/protón entre moléculas de agua usando un SNAP entrenado con dinámica molecular <em>ab initio</em>. La clave conceptual es que la reactividad no es exclusiva de redes neuronales profundas: un potencial tipo SNAP también puede capturar procesos reactivos si el entrenamiento contiene la física relevante.</figcaption>
+  </figure>
+</section>
+
+<section id="aplicaciones">
+  <h2>6. Aplicaciones discutidas</h2>
+  <h3>Metales y metalurgia</h3>
+  <p>El paper dedica mucha atención a metales porque allí los MLPs resuelven problemas donde EAM/MEAM suelen fallar: dislocaciones tornillo en metales bcc, aleaciones multicomponente, puntas de grieta, precipitados, interfaces y defectos complejos. Los autores enfatizan que para metalurgia no basta entrenar con propiedades de volumen. Se necesitan superficies, vacancias, intersticiales, bordes de grano, dislocaciones, precipitados, fases alternativas y configuraciones deformadas.</p>
+  <h3>Daño por radiación</h3>
+  <p>El caso de tungsteno con GAP es especialmente relevante para simulaciones de cascadas y defectos. Un MLP bien entrenado puede reproducir energías de defectos cercanas a DFT y luego usarse en simulaciones mucho más grandes, donde aparecen vacancias, intersticiales, clusters y voids.</p>
+  <h3>Fonones, fases y transición estructural</h3>
+  <p>Los MLPs permiten calcular dispersiones de fonones, estabilidad de fases y propiedades vibracionales a temperaturas finitas. El ejemplo de Zr y ZrO<sub>2</sub> muestra que pueden capturar inestabilidades dinámicas y transiciones estructurales que son difíciles de estudiar con DFT directa a gran escala.</p>
+  <h3>Sistemas no metálicos, agua, protones y moléculas</h3>
+  <p>El artículo también discute agua, transporte protónico, Nafion, GeTe, TiO<sub>2</sub>, Si, carbono amorfo, grafeno funcionalizado y materiales para baterías. Esto refuerza la idea de que los MLPs son una tecnología transversal, no restringida a metales.</p>
+</section>
+
+<section id="issue">
+  <h2>7. Qué incluye el Focus Issue</h2>
+  <table>
+    <thead><tr><th>Trabajo discutido</th><th>Idea principal</th><th>Material/sistema</th></tr></thead>
+    <tbody>
+      <tr><td>Meziere et al.</td><td>Entrenamiento eficiente con celdas pequeñas que se expanden progresivamente.</td><td>Zr e hidruros de Zr.</td></tr>
+      <tr><td>Zhou et al.</td><td>Combinar NNP con información de EAM para mejorar estabilidad y acotar energías.</td><td>Zn.</td></tr>
+      <tr><td>Achar et al.</td><td>NNP con aprendizaje activo para membranas/intercambio protónico.</td><td>Graphanol.</td></tr>
+      <tr><td>Liang et al.</td><td>Workflow semi-automatizado con DFT de alto rendimiento, ACE, validación y aprendizaje activo.</td><td>Nanopartículas Pt-Rh.</td></tr>
+      <tr><td>Rohskopf et al.</td><td>Comparación del impacto de regresores lineales/no lineales.</td><td>Si, GaN y LGPS.</td></tr>
+      <tr><td>Semba et al.</td><td>MLP on-the-fly para interfaces amorfo/cristalino relevantes para celdas solares.</td><td>Silicio con H y O.</td></tr>
+      <tr><td>Sotskov et al.</td><td>Predicción de estructuras cristalinas on-lattice con MLP.</td><td>Aleaciones Nb-Mo-Ta-W.</td></tr>
+      <tr><td>Jain et al.</td><td>Envejecimiento natural en Al-6xxx y atrapamiento de vacancias en clusters Mg-Si.</td><td>Al-Mg-Si.</td></tr>
+      <tr><td>Hill y Mannstadt</td><td>Comparación sistemática de MLPs para expansión térmica y conductividad iónica.</td><td>Eucriptita α y β.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="desafios">
+  <h2>8. Desafíos abiertos</h2>
+  <h3>1. Muestreo del espacio configuracional</h3>
+  <p>El desafío más importante es construir conjuntos de entrenamiento que cubran las configuraciones relevantes. Un buen error promedio en energía y fuerza no garantiza estabilidad en dinámica molecular larga. El modelo debe ver configuraciones cercanas a las que encontrará durante la simulación real.</p>
+  <h3>2. Transferibilidad</h3>
+  <p>Los MLPs pueden ser muy precisos dentro de su dominio de entrenamiento, pero su comportamiento fuera de ese dominio no está garantizado. Por eso son importantes el aprendizaje activo, las métricas de incertidumbre y los chequeos de similitud con el conjunto de entrenamiento.</p>
+  <h3>3. Errores heredados de DFT</h3>
+  <p>Si el entrenamiento se basa en GGA/PBE, el MLP reproduce GGA/PBE, no la realidad experimental. Métodos como Δ-learning permiten corregir hacia funcionales más precisos sin recalcular todo el dataset a alto nivel.</p>
+  <h3>4. Interacciones de largo alcance</h3>
+  <p>Muchos MLPs son locales. Esto limita la descripción de defectos cargados, polarización, transferencia de carga de largo alcance y sistemas iónicos complejos. Hay desarrollos que incorporan electrostática, cargas aprendidas o correcciones híbridas.</p>
+  <h3>5. Estabilidad en simulaciones largas</h3>
+  <p>Un MLP puede producir comportamientos no físicos como fusión repentina, acercamientos atómicos excesivos o ruptura artificial de fragmentos si no fue entrenado con esas regiones de la superficie de energía. Algunos enfoques combinan MLPs con términos repulsivos de corto alcance para evitar colapsos.</p>
+</section>
+
+<section id="claves">
+  <h2>9. Claves para entender el paper</h2>
+  <ul>
+    <li>Un MLP no reemplaza automáticamente a DFT: aprende a reproducir el nivel de teoría usado en el entrenamiento.</li>
+    <li>La calidad del dataset es tan importante como la arquitectura del modelo.</li>
+    <li>Para defectos, dislocaciones, precipitados y daño por radiación, el entrenamiento debe incluir estructuras defectuosas y deformadas, no solo bulk perfecto.</li>
+    <li>La localidad permite eficiencia y escalamiento lineal, pero complica efectos de largo alcance.</li>
+    <li>El aprendizaje activo es central: permite detectar cuándo el modelo entra en regiones no entrenadas y agregar nuevos cálculos <em>ab initio</em>.</li>
+    <li>Δ-learning es una estrategia práctica para superar limitaciones de DFT barato sin pagar el costo completo de funcionales de alto nivel.</li>
+    <li>En metalurgia, los MLPs permiten estudiar mecanismos a escalas donde DFT no llega y donde EAM/MEAM puede ser demasiado rígido.</li>
+  </ul>
+  <div class="highlight"><strong>Conclusión útil para tu línea de trabajo:</strong> si se quiere aplicar MLIPs a daño por radiación, vacancias, clusters o cascadas, el punto decisivo no es solo elegir GAP, SNAP, MTP, ACE o NNP. Lo decisivo es entrenar con configuraciones que incluyan defectos, superficies locales, intersticiales, clusters, alta energía local, deformaciones y fases/entornos alternativos. De lo contrario, el potencial puede dar resultados visualmente plausibles pero físicamente incorrectos.</div>
+</section>
+
+<section>
+  <h2>10. Resumen ejecutivo</h2>
+  <p>El artículo presenta los MLPs como una tecnología madura pero aún en evolución para simulaciones atomísticas de materiales. Su promesa es trasladar precisión cuántica a escalas de dinámica molecular clásica. Sus éxitos ya cubren metales, aleaciones, zirconia, tungsteno, aluminio, agua, transporte protónico, materiales iónicos, semiconductores y predicción de estructuras. Sus limitaciones principales son la dependencia del entrenamiento, la transferencia fuera de dominio, los errores heredados de DFT y el tratamiento de interacciones de largo alcance.</p>
+  <p>La interpretación correcta del paper es que los MLPs no son una “caja mágica”, sino una herramienta de interpolación física de alta dimensión. Cuando el espacio de configuraciones está bien muestreado, pueden alcanzar precisión cercana a DFT con costos compatibles con simulaciones enormes. Cuando el entrenamiento es incompleto, pueden fallar de forma no evidente.</p>
+</section>
+</main>
+<footer>Resumen preparado en español a partir del paper proporcionado por el usuario.</footer>
+</body>
+</html>
