@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Resumen detallado — Modeling extensive defects in metals through classical potential-guided sampling and automated configuration reconstruction</title>
+<style>
+  body { font-family: Arial, Helvetica, sans-serif; line-height: 1.65; margin: 0; background: #f7f7f7; color: #222; }
+  header { background: #111827; color: white; padding: 32px 48px; }
+  main { max-width: 1100px; margin: 0 auto; background: white; padding: 38px 54px; }
+  h1 { font-size: 30px; margin: 0 0 12px 0; line-height: 1.2; }
+  h2 { border-bottom: 2px solid #ddd; padding-bottom: 6px; margin-top: 38px; color: #111827; }
+  h3 { margin-top: 26px; color: #1f2937; }
+  .meta { color: #d1d5db; font-size: 15px; }
+  .box { background: #f3f4f6; border-left: 5px solid #374151; padding: 16px 20px; margin: 20px 0; }
+  .key { background: #fff7ed; border-left: 5px solid #f97316; padding: 16px 20px; margin: 20px 0; }
+  .fig { background: #eef6ff; border-left: 5px solid #2563eb; padding: 16px 20px; margin: 18px 0; }
+  .method { background: #f0fdf4; border-left: 5px solid #16a34a; padding: 16px 20px; margin: 18px 0; }
+  table { border-collapse: collapse; width: 100%; margin: 18px 0; font-size: 14px; }
+  th, td { border: 1px solid #d1d5db; padding: 10px; vertical-align: top; }
+  th { background: #e5e7eb; }
+  code { background: #eee; padding: 2px 5px; border-radius: 4px; }
+  ul, ol { padding-left: 24px; }
+  .small { color: #555; font-size: 14px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Resumen detallado en español</h1>
+  <div class="meta"><strong>Paper:</strong> Modeling extensive defects in metals through classical potential-guided sampling and automated configuration reconstruction</div>
+  <div class="meta"><strong>Autores:</strong> Fei Shuang, Kai Liu, Yucheng Ji, Wei Gao, Luca Laurenti y Poulumi Dey</div>
+  <div class="meta"><strong>Revista:</strong> npj Computational Materials, 2025, 11:118</div>
+</header>
+<main>
+
+<section>
+<h2>1. Idea central del trabajo</h2>
+<p>El artículo propone un marco computacional para construir potenciales interatómicos de machine learning, o <strong>MLIPs</strong>, capaces de describir <strong>defectos extendidos en metales</strong>. El caso de estudio es tungsteno BCC. El problema que intentan resolver es muy concreto: los MLIPs modernos pueden ser muy precisos para estructuras simples, pero suelen fallar cuando aparecen defectos de gran escala, como redes de dislocaciones, bordes de grano generales, interacciones dislocación-borde de grano, fractura, nanoindentación o deformación plástica compleja.</p>
+
+<div class="box">
+<strong>Mensaje principal:</strong> no alcanza con entrenar un MLIP con bulk, deformaciones elásticas, vacancias, intersticiales o defectos simples. Para simular plasticidad real en metales, la base de entrenamiento debe contener entornos atómicos locales representativos de defectos extendidos. El paper propone una forma automática de generar esos entornos y convertirlos en configuraciones periódicas compatibles con DFT.
+</div>
+
+<p>La contribución del trabajo se resume en tres componentes:</p>
+<ol>
+  <li><strong>EIP-GS</strong>: muestreo guiado por potenciales clásicos, usando potenciales empíricos como EAM/MEAM para generar muchos defectos en simulaciones grandes.</li>
+  <li><strong>PCC-GCMC</strong>: reconstrucción automática de configuraciones periódicas a partir de clusters no periódicos, usando Monte Carlo gran canónico para insertar átomos alrededor del defecto.</li>
+  <li><strong>OTF-AL</strong>: refinamiento final mediante active learning on-the-fly, usado como control de seguridad para detectar entornos no cubiertos por la base inicial.</li>
+</ol>
+</section>
+
+<section>
+<h2>2. Problema científico que motiva el paper</h2>
+<p>Los MLIPs necesitan una base de datos de entrenamiento que cubra el espacio configuracional relevante. En metales, muchos trabajos entrenan con estructuras relativamente simples: estructura fundamental, deformaciones homogéneas, AIMD, vacancias, intersticiales, superficies, grietas simples o núcleos de dislocación aislados. Eso puede reproducir constantes de red, constantes elásticas o energías de formación de defectos puntuales, pero no garantiza que el potencial funcione en simulaciones grandes donde aparecen defectos colectivos.</p>
+
+<p>Los defectos extendidos tienen escalas características demasiado grandes para DFT directo. Una red de dislocaciones, un borde de grano general o una zona plástica bajo un indentador pueden requerir cientos de miles o millones de átomos. DFT no puede calcular esas configuraciones completas. Por eso surge la necesidad de extraer entornos locales representativos y convertirlos en configuraciones pequeñas pero físicamente consistentes para DFT.</p>
+
+<div class="key">
+<strong>Clave conceptual:</strong> el paper distingue entre conocer defectos simples y conocer el “genoma de defectos” de un metal. El genoma de defectos sería una colección compacta pero representativa de entornos atómicos locales que aparecen durante deformaciones reales.
+</div>
+</section>
+
+<section>
+<h2>3. Por qué los clusters con vacío son problemáticos</h2>
+<p>Una estrategia común es cortar un cluster esférico alrededor de un defecto y agregar una capa de vacío para evitar interacciones con imágenes periódicas. El artículo muestra que esto puede introducir datos inconsistentes para entrenar MLIPs.</p>
+
+<p>El ejemplo crítico aparece en la comparación entre una supercelda BCC W periódica relajada y un cluster esférico extraído de esa misma estructura. En la estructura periódica, el átomo central tiene fuerza prácticamente nula porque está en equilibrio. Pero cuando el mismo entorno local se calcula como cluster aislado con vacío, aparecen fuerzas no nulas, incluso aunque el entorno SOAP del átomo central sea esencialmente igual.</p>
+
+<div class="fig">
+<strong>Figura 2 — clave para entender el paper:</strong> muestra que un átomo con el mismo entorno local puede tener fuerzas distintas dependiendo de si se calcula en una celda periódica o en un cluster con vacío. El átomo central del cluster conserva el entorno BCC, pero la fuerza calculada por DFT no es cero. Esto crea una contradicción para el MLIP: el mismo descriptor local puede mapearse a fuerzas diferentes.
+</div>
+
+<p>La razón física es que el cluster rompe la simetría de largo alcance. En una celda periódica, las contribuciones electrónicas y las imágenes periódicas mantienen el equilibrio. En un cluster finito con superficies artificiales, se altera la densidad electrónica, se rompen contribuciones de largo alcance y aparecen fuerzas residuales. Para entrenar MLIPs, esto es grave porque introduce ruido estructural y físico.</p>
+</section>
+
+<section>
+<h2>4. Marco propuesto por los autores</h2>
+
+<h3>4.1. Paso 1: EIP-GS, muestreo guiado por potenciales clásicos</h3>
+<p>Los autores usan potenciales empíricos, principalmente EAM y MEAM, para correr simulaciones grandes y baratas. Aunque estos potenciales no tienen precisión DFT, sí son útiles para generar configuraciones físicamente plausibles con defectos extendidos. En el caso de tungsteno BCC, simulan relajación y deformación de policristales, compresión, tensión, corte, nanoindentación, nucleación de dislocaciones, multiplicación de dislocaciones, bordes de grano e interacciones entre defectos.</p>
+
+<p>Después seleccionan entornos atómicos locales representativos usando criterios de selección basados en D-optimality, similares a los implementados en MLIP-3. El resultado son clusters de aproximadamente 100–200 átomos que contienen entornos relevantes. Con esto se construye un primer modelo llamado <strong>C-MLIP-0</strong>, donde la C indica que se entrenó con clusters.</p>
+
+<h3>4.2. Paso 2: PCC-GCMC, reconstrucción periódica automática</h3>
+<p>Este es el componente más original del trabajo. En vez de usar el cluster con vacío directamente, los autores lo convierten en una configuración periódica. Para ello fijan el núcleo del defecto y usan simulaciones GCMC para insertar átomos nuevos alrededor, hasta completar una estructura compatible con condiciones periódicas.</p>
+
+<p>El procedimiento se repite con distintos tamaños de caja. Se seleccionan las configuraciones de menor energía, porque son las que insertan los átomos de forma más física. El resultado es una celda pequeña, periódica, sin superficies artificiales de vacío, que puede calcularse con DFT y usarse para entrenar el MLIP. Con estas configuraciones se construye <strong>P-MLIP-0</strong>, donde P indica configuraciones periódicas.</p>
+
+<div class="method">
+<strong>En términos prácticos:</strong> PCC-GCMC toma el defecto local que interesa y reconstruye alrededor de él un ambiente atómico compatible con una celda periódica. Así evita el error de entrenar con superficies artificiales introducidas por clusters aislados.
+</div>
+
+<h3>4.3. Paso 3: refinamiento con OTF-AL</h3>
+<p>El muestreo con potenciales clásicos puede estar sesgado por el potencial empírico usado. Para corregir esto, los autores aplican active learning on-the-fly. Durante simulaciones con el MLIP, calculan un indicador de extrapolación, γ. Si aparecen entornos con γ alto, se extraen, se reconstruyen con PCC-GCMC y se agregan a la base de entrenamiento.</p>
+
+<p>Este refinamiento produce el modelo final <strong>P-MLIP-1</strong>. El active learning no es la base principal del muestreo, sino una etapa de control y ajuste. Según el artículo, solo una fracción menor de las configuraciones finales proviene de OTF-AL, lo que indica que EIP-GS más PCC-GCMC ya cubre gran parte del espacio relevante.</p>
+</section>
+
+<section>
+<h2>5. Interpretación de las figuras principales</h2>
+
+<div class="fig">
+<h3>Figura 1 — flujo completo del método</h3>
+<p>Esta figura resume el framework. En la parte (a), los autores generan defectos mediante simulaciones grandes con potenciales clásicos: policristales, nanoindentación, compresión, tensión y otros escenarios. Luego seleccionan entornos locales representativos. En la parte (b), esos clusters se convierten en configuraciones periódicas mediante PCC-GCMC. En la parte (c), el MLIP se refina usando EIP-GS, OTF-AL y PCC-GCMC hasta que no aparezcan nuevos entornos extrapolativos.</p>
+<p><strong>Clave:</strong> la figura no muestra solo un flujo de entrenamiento; muestra una estrategia para convertir defectos grandes, inaccesibles a DFT, en pequeñas configuraciones DFT-consistentes.</p>
+</div>
+
+<div class="fig">
+<h3>Figura 2 — inconsistencia de clusters con vacío</h3>
+<p>La figura compara una celda BCC W periódica con un cluster esférico extraído de ella. Aunque el átomo central tiene el mismo entorno local, el cálculo DFT del cluster produce fuerzas residuales. La comparación de descriptores SOAP muestra que los entornos son casi idénticos, pero las fuerzas no.</p>
+<p><strong>Clave:</strong> esta figura justifica por qué el método PCC-GCMC es necesario. Sin esta figura, podría parecer suficiente extraer clusters y poner vacío; los autores demuestran que no lo es.</p>
+</div>
+
+<div class="fig">
+<h3>Figura 3 — importancia de PCC-GCMC</h3>
+<p>La figura usa como ejemplo un núcleo de dislocación tornillo en W BCC. El cluster original contiene el núcleo de la dislocación. Luego se hace una búsqueda en una grilla de tamaños de caja y se insertan átomos por GCMC. Las configuraciones de menor energía son seleccionadas como candidatas físicas.</p>
+<p>En la parte de PCA con SOAP, se comparan tres conjuntos: dataset básico, clusters y configuraciones periódicas. Los clusters aparecen dominados por átomos de superficie artificial. En cambio, el dataset periódico forma una nube más coherente e incluye los átomos objetivo sin introducir tantos entornos irrelevantes.</p>
+<p>La parte final compara errores de entrenamiento MTP para B+C y B+P. B+P tiene menor RMSE que B+C, mostrando que las configuraciones periódicas son más limpias y útiles que los clusters.</p>
+<p><strong>Clave:</strong> PCC-GCMC no solo evita superficies artificiales; también mejora la calidad estadística y física de la base de entrenamiento.</p>
+</div>
+
+<div class="fig">
+<h3>Figura 4 — cuantificación de incertidumbre en defectos diversos</h3>
+<p>La figura usa el grado de extrapolación γ. Si γ está entre 0 y 1, el entorno está en interpolación; si γ es mayor que 1, el MLIP está extrapolando. Se analizan loops de dislocación, policristales y nanoindentación.</p>
+<p>Con el dataset básico B, muchas regiones defectuosas aparecen con γ alto, especialmente en loops de dislocación y zonas complejas de nanoindentación. Cuando se usa B+C, los mismos defectos pasan a γ menor que 1. Esto indica que el nuevo dataset incluye entornos que antes estaban fuera del dominio de entrenamiento.</p>
+<p><strong>Clave:</strong> la figura demuestra que entrenar solo con estructuras “básicas” no alcanza. El genoma de defectos reduce la extrapolación en escenarios plásticos reales.</p>
+</div>
+
+<div class="fig">
+<h3>Figura 5 — incertidumbre por ensemble en policristales</h3>
+<p>Esta figura compara la incertidumbre de fuerzas en un policristal relajado a 300 K y 2000 K. Con el dataset básico, la incertidumbre es mayor, especialmente en regiones no BCC. Con el dataset refinado B+P+OTF-AL-GB, la incertidumbre disminuye notablemente y la mayoría de las desviaciones estándar de fuerza quedan por debajo de aproximadamente 0.2 eV/Å.</p>
+<p><strong>Clave:</strong> el refinamiento OTF-AL mejora la robustez para bordes de grano a alta temperatura, donde EIP-GS inicial no cubría todos los entornos.</p>
+</div>
+
+<div class="fig">
+<h3>Figura 6 — validación directa contra DFT</h3>
+<p>La figura compara modelos entrenados con distintos datasets contra cálculos DFT nuevos. Los escenarios incluyen bordes de grano térmicos, bordes de grano comprimidos, policristales 2D/3D y propagación de grietas. Se comparan errores de energía y fuerza.</p>
+<p>Los resultados muestran que B+C y B+P superan al dataset básico B. Además, B+P suele superar a B+C, especialmente en fuerzas, porque las configuraciones periódicas evitan inconsistencias de clusters con vacío y agregan entornos locales relevantes.</p>
+<p><strong>Clave:</strong> esta es la validación más directa de la hipótesis central. No solo baja γ; también mejora la comparación cuantitativa con DFT.</p>
+</div>
+
+<div class="fig">
+<h3>Figura 7 — aplicación a tensión de policristales de W BCC</h3>
+<p>Los autores aplican el MLIP final a una simulación de tensión de un policristal de W a 300 K. La morfología final muestra fractura intergranular. El análisis de dislocaciones indica pocas dislocaciones dentro de los granos; las redes de dislocaciones aparecen asociadas a deformación en bordes de grano. La curva tensión-deformación muestra plasticidad limitada y fractura completa alrededor de una deformación de 0.32.</p>
+<p>Los paneles de γ y de desviación estándar de fuerzas muestran baja incertidumbre durante la simulación. Esto indica que el MLIP no está extrapolando de forma peligrosa durante la fractura.</p>
+<p><strong>Clave:</strong> la figura conecta el método con un fenómeno mecánico real: la fragilidad de W BCC policristalino a temperatura ambiente y la fractura intergranular.</p>
+</div>
+
+<div class="fig">
+<h3>Figura 8 — generalización del método</h3>
+<p>La figura presenta la visión general: usar potenciales empíricos disponibles en repositorios como OpenKIM o NIST para generar genomas de defectos en estructuras FCC, BCC, HCP y cúbica diamante. Luego esos datos se convierten en bases de entrenamiento para MLIPs orientados a defectos extendidos.</p>
+<p><strong>Clave:</strong> los autores no proponen un método solo para W. Plantean una estrategia transferible a otros metales y aleaciones cristalinas.</p>
+</div>
+</section>
+
+<section>
+<h2>6. Tabla de conceptos clave</h2>
+<table>
+<tr><th>Concepto</th><th>Significado</th><th>Importancia en el paper</th></tr>
+<tr><td>MLIP</td><td>Potencial interatómico entrenado con datos de DFT.</td><td>Permite simulaciones grandes con precisión cercana a DFT.</td></tr>
+<tr><td>Defecto extendido</td><td>Defecto que involucra muchos átomos: bordes de grano, redes de dislocaciones, grietas.</td><td>Es el tipo de defecto que los MLIPs convencionales suelen describir mal.</td></tr>
+<tr><td>LAE</td><td>Local Atomic Environment, entorno atómico local.</td><td>Unidad real de información que aprende el MLIP.</td></tr>
+<tr><td>EIP-GS</td><td>Empirical Interatomic Potential-Guided Sampling.</td><td>Usa EAM/MEAM para generar muchos defectos en simulaciones grandes.</td></tr>
+<tr><td>PCC-GCMC</td><td>Periodic Configuration Construction via Grand Canonical Monte Carlo.</td><td>Convierte clusters de defectos en configuraciones periódicas aptas para DFT.</td></tr>
+<tr><td>OTF-AL</td><td>On-the-fly active learning.</td><td>Detecta entornos nuevos mediante extrapolación durante simulaciones MLIP.</td></tr>
+<tr><td>γ</td><td>Grado de extrapolación.</td><td>Indica si un entorno está dentro o fuera del dominio de entrenamiento.</td></tr>
+<tr><td>B, C, P</td><td>Básico, cluster, periódico.</td><td>Permite comparar datasets: B, B+C, B+P y final.</td></tr>
+<tr><td>ACE</td><td>Atomic Cluster Expansion.</td><td>Modelo elegido como MLIP final por precisión y eficiencia.</td></tr>
+</table>
+</section>
+
+<section>
+<h2>7. Resultados principales</h2>
+<ol>
+  <li><strong>Los clusters con vacío introducen inconsistencias:</strong> pueden dar fuerzas no físicas en entornos que deberían estar en equilibrio.</li>
+  <li><strong>PCC-GCMC genera configuraciones periódicas más adecuadas para DFT:</strong> elimina superficies artificiales y mejora la calidad de entrenamiento.</li>
+  <li><strong>El dataset B+P supera a B+C:</strong> las configuraciones periódicas producen menor error de entrenamiento y mejor validación contra DFT.</li>
+  <li><strong>El genoma de defectos reduce la extrapolación:</strong> loops de dislocación, policristales y nanoindentación pasan de γ alto a γ cercano o menor que 1.</li>
+  <li><strong>El refinamiento OTF-AL cubre entornos térmicos adicionales:</strong> especialmente en policristales a 1200–2000 K.</li>
+  <li><strong>El MLIP final permite simular fractura intergranular en W BCC:</strong> la simulación de tensión reproduce el carácter frágil del W policristalino a temperatura ambiente.</li>
+</ol>
+</section>
+
+<section>
+<h2>8. Relevancia para tu línea de trabajo</h2>
+<p>Este paper es especialmente relevante para simulaciones de daño, defectos y potenciales ML en metales porque muestra una estrategia para construir bases de entrenamiento más realistas. Para problemas como cascadas de radiación, vacancias, intersticiales, clusters de defectos, dislocaciones o bordes de grano, el punto central es que el MLIP debe ver entornos locales representativos de esos eventos, no solo estructuras ideales o defectos simples.</p>
+
+<div class="key">
+<strong>Conexión directa con defectos por radiación:</strong> aunque el caso principal es W bajo deformación mecánica, el enfoque se puede adaptar a cascadas. Una simulación clásica barata puede generar configuraciones con daño; luego se seleccionan entornos locales de alto interés; después PCC-GCMC los transforma en celdas periódicas pequeñas para DFT; finalmente se entrena o refina el MLIP.
+</div>
+
+<p>Para tu caso de análisis de vacancias y defectos en Ni o Ag, la enseñanza metodológica es clara: si entrenas modelos a partir de geometrías locales, conviene auditar si esas geometrías contienen artefactos de borde o información artificial. El paper muestra que incluso un entorno local aparentemente idéntico puede cambiar sus fuerzas por las condiciones de borde. Esto es análogo al cuidado que debes tener al filtrar nubes de átomos con OVITO o al construir datasets de defectos: la forma de extraer el entorno puede introducir sesgos.</p>
+</section>
+
+<section>
+<h2>9. Limitaciones del trabajo</h2>
+<ul>
+  <li>El caso principal es BCC W; aunque los autores argumentan generalización, no demuestran el mismo nivel de detalle en FCC, HCP o aleaciones complejas.</li>
+  <li>El método depende de la disponibilidad de potenciales empíricos razonables para generar defectos plausibles.</li>
+  <li>PCC-GCMC es más directo en metales monoatómicos. Para compuestos o aleaciones con múltiples especies, la inserción de átomos requiere reglas adicionales.</li>
+  <li>El tamaño de las configuraciones reconstruidas se mantiene limitado por el costo de DFT. Los autores mencionan un umbral de alrededor de 140 átomos para balancear fidelidad física y factibilidad computacional.</li>
+  <li>El método reduce extrapolación, pero no elimina la necesidad de validación directa contra DFT para nuevos escenarios.</li>
+</ul>
+</section>
+
+<section>
+<h2>10. Conclusión general</h2>
+<p>El paper propone una estrategia robusta para desarrollar MLIPs orientados a defectos extendidos. La contribución más importante no es solo entrenar un potencial para W, sino mostrar cómo construir una base de datos físicamente más consistente para defectos grandes. El flujo EIP-GS + PCC-GCMC + OTF-AL permite aprovechar la velocidad de potenciales clásicos, corregir el problema de clusters con vacío y mantener validación basada en DFT.</p>
+
+<p>La idea central puede resumirse así: <strong>usar simulaciones clásicas para descubrir defectos, reconstruir esos defectos en celdas periódicas pequeñas, calcularlas con DFT y entrenar MLIPs que no extrapolen durante simulaciones mecánicas complejas.</strong></p>
+</section>
+
+<section>
+<h2>11. Frase corta para presentación</h2>
+<div class="box">
+Este trabajo desarrolla un framework para entrenar potenciales interatómicos de machine learning capaces de describir defectos extendidos en metales, combinando muestreo con potenciales clásicos, reconstrucción automática de configuraciones periódicas mediante GCMC y refinamiento por active learning, logrando simulaciones confiables de deformación, nanoindentación y fractura en tungsteno BCC.
+</div>
+</section>
+
+<footer class="small">
+<p>Resumen preparado a partir del artículo cargado por el usuario: <em>Modeling extensive defects in metals through classical potential-guided sampling and automated configuration reconstruction</em>.</p>
+</footer>
+
+</main>
+</body>
+</html>
