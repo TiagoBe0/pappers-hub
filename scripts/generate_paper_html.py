@@ -13,6 +13,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "pappers_resumenes"
 OUTPUT_DIR = ROOT / "pappers_html"
+PDF_DIR = ROOT / "pappers_pdf"
+PDF_MAP_FILE = PDF_DIR / "map.json"
 FIGURES_DIR = OUTPUT_DIR / "figures"
 MANIFEST = OUTPUT_DIR / "index.json"
 
@@ -272,7 +274,11 @@ def load_figures_gallery(slug: str) -> str:
     )
 
 
-def render_page(title: str, source_name: str, body: str, figures_html: str = "") -> str:
+def render_page(title: str, source_name: str, body: str, figures_html: str = "", pdf_name: str = "") -> str:
+    pdf_link = (
+        f'<a class="pdf-link" href="../pappers_pdf/{html.escape(pdf_name)}" target="_blank" rel="noopener">Ver PDF original ↗</a>'
+        if pdf_name else ""
+    )
     return f"""<!doctype html>
 <html lang="es">
   <head>
@@ -386,6 +392,19 @@ def render_page(title: str, source_name: str, body: str, figures_html: str = "")
         text-align: center;
         border-top: 1px solid var(--rule);
       }}
+      .pdf-link {{
+        display: inline-block;
+        margin-top: 0.75rem;
+        padding: 0.35rem 0.9rem;
+        background: var(--accent);
+        color: #fff;
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.06em;
+        text-decoration: none;
+        text-transform: uppercase;
+        border-radius: 2px;
+      }}
+      .pdf-link:hover {{ background: var(--accent-2); }}
       @media (max-width: 640px) {{
         main {{ width: min(100% - 18px, 980px); margin: 9px auto; }}
         .figures-gallery {{ grid-template-columns: 1fr; }}
@@ -398,6 +417,7 @@ def render_page(title: str, source_name: str, body: str, figures_html: str = "")
       <header>
         <h1>{html.escape(title)}</h1>
         <p class="source">Generado desde {html.escape(source_name)}</p>
+        {pdf_link}
       </header>
       <article>
         {body}
@@ -409,9 +429,20 @@ def render_page(title: str, source_name: str, body: str, figures_html: str = "")
 """
 
 
+def load_pdf_map() -> dict[str, str]:
+    """Return mapping of txt_filename → pdf_filename from pappers_pdf/map.json."""
+    if PDF_MAP_FILE.exists():
+        try:
+            return json.loads(PDF_MAP_FILE.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            pass
+    return {}
+
+
 def main() -> None:
     OUTPUT_DIR.mkdir(exist_ok=True)
 
+    pdf_map = load_pdf_map()  # txt_name → pdf_name
     generated: list[str] = []
     skipped: list[str] = []
 
@@ -429,8 +460,9 @@ def main() -> None:
         output_name = f"{slug}.html"
         body = text_to_html(text)
         figures_html = load_figures_gallery(slug)
+        pdf_name = pdf_map.get(source.name, "")
         (OUTPUT_DIR / output_name).write_text(
-            render_page(title, source.name, body, figures_html),
+            render_page(title, source.name, body, figures_html, pdf_name),
             encoding="utf-8",
         )
         generated.append(output_name)

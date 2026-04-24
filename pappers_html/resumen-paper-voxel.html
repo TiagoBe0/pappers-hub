@@ -80,8 +80,53 @@
         margin: 2rem 0;
       }
       strong { color: #2b2119; }
+      .figures-section {
+        margin: 2.5rem 0 0;
+        padding-top: 2rem;
+        border-top: 3px double var(--rule);
+      }
+      .figures-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.2rem;
+      }
+      .paper-figure {
+        margin: 0;
+        border: 1px solid var(--rule);
+        background: #fdfaf4;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .paper-figure img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .paper-figure figcaption {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.82rem;
+        color: var(--muted);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        border-top: 1px solid var(--rule);
+      }
+      .pdf-link {
+        display: inline-block;
+        margin-top: 0.75rem;
+        padding: 0.35rem 0.9rem;
+        background: var(--accent);
+        color: #fff;
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.06em;
+        text-decoration: none;
+        text-transform: uppercase;
+        border-radius: 2px;
+      }
+      .pdf-link:hover { background: var(--accent-2); }
       @media (max-width: 640px) {
         main { width: min(100% - 18px, 980px); margin: 9px auto; }
+        .figures-gallery { grid-template-columns: 1fr; }
       }
     </style>
   </head>
@@ -91,6 +136,7 @@
       <header>
         <h1>Voxel based parallel post processor for void nucleation and growth analysis of atomistic simulations of material fracture — Hemani et al., 2014</h1>
         <p class="source">Generado desde resumen-paper-voxel.txt</p>
+        
       </header>
       <article>
         <p>Perfecto, Santiago ⚛️</p>
@@ -187,6 +233,7 @@
 <p>Pseudo DD	Mejora parcial en speedup	Requiere memoria total	—</p>
 <p>Domain Decomp.	Escalable, sin límite de memoria	Mucho intercambio MPI	—</p>
 <p>Integrado en LAMMPS	Casi lineal, sin I/O	Requiere modificar LAMMPS	Mejor caso</p>
+        
       </article>
     </main>
   </body>

@@ -80,8 +80,53 @@
         margin: 2rem 0;
       }
       strong { color: #2b2119; }
+      .figures-section {
+        margin: 2.5rem 0 0;
+        padding-top: 2rem;
+        border-top: 3px double var(--rule);
+      }
+      .figures-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.2rem;
+      }
+      .paper-figure {
+        margin: 0;
+        border: 1px solid var(--rule);
+        background: #fdfaf4;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .paper-figure img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .paper-figure figcaption {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.82rem;
+        color: var(--muted);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        border-top: 1px solid var(--rule);
+      }
+      .pdf-link {
+        display: inline-block;
+        margin-top: 0.75rem;
+        padding: 0.35rem 0.9rem;
+        background: var(--accent);
+        color: #fff;
+        font: 700 0.82rem Arial, sans-serif;
+        letter-spacing: 0.06em;
+        text-decoration: none;
+        text-transform: uppercase;
+        border-radius: 2px;
+      }
+      .pdf-link:hover { background: var(--accent-2); }
       @media (max-width: 640px) {
         main { width: min(100% - 18px, 980px); margin: 9px auto; }
+        .figures-gallery { grid-template-columns: 1fr; }
       }
     </style>
   </head>
@@ -91,6 +136,7 @@
       <header>
         <h1>Cost-Efficient Domain-Adaptive Pretraining of Language Models for Optoelectronics Applications — Huang &amp; Cole</h1>
         <p class="source">Generado desde resumeen_papper_albert_robert_ML.txt</p>
+        
       </header>
       <article>
         <p>Perfecto, Santiago 🙌. Ya revisé tu paper “Cost-Efficient Domain-Adaptive Pretraining of Language Models for Optoelectronics Applications” (Huang &amp; Cole, 2025). Te hago un resumen traducido y explicado en español para que lo tengas claro:</p>
@@ -149,6 +195,7 @@
 <p>En recuperación de información, el modelo vectorial derivado de OE-RoBERTa superó al mejor modelo de embeddings general de tamaño similar (gte-base-en-v1.5).</p>
 <p>El trabajo demuestra que DAPT consume muchos menos recursos de cómputo y logra igualar o superar modelos con preentrenamiento mucho más costoso. Además, se concluye que RoBERTa es el mejor modelo base para adaptación de dominio en ciencias naturales, gracias a su corpus de preentrenamiento más grande y a su tokenizador BPE.</p>
 <p>Finalmente, los autores proponen que estos modelos específicos de dominio podrían usarse en el futuro para minería y enriquecimiento de bases de datos en ciencia de materiales, permitiendo acceder a información más detallada y precisa, y abriendo nuevas aplicaciones de IA en la investigación en optoelectrónica</p>
+        
       </article>
     </main>
   </body>
