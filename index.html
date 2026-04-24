@@ -24,6 +24,16 @@
       </a>
     </template>
 
+    <div class="zoom-overlay" id="zoomOverlay" role="dialog" aria-modal="true" aria-labelledby="zoomTitle">
+      <article class="zoom-card">
+        <button class="zoom-close" id="zoomClose" aria-label="Cerrar">✕</button>
+        <span class="paper-card-kicker">Paper · Resumen</span>
+        <h2 class="zoom-title" id="zoomTitle"></h2>
+        <p class="zoom-body" id="zoomBody"></p>
+        <a class="zoom-link" id="zoomLink" href="#">Leer artículo completo →</a>
+      </article>
+    </div>
+
     <script src="assets/app.js" defer></script>
   </body>
 </html>

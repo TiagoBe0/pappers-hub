@@ -3,6 +3,31 @@ const statusLabel = document.getElementById("status");
 const template = document.getElementById("paperNodeTemplate");
 const PAPERS_FOLDER = "pappers_html";
 
+// ── Zoom overlay ──────────────────────────────────────────────
+const zoomOverlay = document.getElementById("zoomOverlay");
+const zoomTitleEl = document.getElementById("zoomTitle");
+const zoomBodyEl = document.getElementById("zoomBody");
+const zoomLinkEl = document.getElementById("zoomLink");
+const zoomCloseEl = document.getElementById("zoomClose");
+
+const openZoom = ({ label, summary, href }) => {
+  zoomTitleEl.textContent = label;
+  zoomBodyEl.textContent = summary;
+  zoomLinkEl.href = href;
+  zoomOverlay.classList.add("is-open");
+  document.body.classList.add("zoom-open");
+  zoomCloseEl.focus();
+};
+
+const closeZoom = () => {
+  zoomOverlay.classList.remove("is-open");
+  document.body.classList.remove("zoom-open");
+};
+
+zoomOverlay.addEventListener("click", (e) => { if (e.target === zoomOverlay) closeZoom(); });
+zoomCloseEl.addEventListener("click", closeZoom);
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeZoom(); });
+
 const extractHtmlFiles = (rawText) => {
   const matcher = /href=["']([^"']+\.html)["']/gi;
   const files = new Set();
@@ -61,7 +86,7 @@ const buildSummary = (doc, title) => {
     .filter((text) => text.length > 70 && text !== title && !text.startsWith("Archivo fuente:"));
 
   const summary = candidates[0] || "Resumen disponible en la ficha completa del paper.";
-  return summary.length > 220 ? `${summary.slice(0, 217).trim()}...` : summary;
+  return summary.length > 600 ? `${summary.slice(0, 597).trim()}…` : summary;
 };
 
 const loadPaperMeta = async (file) => {
@@ -126,7 +151,8 @@ const renderNodes = (items) => {
     const x = Math.cos(angle) * radius;
     const y = Math.sin(angle) * radius;
 
-    node.href = `${PAPERS_FOLDER}/${file}`;
+    const href = `${PAPERS_FOLDER}/${file}`;
+    node.href = href;
     node.style.setProperty("--x", `${x}px`);
     node.style.setProperty("--y", `${y}px`);
     node.style.setProperty("--angle", `${angle}rad`);
@@ -138,6 +164,11 @@ const renderNodes = (items) => {
     node.title = label;
     node.querySelector(".paper-id").textContent = label;
     node.querySelector(".paper-summary").textContent = summary;
+
+    node.addEventListener("click", (e) => {
+      e.preventDefault();
+      openZoom({ label, summary, href });
+    });
 
     mapNodes.appendChild(node);
   });
