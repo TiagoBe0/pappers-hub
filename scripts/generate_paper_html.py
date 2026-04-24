@@ -13,7 +13,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "pappers_resumenes"
 OUTPUT_DIR = ROOT / "pappers_html"
+FIGURES_DIR = OUTPUT_DIR / "figures"
 MANIFEST = OUTPUT_DIR / "index.json"
+
+IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".bmp"}
 
 
 TITLE_PATTERNS = (
@@ -235,7 +238,41 @@ def text_to_html(text: str) -> str:
     return "\n".join(blocks)
 
 
-def render_page(title: str, source_name: str, body: str) -> str:
+def load_figures_gallery(slug: str) -> str:
+    """Return figures-section HTML if extracted figures exist for this slug, else ''."""
+    figures_dir = FIGURES_DIR / slug
+    if not figures_dir.is_dir():
+        return ""
+
+    images = sorted(f for f in figures_dir.iterdir() if f.suffix.lower() in IMAGE_EXTS)
+    if not images:
+        return ""
+
+    items: list[str] = []
+    for img in images:
+        page_match = re.search(r"_p(\d+)\.", img.name)
+        caption = f"Página {page_match.group(1)}" if page_match else img.stem
+        rel = f"figures/{slug}/{img.name}"
+        items.append(
+            f'        <figure class="paper-figure">\n'
+            f"          <img src=\"{rel}\" alt=\"{html.escape(caption)}\" loading=\"lazy\">\n"
+            f"          <figcaption>{html.escape(caption)}</figcaption>\n"
+            f"        </figure>"
+        )
+
+    return (
+        "<!-- FIGURES_START -->\n"
+        '<section class="figures-section">\n'
+        "  <h2>Figuras del artículo</h2>\n"
+        '  <div class="figures-gallery">\n'
+        + "\n".join(items) + "\n"
+        "  </div>\n"
+        "</section>\n"
+        "<!-- FIGURES_END -->"
+    )
+
+
+def render_page(title: str, source_name: str, body: str, figures_html: str = "") -> str:
     return f"""<!doctype html>
 <html lang="es">
   <head>
@@ -318,8 +355,40 @@ def render_page(title: str, source_name: str, body: str) -> str:
         margin: 2rem 0;
       }}
       strong {{ color: #2b2119; }}
+      .figures-section {{
+        margin: 2.5rem 0 0;
+        padding-top: 2rem;
+        border-top: 3px double var(--rule);
+      }}
+      .figures-gallery {{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.2rem;
+      }}
+      .paper-figure {{
+        margin: 0;
+        border: 1px solid var(--rule);
+        background: #fdfaf4;
+        border-radius: 2px;
+        overflow: hidden;
+      }}
+      .paper-figure img {{
+        width: 100%;
+        height: auto;
+        display: block;
+      }}
+      .paper-figure figcaption {{
+        padding: 0.5rem 0.75rem;
+        font-size: 0.82rem;
+        color: var(--muted);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        border-top: 1px solid var(--rule);
+      }}
       @media (max-width: 640px) {{
         main {{ width: min(100% - 18px, 980px); margin: 9px auto; }}
+        .figures-gallery {{ grid-template-columns: 1fr; }}
       }}
     </style>
   </head>
@@ -332,6 +401,7 @@ def render_page(title: str, source_name: str, body: str) -> str:
       </header>
       <article>
         {body}
+        {figures_html}
       </article>
     </main>
   </body>
@@ -355,10 +425,12 @@ def main() -> None:
             continue
 
         title = title_from_text(source, text)
-        output_name = f"{slugify(source.stem)}.html"
+        slug = slugify(source.stem)
+        output_name = f"{slug}.html"
         body = text_to_html(text)
+        figures_html = load_figures_gallery(slug)
         (OUTPUT_DIR / output_name).write_text(
-            render_page(title, source.name, body),
+            render_page(title, source.name, body, figures_html),
             encoding="utf-8",
         )
         generated.append(output_name)
