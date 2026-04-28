@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumen detallado - Molecular dynamics simulations of the primary irradiation damage in Zirconium</title>
+  <style>
+    :root{
+      --bg:#f7f7f7;
+      --paper:#ffffff;
+      --ink:#1b1b1b;
+      --muted:#555;
+      --line:#d8d8d8;
+      --accent:#234d70;
+      --soft:#eef3f7;
+      --warn:#fff4df;
+    }
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.55;}
+    main{max-width:1050px;margin:28px auto;padding:34px;background:var(--paper);box-shadow:0 4px 18px rgba(0,0,0,.08);border-radius:14px;}
+    h1{font-size:2rem;line-height:1.15;margin:0 0 8px;color:var(--accent);}
+    h2{font-size:1.45rem;margin-top:34px;border-bottom:2px solid var(--line);padding-bottom:8px;color:var(--accent);}
+    h3{font-size:1.12rem;margin-top:24px;color:#2b2b2b;}
+    p{margin:10px 0;}
+    .meta{color:var(--muted);font-size:.96rem;margin-bottom:18px;}
+    .box{background:var(--soft);border-left:5px solid var(--accent);padding:14px 18px;border-radius:8px;margin:18px 0;}
+    .warn{background:var(--warn);border-left:5px solid #b7791f;}
+    table{border-collapse:collapse;width:100%;margin:16px 0;font-size:.94rem;}
+    th,td{border:1px solid var(--line);padding:8px;vertical-align:top;}
+    th{background:#edf1f5;text-align:left;}
+    code{background:#eee;padding:2px 4px;border-radius:4px;}
+    .fig{border:1px solid var(--line);padding:12px;border-radius:10px;margin:14px 0;background:#fbfbfb;}
+    .fig strong{color:var(--accent);}
+    ul,ol{padding-left:24px;}
+    .small{font-size:.9rem;color:var(--muted);}
+  </style>
+</head>
+<body>
+<main>
+  <h1>Resumen completo y detallado del paper</h1>
+  <p class="meta"><strong>Paper:</strong> <em>Molecular dynamics simulations of the primary irradiation damage in Zirconium</em><br>
+  <strong>Autores:</strong> Xin Yang, Xiangguo Zeng, Liang Chen, Yang Guo, Huayan Chen y Fang Wang.<br>
+  <strong>Revista:</strong> Nuclear Instruments and Methods in Physics Research B, volumen 436, páginas 92–98, 2018.</p>
+
+  <div class="box">
+    <strong>Idea central.</strong> El trabajo usa dinámica molecular para estudiar el daño primario por irradiación en zirconio HCP. Analiza cómo cambian las vacancias generadas por una cascada de colisiones cuando se modifica la energía del átomo primario desplazado, la dirección incidente y la temperatura. La variable principal de daño es el número de vacancias estabilizadas, <code>Ns</code>, y su concentración <code>C = Ns/n</code>.
+  </div>
+
+  <h2>1. Contexto físico y motivación</h2>
+  <p>El zirconio y sus aleaciones son materiales relevantes para reactores nucleares porque tienen baja sección eficaz de absorción de neutrones, buena resistencia a la corrosión, alta resistencia mecánica y alto punto de fusión. En un reactor, el material está sometido a irradiación por neutrones, iones, electrones y rayos gamma. Las partículas energéticas pueden desplazar átomos de sus posiciones cristalinas y producir defectos puntuales, dislocaciones y vacíos.</p>
+  <p>El daño acumulado en la microestructura puede producir creep por irradiación, fragilización y expansión volumétrica. Por eso interesa entender el daño primario: la primera etapa en la que un átomo recibe energía, se convierte en PKA (<em>Primary Knock-on Atom</em>) y dispara una cascada de colisiones.</p>
+  <p>El artículo se centra en tres variables de control:</p>
+  <ul>
+    <li><strong>Energía del PKA, E<sub>PKA</sub>:</strong> determina cuánta energía se deposita inicialmente en la red.</li>
+    <li><strong>Dirección incidente del PKA:</strong> importante en principio porque el Zr HCP es anisótropo.</li>
+    <li><strong>Temperatura ambiente, T:</strong> modifica la movilidad atómica, la recombinación de defectos y la duración del thermal spike.</li>
+  </ul>
+
+  <h2>2. Objetivo del trabajo</h2>
+  <p>El objetivo es caracterizar, mediante simulaciones MD en LAMMPS, cómo evolucionan las vacancias en zirconio HCP irradiado. El trabajo no solo mide el número final de vacancias, sino también la historia temporal completa:</p>
+  <ul>
+    <li><strong>N<sub>peak</sub>:</strong> máximo número de vacancias durante la cascada.</li>
+    <li><strong>t<sub>peak</sub>:</strong> tiempo en el que ocurre ese máximo.</li>
+    <li><strong>N<sub>s</sub>:</strong> número de vacancias estabilizadas al final de la recombinación.</li>
+    <li><strong>t<sub>s</sub>:</strong> tiempo necesario para alcanzar el régimen estacionario.</li>
+    <li><strong>C:</strong> concentración de vacancias estabilizadas, definida como <code>C = Ns/n</code>.</li>
+  </ul>
+
+  <h2>3. Metodología de simulación</h2>
+  <h3>3.1. Sistema atómico</h3>
+  <p>El modelo es una celda de zirconio HCP de <strong>30 × 30 × 20 celdas</strong>, con un total de <strong>72.000 átomos</strong>. Las direcciones x, y, z corresponden a los ejes cristalográficos [100], [010] y [001]. Se usan condiciones periódicas tridimensionales para representar un cristal masivo sin superficies libres.</p>
+
+  <h3>3.2. Relajación inicial</h3>
+  <p>Primero se relaja el sistema durante <strong>20 ps</strong> con paso temporal de <strong>1 fs</strong> usando un ensamble <strong>NPT</strong>. Esta etapa permite que la red alcance una estructura estable de mínima energía y tensión. La estructura relajada se guarda como referencia para identificar defectos luego de la irradiación.</p>
+
+  <h3>3.3. Cascada de colisiones</h3>
+  <p>Después de la relajación, se elige un átomo central como PKA. A ese átomo se le asigna una velocidad equivalente a una energía inicial determinada. La cascada se simula durante <strong>20 ps</strong> con paso temporal de <strong>0,1 fs</strong> usando un ensamble <strong>NVT</strong>. Para mejorar la estadística, se realizan <strong>10 cascadas</strong> para cada combinación de energía, dirección y temperatura.</p>
+
+  <h3>3.4. Identificación de vacancias</h3>
+  <p>El análisis de defectos se hace con OVITO usando el método de <strong>Wigner-Seitz</strong>. La idea es comparar la estructura irradiada contra la estructura relajada de referencia. Si una celda de Wigner-Seitz queda vacía, se identifica una vacancia. Si una celda contiene más de un átomo, el átomo más cercano al sitio cristalino se considera átomo central y los demás se clasifican como intersticiales.</p>
+
+  <h2>4. Potencial interatómico y validación</h2>
+  <p>El potencial usado para Zr HCP deriva del potencial EAM número 2 de Mendelev y Ackland. El artículo valida el potencial calculando el volumen atómico promedio en función de la temperatura.</p>
+  <div class="fig">
+    <strong>Figura 1.</strong> Muestra que el volumen por átomo aumenta con la temperatura y presenta un salto alrededor de <strong>2266 K</strong>, interpretado como fusión. El punto de fusión experimental citado es <strong>2125 K</strong>, por lo que el error aproximado es <strong>6,6 %</strong>. Los autores concluyen que el potencial es razonable para estudiar daño por cascadas en Zr.
+  </div>
+
+  <h2>5. Evolución temporal del daño primario</h2>
+  <p>La evolución de vacancias durante una cascada tiene tres etapas:</p>
+  <ol>
+    <li><strong>Fase balística:</strong> ocurre al inicio. El PKA transfiere energía a otros átomos y se genera rápidamente una gran cantidad de desplazamientos. Las vacancias suben de forma abrupta.</li>
+    <li><strong>Fase de recombinación:</strong> después del máximo, muchos intersticiales se recombinan con vacancias. El número de vacancias cae rápidamente.</li>
+    <li><strong>Fase estacionaria:</strong> el sistema alcanza un número casi constante de vacancias residuales.</li>
+  </ol>
+  <div class="fig">
+    <strong>Figura 2.</strong> Para una cascada de <strong>15 keV</strong> a <strong>300 K</strong>, dirigida en [2 1 1 0], el número de vacancias alcanza un pico alrededor de <strong>0,65 ps</strong>. Luego cae por recombinación y se estabiliza entre aproximadamente <strong>13 y 20 ps</strong>. La forma cualitativa es: aumento brusco, caída rápida y estabilización.
+  </div>
+
+  <h2>6. Efecto de la energía del PKA</h2>
+  <p>La energía del PKA tiene el efecto más directo sobre el daño. Cuando E<sub>PKA</sub> aumenta de <strong>0,5 a 15 keV</strong>, aumentan N<sub>peak</sub>, t<sub>peak</sub>, N<sub>s</sub> y t<sub>s</sub>. Físicamente, una energía mayor genera cascadas más intensas, mayor thermal spike, más colisiones secundarias y más defectos que sobreviven a la recombinación.</p>
+  <div class="fig">
+    <strong>Figura 3.</strong> Las curvas muestran que las cascadas con mayor energía producen más vacancias tanto en el pico como en el estado estacionario. Los autores reportan que, al comparar <strong>15 keV</strong> con <strong>0,5 keV</strong>, N<sub>peak</sub>, t<sub>peak</sub>, N<sub>s</sub> y t<sub>s</sub> aumentan aproximadamente <strong>77 %, 71 %, 750 % y 53 %</strong>, respectivamente.
+  </div>
+
+  <h3>6.1. Comparación con modelo NRT</h3>
+  <p>El modelo NRT estima el número de desplazamientos Frenkel como:</p>
+  <p><code>NFS(NRT) = 0,8 Edam / (2 Ed)</code></p>
+  <p>En el artículo se toma <code>Edam ≈ EPKA</code> y una energía umbral de desplazamiento <code>Ed = 40 eV</code> para Zr HCP. El resultado importante es que el modelo NRT sobreestima las vacancias estacionarias, especialmente a energías altas. Para <strong>5–15 keV</strong>, la razón <code>NFS(NRT)/Ns</code> aumenta aproximadamente de <strong>3,13</strong> a <strong>4,41</strong>.</p>
+
+  <h3>6.2. Modelo arc-dpa</h3>
+  <p>El modelo arc-dpa corrige el NRT introduciendo una eficiencia de recombinación atérmica. Los autores ajustan los parámetros para Zr y obtienen:</p>
+  <table>
+    <tr><th>Material</th><th>Ed (eV)</th><th>a<sub>arc-dpa</sub></th><th>b<sub>arc-dpa</sub></th></tr>
+    <tr><td>Zr</td><td>40</td><td>-0,565</td><td>0,18</td></tr>
+  </table>
+  <p>La conclusión es que arc-dpa describe mejor las vacancias estabilizadas que el modelo NRT porque incorpora la recombinación durante el thermal spike.</p>
+
+  <h3>6.3. Eficiencia de cascada</h3>
+  <p>El artículo define la eficiencia de cascada como:</p>
+  <p><code>η = Ns / NFS(NRT)</code></p>
+  <div class="fig">
+    <strong>Figura 5.</strong> η disminuye cuando aumenta E<sub>PKA</sub>, pero se vuelve casi constante por encima de <strong>5 keV</strong>. Esto indica que, a mayor energía, una fracción proporcionalmente menor de los desplazamientos NRT sobrevive como vacancia estable.
+  </div>
+
+  <h3>6.4. Ley empírica de potencia</h3>
+  <p>Los autores ajustan una ley empírica:</p>
+  <p><code>Ns = A EPKA^B</code></p>
+  <p>Para este trabajo, a <strong>300 K</strong>, obtienen <strong>A = 5,62</strong> y <strong>B = 0,66</strong>. Además proponen que, para Zr, los rangos razonables son:</p>
+  <ul>
+    <li><strong>A:</strong> 3,61–5,62</li>
+    <li><strong>B:</strong> 0,66–0,79</li>
+  </ul>
+
+  <h2>7. Efecto de la dirección incidente</h2>
+  <p>Como el Zr HCP es anisótropo, podría esperarse que la dirección del PKA modifique fuertemente la cascada. Sin embargo, el trabajo encuentra que la dirección incidente tiene un efecto menor sobre N<sub>peak</sub>, t<sub>peak</sub> y N<sub>s</sub>. El efecto más visible aparece en t<sub>s</sub>, es decir, en el tiempo requerido para alcanzar el estado estacionario.</p>
+  <div class="fig">
+    <strong>Figura 6.</strong> Para <strong>1 keV</strong> y <strong>300 K</strong>, las curvas de historia de vacancias para varias direcciones casi se superponen. N<sub>s</sub> varía entre aproximadamente <strong>8 y 13 vacancias</strong>, lo que indica una influencia débil de la anisotropía sobre la cantidad final de vacancias.
+  </div>
+  <p>La conclusión es que la anisotropía cristalográfica del Zr HCP no domina el daño primario medido como número final de vacancias, al menos para las condiciones simuladas.</p>
+
+  <h2>8. Efecto de la temperatura</h2>
+  <p>El efecto de la temperatura es más complejo. Las simulaciones se hacen con <strong>1 keV</strong> y dirección [2 1 1 0]. Al aumentar la temperatura, N<sub>peak</sub>, t<sub>peak</sub> y t<sub>s</sub> aumentan. Esto se debe a que los átomos tienen mayor energía cinética, vibran más y la duración del thermal spike aumenta.</p>
+  <div class="fig">
+    <strong>Figura 7.</strong> N<sub>peak</sub> aumenta fuertemente con T. El artículo reporta valores de N<sub>peak</sub> entre <strong>166 y 810</strong>, y t<sub>peak</sub> entre <strong>0,43 y 0,90 ps</strong>. A 600 K y 1500 K, N<sub>peak</sub> es aproximadamente <strong>2,0</strong> y <strong>4,9</strong> veces mayor que a 300 K.
+  </div>
+  <p>Sin embargo, N<sub>s</sub> no crece monótonamente. Primero aumenta de 300 K a 600 K, y luego disminuye al seguir aumentando la temperatura hasta 1500 K. El máximo de vacancias estabilizadas ocurre alrededor de <strong>600 K</strong>.</p>
+  <p>La interpretación física propuesta es doble:</p>
+  <ul>
+    <li>A temperaturas moderadas, la mayor vibración atómica facilita desplazamientos y aumenta la separación entre vacancias e intersticiales, reduciendo la recombinación inmediata y aumentando N<sub>s</sub>.</li>
+    <li>A temperaturas más altas, la movilidad y la duración del thermal spike favorecen la recombinación entre intersticiales y vacancias, por lo que N<sub>s</sub> disminuye.</li>
+  </ul>
+
+  <h2>9. Concentración de vacancias como medida de daño</h2>
+  <p>El artículo usa la concentración de vacancias:</p>
+  <p><code>C = Ns / n</code></p>
+  <p>donde <code>n = 72.000</code> átomos. Esta variable representa el daño residual en la fase estacionaria.</p>
+  <table>
+    <tr><th>Variable</th><th>Valores estudiados</th><th>Concentración de vacancias</th><th>Conclusión</th></tr>
+    <tr><td>E<sub>PKA</sub></td><td>0,5; 1; 5; 10; 15 keV</td><td>5,56; 8,33; 22,22; 34,72; 47,22 ×10⁻⁵</td><td>El daño aumenta con la energía.</td></tr>
+    <tr><td>Dirección incidente</td><td>Varias direcciones HCP</td><td>11,11–18,06 ×10⁻⁵</td><td>Influencia pequeña sobre el daño final.</td></tr>
+    <tr><td>Temperatura</td><td>300; 600; 900; 1200; 1500 K</td><td>8,33; 30,56; 22,22; 25,00; 16,67 ×10⁻⁵</td><td>Máximo cerca de 600 K; luego disminuye.</td></tr>
+  </table>
+  <p>La concentración cae en el rango <strong>10⁻⁵–10⁻⁴</strong>. Según los autores, C sirve como indicador compacto del daño por irradiación en Zr.</p>
+
+  <h2>10. Conclusiones principales del paper</h2>
+  <ol>
+    <li>La evolución de vacancias en la cascada sigue tres etapas: fase balística, fase de recombinación y fase estacionaria.</li>
+    <li>El modelo NRT sobreestima el número de vacancias estables, especialmente a energías PKA altas.</li>
+    <li>El modelo arc-dpa representa mejor los resultados MD porque considera recombinación atérmica.</li>
+    <li>El número de vacancias estables sigue aproximadamente una ley de potencia con la energía del PKA: <code>Ns = A EPKA^B</code>.</li>
+    <li>A mayor energía del PKA, mayor daño residual.</li>
+    <li>La dirección incidente tiene un efecto pequeño sobre el número final de vacancias, aunque puede afectar el tiempo de estabilización.</li>
+    <li>La temperatura tiene un efecto no monótono sobre N<sub>s</sub>: aumenta hasta alrededor de 600 K y luego disminuye.</li>
+    <li>La energía del PKA influye más fuertemente que la temperatura en N<sub>peak</sub>, t<sub>peak</sub> y t<sub>s</sub>.</li>
+    <li>La concentración de vacancias C puede usarse como medida del daño residual por irradiación.</li>
+  </ol>
+
+  <h2>11. Lectura crítica</h2>
+  <div class="box warn">
+    <strong>Punto importante para interpretar el trabajo.</strong> El paper usa Wigner-Seitz para contar defectos. Esto es estándar para cristales, pero depende de tener una referencia cristalina bien definida. En simulaciones con deformación, fuerte calentamiento local, superficies libres, granos, desorden o cambios estructurales, el conteo WS puede volverse sensible a la referencia. Para trabajos modernos de daño en condiciones extremas, conviene complementar WS con análisis estructural, clustering de defectos y métricas geométricas locales.
+  </div>
+  <p>El trabajo es útil porque separa el efecto de energía, temperatura y dirección. Sin embargo, el rango de energías es relativamente moderado, y el sistema es un cristal periódico ideal. En materiales reales de reactor hay aleaciones, precipitados, bordes de grano, superficies, óxidos, tensiones y defectos preexistentes. Por lo tanto, las conclusiones son sólidas para daño primario en Zr HCP ideal, pero no deben extrapolarse directamente a microestructuras complejas sin nuevas simulaciones.</p>
+
+  <h2>12. Cómo conectarlo con tu línea de trabajo</h2>
+  <p>Este paper es relevante para una línea de simulación MD y análisis automático de defectos porque muestra una ruta clara: generar cascadas, identificar defectos con Wigner-Seitz, extraer variables temporales y comparar con modelos físicos como NRT y arc-dpa. También muestra que N<sub>s</sub> y C son descriptores compactos del daño residual.</p>
+  <p>Para una metodología basada en nubes de puntos, clasificación de defectos o alternativas a Wigner-Seitz robustas a deformación, este artículo sirve como referencia de base. El punto débil a explotar es que el método WS requiere una red de referencia ideal. Una contribución moderna podría ser construir descriptores geométricos o modelos de aprendizaje que estimen daño residual sin depender rígidamente de una referencia cristalina perfecta.</p>
+
+  <h2>13. Resumen en una frase</h2>
+  <p><strong>El paper demuestra con dinámica molecular que el daño primario en Zr HCP aumenta fuertemente con la energía del PKA, depende débilmente de la dirección incidente y presenta un efecto no monótono con la temperatura, mientras que el modelo arc-dpa predice mejor las vacancias estables que el modelo NRT.</strong></p>
+
+  <p class="small">Documento preparado como resumen técnico en español del artículo cargado por el usuario.</p>
+</main>
+</body>
+</html>
