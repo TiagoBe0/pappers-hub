@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resumen detallado - Breaking the wire</title>
+  <style>
+    :root {
+      --bg: #f7f7f5;
+      --paper: #ffffff;
+      --ink: #1f2933;
+      --muted: #5f6b7a;
+      --accent: #8b1e1e;
+      --accent-soft: #f3e7e7;
+      --border: #d7d7d0;
+      --code-bg: #f1f3f5;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.62;
+    }
+
+    main {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 40px 22px 70px;
+    }
+
+    article {
+      background: var(--paper);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 38px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.07);
+    }
+
+    h1, h2, h3 {
+      line-height: 1.25;
+      color: #111827;
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      margin: 0 0 12px;
+      border-bottom: 4px solid var(--accent);
+      padding-bottom: 16px;
+    }
+
+    h2 {
+      font-size: 1.42rem;
+      margin-top: 34px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    h3 {
+      font-size: 1.12rem;
+      margin-top: 24px;
+      color: var(--accent);
+    }
+
+    p {
+      margin: 12px 0;
+    }
+
+    .meta {
+      background: var(--accent-soft);
+      border-left: 5px solid var(--accent);
+      padding: 16px 18px;
+      border-radius: 10px;
+      margin: 22px 0;
+    }
+
+    .meta p {
+      margin: 5px 0;
+    }
+
+    .key {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 18px 0;
+    }
+
+    .figure-note {
+      background: #fffdf5;
+      border-left: 4px solid #b7791f;
+      padding: 13px 16px;
+      border-radius: 8px;
+      margin: 14px 0;
+    }
+
+    ul, ol {
+      padding-left: 24px;
+    }
+
+    li {
+      margin: 7px 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 18px 0;
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 9px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f3f4f6;
+      font-weight: 700;
+    }
+
+    code {
+      background: var(--code-bg);
+      padding: 2px 5px;
+      border-radius: 5px;
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    .equation {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin: 12px 0;
+      font-family: "Courier New", Courier, monospace;
+      overflow-x: auto;
+    }
+
+    .conclusion {
+      background: #f0f7f4;
+      border-left: 5px solid #2f855a;
+      padding: 16px 18px;
+      border-radius: 10px;
+      margin-top: 18px;
+    }
+
+    .warning {
+      background: #fff5f5;
+      border-left: 5px solid #c53030;
+      padding: 16px 18px;
+      border-radius: 10px;
+      margin: 18px 0;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+  </style>
+</head>
+<body>
+<main>
+<article>
+  <h1>Resumen completo y detallado en español</h1>
+
+  <div class="meta">
+    <p><strong>Trabajo:</strong> “Breaking the wire: the impact of critical length on melting pathways in silver nanowires”.</p>
+    <p><strong>Autores:</strong> K. M. Ridings, E. E. L. Vaka’uta y S. M. Croot.</p>
+    <p><strong>Revista:</strong> <em>Materials Research Express</em>, volumen 12, artículo 025002, 2025.</p>
+    <p><strong>DOI:</strong> 10.1088/2053-1591/adb08e.</p>
+    <p><strong>Tema central:</strong> mecanismos de fusión en nanohilos de plata mediante dinámica molecular y modelado teórico de la velocidad de la interfaz sólido-líquido.</p>
+  </div>
+
+  <h2>1. Idea principal del artículo</h2>
+
+  <p>
+    El trabajo estudia cómo se funden nanohilos de plata y, en particular, cómo la longitud del nanohilo cambia el camino de fusión.
+    La pregunta central es por qué aparecen dos modos distintos de fusión cuando se modifica la relación de aspecto del nanohilo, definida como
+    <code>L/R0</code>, donde <code>L</code> es la longitud y <code>R0</code> el radio inicial.
+  </p>
+
+  <p>
+    Los autores encuentran que existe una longitud crítica aproximada, <code>Lcrit ≈ 2πR0</code>. Por encima y por debajo de esa longitud, el nanohilo no se funde de la misma manera.
+    Para nanohilos largos, <code>L &gt; Lcrit</code>, el proceso puede describirse razonablemente bien con un modelo de difusión tipo Arrhenius aplicado a la velocidad de avance de la interfaz sólido-líquido.
+    Para nanohilos cortos, <code>L ≤ Lcrit</code>, el modelo falla: la fusión ocurre mucho más rápido y parece dominada por efectos fuera del equilibrio, sobrecalentamiento del núcleo sólido y mayor densidad de energía.
+  </p>
+
+  <div class="key">
+    <strong>Mensaje físico esencial:</strong> no basta con conocer el radio del nanohilo para predecir su fusión. La longitud también importa porque determina la estabilidad de la interfaz sólido-líquido y el modo por el cual el sólido remanente desaparece.
+  </div>
+
+  <h2>2. Contexto físico</h2>
+
+  <p>
+    Las nanoestructuras suelen fundirse a temperaturas menores que los materiales macroscópicos. Esto se debe a que la contribución de la superficie se vuelve muy importante a escala nanométrica.
+    En nanopartículas, películas delgadas, anillos y nanohilos, la fase líquida puede volverse más favorable que la fase sólida a temperaturas más bajas que en el material masivo.
+  </p>
+
+  <p>
+    En nanohilos también aparecen inestabilidades geométricas, especialmente de tipo Plateau-Rayleigh. Estas inestabilidades tienden a romper estructuras alargadas en gotas o nanoesferas.
+    Por eso los nanohilos largos pueden ser menos estables que los cortos. Esta idea es importante en aplicaciones como redes neuromórficas de nanopartículas, nanofilamentos conductores y estructuras metálicas donde la estabilidad térmica determina la funcionalidad.
+  </p>
+
+  <p>
+    El artículo se apoya en trabajos previos donde ya se habían observado dos modos de fusión en nanohilos metálicos. Aquí el objetivo no es solo observar esos modos, sino explicar qué mecanismo físico los produce.
+  </p>
+
+  <h2>3. Geometría del problema</h2>
+
+  <p>
+    Los autores consideran un nanohilo de plata parcialmente fundido. El sistema tiene un radio inicial <code>R0</code>, una longitud <code>L</code>, un núcleo sólido interno de radio <code>r</code> y una capa líquida superficial de espesor <code>δ</code>.
+    La relación geométrica básica es:
+  </p>
+
+  <div class="equation">δ = R0 − r</div>
+
+  <p>
+    Esto significa que, durante la fusión superficial, el líquido crece hacia el centro del nanohilo. Cuando <code>δ</code> aumenta, el radio sólido <code>r</code> disminuye.
+  </p>
+
+  <div class="figure-note">
+    <strong>Figura 1:</strong> muestra una vista esquemática de un nanohilo parcialmente fundido. Se distinguen el radio total <code>R0</code>, el radio del núcleo sólido <code>r</code>, la longitud <code>L</code> y el ancho del núcleo líquido superficial <code>δ</code>.
+  </div>
+
+  <h2>4. Modelo termodinámico usado</h2>
+
+  <p>
+    Para describir la coexistencia entre sólido y líquido, el trabajo usa ideas de nucleación clásica.
+    La energía libre de Gibbs asociada a un núcleo sólido cilíndrico rodeado por su propio fundido se expresa como la competencia entre un término de volumen y un término interfacial.
+  </p>
+
+  <div class="equation">ΔG(r) = −πr²LΔGv + 2πrLγsl</div>
+
+  <p>
+    El primer término favorece la transformación de fase, mientras que el segundo representa el costo energético de crear una interfaz sólido-líquido.
+    Aquí <code>γsl</code> es la energía interfacial sólido-líquido y <code>ΔGv</code> es la diferencia de energía libre por unidad de volumen entre las fases.
+  </p>
+
+  <p>
+    La diferencia de energía libre volumétrica se aproxima mediante:
+  </p>
+
+  <div class="equation">ΔGv ≈ Lv ΔT / Tc</div>
+
+  <p>
+    donde <code>Lv</code> es el calor latente de fusión por unidad de volumen, <code>ΔT</code> es el subenfriamiento y <code>Tc</code> es la temperatura de fusión del material masivo.
+  </p>
+
+  <p>
+    Minimizando la energía libre se obtiene un radio crítico del núcleo sólido:
+  </p>
+
+  <div class="equation">r* = γsl Tc / (Lv ΔT)</div>
+
+  <p>
+    Esto implica que el radio crítico depende inversamente del subenfriamiento. Si <code>ΔT</code> aumenta, el radio crítico disminuye.
+    La barrera de energía asociada queda:
+  </p>
+
+  <div class="equation">ΔG* = πγsl²TcL / (LvΔT)</div>
+
+  <p>
+    Esta expresión muestra que la barrera energética crece con la longitud del nanohilo y disminuye con el subenfriamiento.
+    En el artículo, esta relación se usa para interpretar por qué los nanohilos largos y cortos siguen caminos de fusión diferentes.
+  </p>
+
+  <h2>5. Modelo de velocidad de interfaz sólido-líquido</h2>
+
+  <p>
+    Los autores modelan la velocidad de avance de la interfaz sólido-líquido usando una expresión general del tipo Wilson-Frenkel.
+    En forma simplificada, la velocidad depende de un coeficiente cinético <code>k(T)</code> y de la diferencia de potencial químico entre fases.
+  </p>
+
+  <div class="equation">V(T) = k(T) [1 − exp(−Δμ / kBT)]</div>
+
+  <p>
+    Para un mecanismo controlado por difusión, el coeficiente cinético se toma como una ley de Arrhenius:
+  </p>
+
+  <div class="equation">k(T) = C exp(−Q / kBT)</div>
+
+  <p>
+    donde <code>Q</code> es una energía de activación y <code>C</code> es una constante relacionada con la difusión, la geometría del nanohilo y una escala de camino libre medio.
+    Al combinar ambas expresiones:
+  </p>
+
+  <div class="equation">V(T) = C exp(−Q / kBT) [1 − exp(−Δμ / kBT)]</div>
+
+  <p>
+    El punto clave es que, si esta ecuación reproduce los datos de dinámica molecular, se puede interpretar que la fusión está gobernada por difusión.
+    Si falla, entonces hay otros procesos dominantes, como inestabilidad geométrica, sobrecalentamiento o mecanismos fuera del equilibrio.
+  </p>
+
+  <h2>6. Detalles computacionales</h2>
+
+  <p>
+    Las simulaciones fueron realizadas con dinámica molecular usando LAMMPS. Las interacciones atómicas de la plata se modelaron con un potencial EAM, adecuado para metales y para reproducir propiedades de fusión.
+    La constante de red empleada fue <code>a = 4.246 Å</code>, calculada a partir de la densidad de Ag a la temperatura de fusión.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Parámetro</th>
+        <th>Valor o descripción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Material</td>
+        <td>Nanohilos de plata, Ag.</td>
+      </tr>
+      <tr>
+        <td>Potencial</td>
+        <td>EAM, embedded atom model.</td>
+      </tr>
+      <tr>
+        <td>Software</td>
+        <td>LAMMPS, versión estable del 3 de marzo de 2020.</td>
+      </tr>
+      <tr>
+        <td>Radio inicial</td>
+        <td><code>R0 ≈ 34 Å</code>.</td>
+      </tr>
+      <tr>
+        <td>Paso temporal</td>
+        <td><code>2.5 fs</code>.</td>
+      </tr>
+      <tr>
+        <td>Termostato</td>
+        <td>Langevin, con amortiguamiento <code>γ = 1.0 ps⁻¹</code>.</td>
+      </tr>
+      <tr>
+        <td>Condiciones de borde</td>
+        <td>Periódicas en todas las direcciones.</td>
+      </tr>
+      <tr>
+        <td>Tasa de calentamiento efectiva</td>
+        <td><code>1.0 K/ns</code>.</td>
+      </tr>
+      <tr>
+        <td>Supercomputadora</td>
+        <td>Māui Supercomputer, Cray XC50, 40 tareas MPI.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    Las condiciones periódicas hacen que el nanohilo se comporte como una estructura repetida. Esto ayuda a suprimir perturbaciones de gran longitud de onda que podrían romper el hilo antes de que el proceso de fusión sea analizado.
+  </p>
+
+  <h2>7. Nanohilos estudiados</h2>
+
+  <p>
+    Se simularon nanohilos con el mismo radio inicial pero diferentes longitudes. Esto permite aislar el efecto de la relación de aspecto.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Relación de aspecto L/R0</th>
+        <th>Longitud L (Å)</th>
+        <th>Número de partículas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>2.5</td><td>84</td><td>19 381</td></tr>
+      <tr><td>5.0</td><td>168</td><td>38 281</td></tr>
+      <tr><td>7.5</td><td>254</td><td>57 181</td></tr>
+      <tr><td>10.0</td><td>338</td><td>76 081</td></tr>
+      <tr><td>15.0</td><td>508</td><td>113 881</td></tr>
+      <tr><td>25.0</td><td>848</td><td>189 481</td></tr>
+      <tr><td>37.5</td><td>1272</td><td>283 981</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    Con <code>R0 ≈ 34 Å</code>, la longitud crítica se estima como:
+  </p>
+
+  <div class="equation">Lcrit ≈ 2πR0 ≈ 214 Å</div>
+
+  <p>
+    Por lo tanto, los casos <code>L/R0 = 2.5</code> y <code>5.0</code> están por debajo o cerca de la longitud crítica, mientras que los demás se comportan como nanohilos largos.
+  </p>
+
+  <h2>8. Cómo distinguen átomos sólidos y líquidos</h2>
+
+  <p>
+    Para seguir la evolución de la interfaz sólido-líquido, los autores necesitan clasificar cada átomo como “solid-like” o “liquid-like”.
+    Para ello usan un parámetro de orden local basado en Steinhardt, específicamente una variante del parámetro <code>q6</code>.
+  </p>
+
+  <p>
+    Este parámetro mide el orden orientacional de los enlaces entre un átomo y sus vecinos. En una región cristalina, el entorno local tiene simetría y orden; en una región líquida, ese orden se pierde.
+    En una configuración de coexistencia sólido-líquido, la distribución del parámetro es bimodal: un pico corresponde a átomos líquidos y el otro a átomos sólidos.
+  </p>
+
+  <div class="figure-note">
+    <strong>Figura 2:</strong> muestra la distribución del parámetro de orden <code>q̃6</code>. Se observan dos picos: el de valores bajos corresponde a átomos líquidos y el de valores altos a átomos sólidos. También se incluyen vistas laterales y transversales del nanohilo.
+  </div>
+
+  <p>
+    Una vez clasificados los átomos, el radio sólido <code>r(z)</code> se calcula dividiendo el nanohilo en secciones a lo largo de su eje y promediando los valores locales.
+    Luego se identifica la superficie sólido-líquido mediante un algoritmo de vecinos cercanos.
+  </p>
+
+  <h2>9. Resultados principales de dinámica molecular</h2>
+
+  <h3>9.1 Formación de una capa líquida superficial</h3>
+
+  <p>
+    Durante el calentamiento, los nanohilos no se funden de golpe desde todo su volumen. Primero aparece una capa líquida superficial.
+    El núcleo interior permanece sólido durante parte del proceso, mientras el líquido superficial avanza hacia el centro.
+  </p>
+
+  <div class="figure-note">
+    <strong>Figura 3:</strong> muestra cómo varían a lo largo del eje del nanohilo el radio líquido exterior <code>Rliq(z)</code>, el radio sólido <code>r(z)</code> y el espesor líquido <code>δ(z)</code>. La imagen atómica asociada permite ver una capa líquida alrededor de un núcleo sólido.
+  </div>
+
+  <h3>9.2 Evolución temporal del radio sólido y del espesor líquido</h3>
+
+  <p>
+    Para estimar la velocidad de la interfaz, los autores siguen el promedio temporal de <code>r(t)</code> y <code>δ(t)</code>.
+    Identifican dos momentos importantes: el instante en que el sólido empieza a estrangularse o romperse localmente, y el instante en que el sólido desaparece por completo.
+  </p>
+
+  <div class="figure-note">
+    <strong>Figura 4:</strong> muestra el aumento de <code>δ(t)</code> y la disminución de <code>r(t)</code>. La estrella azul marca el inicio de la ruptura del núcleo sólido; la estrella roja marca la fusión completa.
+  </div>
+
+  <p>
+    La velocidad de la interfaz se estima como:
+  </p>
+
+  <div class="equation">V(Tm) ≈ dδ/dt</div>
+
+  <p>
+    Es decir, se mide qué tan rápido aumenta el espesor líquido durante el intervalo de fusión final.
+  </p>
+
+  <h3>9.3 Radio crítico antes de la ruptura</h3>
+
+  <p>
+    En los distintos nanohilos, el radio sólido justo antes del inicio de la ruptura se aproxima a un valor característico. Los autores estiman:
+  </p>
+
+  <div class="equation">r* ≈ 27.5 Å</div>
+
+  <p>
+    Como el radio inicial es <code>R0 = 34 Å</code>, esto significa que aproximadamente 1.5 capas cristalinas se funden antes de que comience la fusión masiva del núcleo sólido.
+  </p>
+
+  <div class="figure-note">
+    <strong>Figura 5:</strong> compara la evolución de <code>r(t)</code> para varios aspectos de nanohilo. Antes de la ruptura, los radios fluctúan cerca de un valor común, lo que permite definir <code>r*</code>.
+  </div>
+
+  <h3>9.4 Dependencia con la longitud</h3>
+
+  <p>
+    En nanohilos largos, el radio sólido al momento de la ruptura tiende a estabilizarse alrededor de <code>0.8R0</code>.
+    Esto coincide con resultados previos en nanohilos de cobre.
+  </p>
+
+  <div class="figure-note">
+    <strong>Figura 6:</strong> muestra que <code>rb*/R0</code> aumenta con la relación de aspecto y luego se aproxima a una meseta. En paralelo, el espesor líquido al momento de ruptura <code>δb*/R0</code> disminuye.
+  </div>
+
+  <p>
+    Esta observación es importante: los nanohilos largos se vuelven inestables cuando todavía conservan un núcleo sólido relativamente grande.
+    En cambio, los nanohilos cortos pueden mantener estable la interfaz hasta radios sólidos más pequeños.
+  </p>
+
+  <h3>9.5 Temperatura de fusión y subenfriamiento</h3>
+
+  <p>
+    La temperatura de fusión <code>Tm</code> se calcula a partir del máximo de la capacidad calorífica:
+  </p>
+
+  <div class="equation">Cv = dE/dT</div>
+
+  <p>
+    El trabajo encuentra que los nanohilos más largos tienden a fundirse a temperaturas ligeramente menores que los cortos.
+    Esto contradice la visión más simple según la cual el punto de fusión dependería principalmente del radio.
+  </p>
+
+  <div class="figure-note">
+    <strong>Figura 7:</strong> muestra que el radio de ruptura sigue aproximadamente la dependencia <code>rb* ∝ ΔT⁻¹</code>, en acuerdo con la predicción de nucleación clásica.
+  </div>
+
+  <h2>10. Comparación entre dinámica molecular y modelo Arrhenius</h2>
+
+  <p>
+    La parte central del análisis consiste en comparar la velocidad de la interfaz obtenida de las simulaciones con la predicha por el modelo de difusión Arrhenius.
+  </p>
+
+  <p>
+    El resultado es claro:
+  </p>
+
+  <ul>
+    <li>Para <code>L &gt; Lcrit</code>, el modelo reproduce bien las velocidades medidas.</li>
+    <li>Para <code>L ≤ Lcrit</code>, el modelo subestima o no captura correctamente la velocidad real de fusión.</li>
+    <li>La velocidad de la interfaz aumenta fuertemente al disminuir la longitud del nanohilo.</li>
+  </ul>
+
+  <div class="figure-note">
+    <strong>Figura 8:</strong> compara la velocidad de la interfaz en función de <code>L/R0</code>. Los nanohilos cortos muestran velocidades muy altas, mientras que los largos siguen mejor la tendencia del modelo difusivo.
+  </div>
+
+  <p>
+    Para incorporar el efecto geométrico, los autores introducen un factor de escala:
+  </p>
+
+  <div class="equation">C = (Lcrit / L) · (6lD0 / λ²)</div>
+
+  <p>
+    Esto permite que la constante cinética dependa de la longitud. Aun así, la corrección no basta para explicar completamente los nanohilos más cortos.
+  </p>
+
+  <div class="figure-note">
+    <strong>Figura 9:</strong> muestra el coeficiente cinético <code>k(T)</code>. Para nanohilos largos, los datos de MD y el ajuste Arrhenius convergen. Para nanohilos cortos, los datos se separan del modelo.
+  </div>
+
+  <h2>11. Parámetros termodinámicos y de ajuste</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Magnitud</th>
+        <th>Valor usado</th>
+        <th>Significado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>Tc</code></td>
+        <td>1255 K</td>
+        <td>Temperatura de fusión masiva de Ag para el potencial usado.</td>
+      </tr>
+      <tr>
+        <td><code>Δhm</code></td>
+        <td>0.118 eV/partícula</td>
+        <td>Entalpía de fusión por átomo.</td>
+      </tr>
+      <tr>
+        <td><code>Lv</code></td>
+        <td>0.00610 eV/Å³</td>
+        <td>Calor latente de fusión por volumen.</td>
+      </tr>
+      <tr>
+        <td><code>D0</code></td>
+        <td>269.0 Å²/ns</td>
+        <td>Constante de difusión de referencia.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    El ajuste del modelo da diferentes parámetros dependiendo de si se consideran solo los nanohilos largos o todos los nanohilos.
+    Cuando se ajustan solo los largos, la energía de activación obtenida es <code>Q ≈ 0.169 eV</code>. Cuando se ajustan todos, aumenta a <code>Q ≈ 0.238 eV</code>.
+    Esto indica que incluir los nanohilos cortos distorsiona el ajuste difusivo, porque su mecanismo no es puramente el mismo.
+  </p>
+
+  <h2>12. Valores numéricos principales</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>L/R0</th>
+        <th>Tm (K)</th>
+        <th>rb* (Å)</th>
+        <th>δb* (Å)</th>
+        <th>τ* (ns)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>2.5</td><td>1220.0</td><td>14.7</td><td>19.2</td><td>0.033</td></tr>
+      <tr><td>5.0</td><td>1218.1</td><td>22.3</td><td>11.7</td><td>0.19</td></tr>
+      <tr><td>7.5</td><td>1217.7</td><td>25.05</td><td>8.94</td><td>0.39</td></tr>
+      <tr><td>10.0</td><td>1217.5</td><td>25.7</td><td>8.27</td><td>0.59</td></tr>
+      <tr><td>15.0</td><td>1217.0</td><td>26.6</td><td>7.40</td><td>0.94</td></tr>
+      <tr><td>25.0</td><td>1216.4</td><td>27.3</td><td>6.71</td><td>1.76</td></tr>
+      <tr><td>37.5</td><td>1216.6</td><td>27.5</td><td>6.45</td><td>2.58</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    La diferencia más importante está en el tiempo de fusión final <code>τ*</code>. El nanohilo más corto se consume en aproximadamente <code>33 ps</code>, mientras que el más largo tarda <code>2.58 ns</code>.
+    Esto es una diferencia de casi dos órdenes de magnitud.
+  </p>
+
+  <h2>13. Interpretación física de los dos mecanismos de fusión</h2>
+
+  <h3>13.1 Nanohilos largos: fusión controlada por difusión e inestabilidad axial</h3>
+
+  <p>
+    En nanohilos con <code>L &gt; Lcrit</code>, la interfaz sólido-líquido se vuelve inestable a lo largo del eje del nanohilo.
+    El sólido se estrangula en algún punto y luego el líquido consume el resto del núcleo sólido longitudinalmente.
+  </p>
+
+  <p>
+    Este comportamiento puede interpretarse como un proceso relativamente cercano a un mecanismo difusivo.
+    La ley tipo Arrhenius describe razonablemente la velocidad de la interfaz, lo que indica que el transporte atómico y la movilidad de interfaz son factores dominantes.
+  </p>
+
+  <h3>13.2 Nanohilos cortos: fusión rápida fuera del equilibrio</h3>
+
+  <p>
+    En nanohilos con <code>L ≤ Lcrit</code>, el núcleo sólido no se desestabiliza de la misma manera.
+    La interfaz sólido-líquido parece más estable frente a la ruptura axial, lo que permite que el núcleo sólido sobreviva hasta radios más pequeños.
+  </p>
+
+  <p>
+    Sin embargo, al mantenerse estable por más tiempo, el núcleo sólido puede sobrecalentarse respecto de su límite de estabilidad.
+    Cuando finalmente la fusión avanza, lo hace de manera muy rápida. Esto explica por qué el modelo de difusión simple no alcanza para describir estos casos.
+  </p>
+
+  <p>
+    En términos físicos, los nanohilos cortos se parecen más a un proceso de fusión rápida o casi homogénea, mientras que los largos se parecen más a un proceso heterogéneo dominado por interfaz.
+  </p>
+
+  <h2>14. Densidad de energía y escala temporal de fusión</h2>
+
+  <p>
+    Para explicar la aceleración en los nanohilos cortos, los autores analizan la densidad de energía:
+  </p>
+
+  <div class="equation">|Etot| / Vwire</div>
+
+  <p>
+    Como todos los nanohilos se calientan con la misma tasa, la diferencia de volumen hace que la densidad de energía sea diferente.
+    Los nanohilos cortos presentan mayores densidades de energía y se funden en tiempos mucho menores.
+  </p>
+
+  <div class="figure-note">
+    <strong>Figura 10:</strong> muestra que el tiempo de fusión disminuye al aumentar la densidad de energía. Los nanohilos largos tardan entre 1 y 3 ns; los cortos se funden en decenas de picosegundos.
+  </div>
+
+  <div class="figure-note">
+    <strong>Figura 11:</strong> relaciona el tiempo de fusión con la temperatura de fusión. Los nanohilos que se funden más rápido también muestran temperaturas de fusión ligeramente mayores.
+  </div>
+
+  <p>
+    Esta interpretación se conecta con estudios experimentales de fusión inducida por láser, donde se distingue entre fusión heterogénea en escalas largas y fusión homogénea en escalas cortas.
+  </p>
+
+  <h2>15. Discusión crítica</h2>
+
+  <p>
+    El trabajo muestra que el comportamiento de fusión de nanohilos metálicos depende de una combinación de geometría, energía interfacial, difusión y efectos fuera del equilibrio.
+    La longitud crítica funciona como una frontera entre dos regímenes.
+  </p>
+
+  <p>
+    En nanohilos largos, la fusión se inicia por inestabilidades de la interfaz y el modelo cinético tiene sentido. En nanohilos cortos, la interfaz no se rompe tan fácilmente, el sólido se sobrecalienta y luego desaparece en tiempos muy cortos.
+  </p>
+
+  <p>
+    Una idea relevante del artículo es que podría existir una diferencia efectiva en la barrera de energía entre nanohilos por encima y por debajo de la longitud crítica.
+    Los autores describen esto como una posible “separación” o “splitting” de barreras energéticas.
+  </p>
+
+  <div class="warning">
+    <strong>Limitación importante:</strong> aunque el modelo Arrhenius funciona para nanohilos largos, no es suficiente para los cortos. Para estos últimos se necesitaría un modelo que incorpore explícitamente sobrecalentamiento, curvatura, defectos, estabilidad de la interfaz y posiblemente cambios en la energía libre efectiva.
+  </div>
+
+  <h2>16. Conclusiones del artículo</h2>
+
+  <div class="conclusion">
+    <p>
+      El trabajo concluye que la geometría del nanohilo, en especial su longitud relativa al radio, controla el camino de fusión.
+      Para <code>L &gt; Lcrit</code>, la fusión puede describirse con un modelo de difusión tipo Arrhenius.
+      Para <code>L ≤ Lcrit</code>, aparecen efectos fuera del equilibrio que aceleran la fusión y generan un mecanismo diferente.
+    </p>
+  </div>
+
+  <ul>
+    <li>Los nanohilos largos se funden mediante un proceso compatible con difusión y avance de interfaz.</li>
+    <li>Los nanohilos cortos muestran fusión rápida, con posible sobrecalentamiento del núcleo sólido.</li>
+    <li>La velocidad de interfaz aumenta fuertemente al disminuir la longitud.</li>
+    <li>La temperatura de fusión no depende solo del radio, sino también de la longitud.</li>
+    <li>La densidad de energía ayuda a explicar por qué los nanohilos cortos se consumen tan rápido.</li>
+    <li>La longitud crítica <code>Lcrit ≈ 2πR0</code> separa dos regímenes físicos de fusión.</li>
+  </ul>
+
+  <h2>17. Importancia para simulaciones de nanohilos</h2>
+
+  <p>
+    Este artículo es especialmente útil para quienes simulan nanohilos metálicos, irradiación, calentamiento ultrarrápido o estabilidad térmica de nanoestructuras.
+    Muestra que cambiar la longitud de la celda no es un detalle menor: puede cambiar completamente el mecanismo observado.
+  </p>
+
+  <p>
+    Para simulaciones con condiciones periódicas, el resultado también advierte que la longitud de la caja periódica puede imponer o suprimir ciertos modos de inestabilidad.
+    Si la caja es demasiado corta, puede impedir que aparezcan inestabilidades axiales de longitud de onda larga y favorecer un modo de fusión distinto.
+ 
+  <h2>19. Resumen final en una frase</h2>
+
+  <p>
+    El artículo demuestra que los nanohilos de plata largos y cortos no se funden por el mismo camino: los largos siguen una fusión de interfaz compatible con difusión tipo Arrhenius, mientras que los cortos presentan fusión rápida fuera del equilibrio debido a estabilización de la interfaz, sobrecalentamiento del núcleo sólido y mayor densidad de energía.
+  </p>
+
+  <p class="small">
+    Documento preparado como resumen técnico en español del trabajo de Ridings, Vaka’uta y Croot, Materials Research Express 12, 025002, 2025.
+  </p>
+</article>
+</main>
+</body>
+</html>
