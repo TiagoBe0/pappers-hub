@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resumen bibliografico - Nanohilos de plata y memristores</title>
+<title>Resumen bibliografico - Nanohilos de plata y dispositivos memristivos</title>
 <style>
   :root {
     --ink:        #1a1a1a;
@@ -112,8 +112,8 @@
     max-width: 800px;
   }
 
-  /* card de paper */
-  article.paper {
+  /* card de articulo */
+  article.articulo {
     background: var(--card);
     border: 1px solid var(--rule);
     border-radius: 10px;
@@ -121,35 +121,35 @@
     margin-bottom: 18px;
     position: relative;
   }
-  article.paper.high {
+  article.articulo.high {
     border-left: 4px solid var(--brand);
   }
-  article.paper.medium {
+  article.articulo.medium {
     border-left: 4px solid var(--amber);
   }
-  article.paper.low {
+  article.articulo.low {
     border-left: 4px solid var(--slate);
   }
 
-  article.paper header.paper-head {
+  article.articulo header.articulo-head {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 24px;
     margin-bottom: 14px;
   }
-  article.paper h3 {
+  article.articulo h3 {
     margin: 0 0 4px 0;
     font-size: 17px;
     color: var(--ink);
     line-height: 1.35;
   }
-  article.paper .meta {
+  article.articulo .meta {
     margin: 0;
     font-size: 13px;
     color: var(--muted);
   }
-  article.paper .filename {
+  article.articulo .filename {
     font-family: Consolas, "Courier New", monospace;
     font-size: 11px;
     color: var(--muted);
@@ -183,17 +183,17 @@
   .badge.low   { background: var(--slate-soft); color: var(--slate); }
   .badge.low .dot   { background: var(--slate); }
 
-  /* contenido del paper */
-  article.paper .body {
+  /* contenido del articulo */
+  article.articulo .body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 22px;
   }
   @media (max-width: 720px) {
-    article.paper .body { grid-template-columns: 1fr; }
+    article.articulo .body { grid-template-columns: 1fr; }
     nav.toc ol { columns: 1; }
   }
-  article.paper .col h4 {
+  article.articulo .col h4 {
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 1.5px;
@@ -201,16 +201,16 @@
     margin: 0 0 8px 0;
     font-weight: 700;
   }
-  article.paper .col p {
+  article.articulo .col p {
     margin: 0 0 8px 0;
     font-size: 14px;
     color: var(--ink-soft);
   }
-  article.paper .col.relevance h4 {
+  article.articulo .col.relevance h4 {
     color: var(--brand);
   }
-  article.paper.medium .col.relevance h4 { color: var(--amber); }
-  article.paper.low .col.relevance h4 { color: var(--slate); }
+  article.articulo.medium .col.relevance h4 { color: var(--amber); }
+  article.articulo.low .col.relevance h4 { color: var(--slate); }
 
   /* leyenda */
   .legend {
@@ -267,17 +267,17 @@
   <div class="eyebrow">Resumen bibliografico</div>
   <h1>Corpus del proyecto: nanohilos de plata y dispositivos memristivos</h1>
   <p class="lead">
-    Revision de los 17 articulos disponibles, organizados por tema y clasificados por su
-    relevancia para nuestra simulacion en LAMMPS de un nanohilo de plata cortado por
-    un thermal spike. Cada entrada explica de que trata el paper y, sobre todo,
-    <span class="b">por que es o no es util</span> para nuestro problema concreto.
+    Revision de los 17 articulos disponibles, organizados por eje tematico y clasificados por su
+    relevancia para la simulacion atomistica en LAMMPS de un nanohilo de plata sometido a
+    un thermal spike. Cada entrada sintetiza el contenido del articulo y su utilidad
+    <span class="b">para el analisis fisico del sistema estudiado</span>.
   </p>
 </header>
 
 <div class="legend">
-  <div class="legend-item"><span class="swatch high"></span><span><span class="b">Alta relevancia</span> &mdash; sostiene directamente la fisica del experimento que simulamos.</span></div>
-  <div class="legend-item"><span class="swatch medium"></span><span><span class="b">Relevancia media</span> &mdash; aporta contexto util pero no fundamento central.</span></div>
-  <div class="legend-item"><span class="swatch low"></span><span><span class="b">Relevancia baja</span> &mdash; corresponde a otra rama del proyecto memristor.</span></div>
+  <div class="legend-item"><span class="swatch high"></span><span><span class="b">Alta relevancia</span> &mdash; sostiene directamente la fisica del sistema simulado.</span></div>
+  <div class="legend-item"><span class="swatch medium"></span><span><span class="b">Relevancia media</span> &mdash; aporta contexto util, aunque no constituye el fundamento central.</span></div>
+  <div class="legend-item"><span class="swatch low"></span><span><span class="b">Relevancia baja</span> &mdash; corresponde a lineas complementarias del proyecto memristivo.</span></div>
 </div>
 
 <nav class="toc">
@@ -299,14 +299,14 @@
 <section class="theme" id="tema1">
   <h2>1. Nucleo fisico de la simulacion: estabilidad termica y ruptura de nanohilos metalicos</h2>
   <p class="theme-intro">
-    Estos cuatro papers son la base teorica directa de lo que estamos simulando.
-    Tratan inestabilidades de Rayleigh-Plateau, fusion superficial, retraccion capilar y
-    fluctuaciones termicas en hilos liquidos a la nanoescala. Cualquier conclusion fisica
-    de nuestro trabajo deberia poder anclarse en alguno de ellos.
+    Estos cuatro trabajos constituyen la base teorica directa para el analisis del sistema.
+    Abordan inestabilidades de Rayleigh-Plateau, fusion superficial, retraccion capilar y
+    fluctuaciones termicas en hilos liquidos a la nanoescala. Las conclusiones fisicas
+    principales del estudio pueden enmarcarse a partir de este conjunto bibliografico.
   </p>
 
-  <article class="paper high">
-    <header class="paper-head">
+  <article class="articulo high">
+    <header class="articulo-head">
       <div>
         <h3>Toimil-Molares et al. &mdash; Fragmentation of nanowires driven by Rayleigh instability</h3>
         <p class="meta">Appl. Phys. Lett. 85, 5337 (2004) &nbsp;&middot;&nbsp; <span class="filename">toimilmolares2004.pdf</span></p>
@@ -319,14 +319,14 @@
         <p>Demostracion experimental por SEM de que nanohilos de Cu (30-50 nm de diametro) recocidos en vacio se fragmentan en regimenes distintos segun la temperatura: a 400&nbsp;&deg;C aparecen constricciones, a 500&nbsp;&deg;C se rompen en secciones cilindricas cortas, y a 600&nbsp;&deg;C colapsan en una cadena de nanoesferas con espaciado y diametro coincidentes con la prediccion clasica de Rayleigh (&lambda; = 8.89 r, d = 3.78 r).</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Es <span class="b">la referencia canonica</span> que justifica que un nanohilo metalico calentado puede romperse por inestabilidad de Rayleigh-Plateau. Lo citan los papers de Ridings, de Kim 2020 y se mencionan explicitamente las velocidades de transporte por difusion superficial. <span class="b">Importante:</span> describe un escenario distinto al nuestro (calentamiento <span class="ital">uniforme</span>, no spike localizado), por lo que sirve como contraste para enmarcar correctamente nuestro caso como retraccion capilar end-pinching, no R-P clasico.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Es <span class="b">una referencia canonica</span> para justificar que un nanohilo metalico calentado puede fragmentarse por inestabilidad de Rayleigh-Plateau. Es citado por Ridings y por Kim 2020, y discute explicitamente el transporte de masa por difusion superficial. <span class="b">Importante:</span> describe un escenario diferente al del presente estudio (calentamiento <span class="ital">uniforme</span>, no excitacion localizada), por lo que resulta especialmente util como contraste frente a un mecanismo de retraccion capilar localizada tipo end-pinching, distinto del regimen R-P clasico.</p>
       </div>
     </div>
   </article>
 
-  <article class="paper high">
-    <header class="paper-head">
+  <article class="articulo high">
+    <header class="articulo-head">
       <div>
         <h3>Ridings, Aldershof &amp; Hendy &mdash; Surface melting and breakup of metal nanowires: Theory and molecular dynamics simulation</h3>
         <p class="meta">J. Chem. Phys. 150, 094705 (2019) &nbsp;&middot;&nbsp; <span class="filename">ridings2019.pdf</span></p>
@@ -339,14 +339,14 @@
         <p>Combina un modelo de Landau de doble parabola con simulaciones MD (potenciales EAM) para nanohilos de Ni y Al. Muestra que para metales con superficies mojantes (&Delta;&gamma; &gt; 0) la fusion superficial precede al breakup; para superficies no-mojantes (Al{100}) parches solidos persisten hasta el punto de fusion bulk. Documenta el pinch-off del nucleo solido como mecanismo de ruptura.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p><span class="b">Plantilla metodologica directa.</span> El protocolo MD que usan (potencial EAM, termostato Langevin, identificacion solido-liquido por <code class="inline">q&#x0304;<sub>6</sub></code>, calculo de Tm vs 1/R) es transplantable a nuestro caso de Ag. Su observacion de que el solido se rompe via instabilidad cuando se acerca al punto de fusion sostiene nuestra hipotesis de que el liquido inyectado por el spike se retrae rapido. Citamos esta como <span class="b">la referencia central</span> de nuestro framework.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p><span class="b">Referencia metodologica directa.</span> El protocolo MD empleado (potenciales EAM, termostato Langevin, identificacion solido-liquido mediante <code class="inline">q&#x0304;<sub>6</sub></code>, estimacion de Tm en funcion de 1/R) es transferible al caso de Ag. La observacion de ruptura del nucleo solido por inestabilidad cerca del punto de fusion respalda la interpretacion de una retraccion rapida del material liquido generado por el spike. Constituye una <span class="b">referencia central</span> para el marco metodologico.</p>
       </div>
     </div>
   </article>
 
-  <article class="paper high">
-    <header class="paper-head">
+  <article class="articulo high">
+    <header class="articulo-head">
       <div>
         <h3>Ridings &amp; Hendy &mdash; Nanowire melting modes during the solid-liquid phase transition</h3>
         <p class="meta">Sci. Rep. 12, 20052 (2022) &nbsp;&middot;&nbsp; <span class="filename">s41598-022-24654-z.pdf</span></p>
@@ -356,17 +356,17 @@
     <div class="body">
       <div class="col">
         <h4>De que trata</h4>
-        <p>Continuacion del paper anterior. Identifican <span class="b">dos modos de fusion competitivos</span>: (a) frente radial que avanza hacia el centro, vs (b) crecimiento de inestabilidades en la interfase solido-liquido que pinchea el nucleo. El modo dominante depende del aspect ratio L/R y se predice por una version del criterio Rayleigh-Plateau aplicada al nucleo solido en coexistencia con el melt.</p>
+        <p>Continuacion del articulo anterior. Identifican <span class="b">dos modos de fusion competitivos</span>: (a) frente radial que avanza hacia el centro, vs (b) crecimiento de inestabilidades en la interfase solido-liquido que pinchea el nucleo. El modo dominante depende del aspect ratio L/R y se predice por una version del criterio Rayleigh-Plateau aplicada al nucleo solido en coexistencia con el melt.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Da el lenguaje tecnico para distinguir <span class="b">"radial mode"</span> de <span class="b">"instability mode"</span>, justamente lo que necesitamos para argumentar por que nuestro hilo se corta en una posicion bien definida en lugar de fragmentarse en muchas gotitas. Tambien muestra que hilos largos son termodinamicamente menos estables, lo que valida nuestra eleccion de un hilo largo en LAMMPS para favorecer el corte limpio.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Aporta el lenguaje tecnico para distinguir <span class="b">"radial mode"</span> e <span class="b">"instability mode"</span>, una distincion clave para interpretar la aparicion de un corte localizado frente a una fragmentacion en multiples gotas. Ademas, muestra que los hilos largos son termodinamicamente menos estables, lo que justifica el uso de geometria alargada en LAMMPS para favorecer un corte definido.</p>
       </div>
     </div>
   </article>
 
-  <article class="paper high">
-    <header class="paper-head">
+  <article class="articulo high">
+    <header class="articulo-head">
       <div>
         <h3>Zhao, Sprittles &amp; Lockerby &mdash; Revisiting the Rayleigh-Plateau instability for the nanoscale</h3>
         <p class="meta">J. Fluid Mech. 861, R3 (2019) &nbsp;&middot;&nbsp; <span class="filename">revisiting-the-rayleigh-plateau-instability-for-the-nanoscale.pdf</span></p>
@@ -379,8 +379,8 @@
         <p>Revision teorica + MD del criterio de Rayleigh-Plateau cuando las fluctuaciones termicas se vuelven importantes. Derivan una <span class="b">stochastic lubrication equation</span> (SLE) y muestran experimentalmente con MD de Lennard-Jones que cilindros liquidos clasicamente estables (L &lt; 2&pi;R) <span class="b">si pueden romperse</span> a la nanoescala por fluctuaciones, en tiempo finito.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Util como <span class="b">soporte teorico secundario</span>: nos da las escalas caracteristicas de tiempo capilar (&tau; = (&rho;R&sup3;/&gamma;)<sup>1/2</sup>) y la longitud termo-capilar &ell;<sub>fluc</sub> = (k<sub>B</sub>T/&gamma;)<sup>1/2</sup>. En Ag a alta T, &ell;<sub>fluc</sub> es del orden de 0.3 nm, comparable a R, asi que las fluctuaciones <span class="ital">si</span> matter a nuestra escala. No es central para el thermal spike, pero respalda que la ruptura nanoscale no obedece estrictamente al criterio clasico de Plateau.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Util como <span class="b">soporte teorico secundario</span>: proporciona escalas caracteristicas de tiempo capilar (&tau; = (&rho;R&sup3;/&gamma;)<sup>1/2</sup>) y longitud termo-capilar &ell;<sub>fluc</sub> = (k<sub>B</sub>T/&gamma;)<sup>1/2</sup>. Para Ag a alta temperatura, &ell;<sub>fluc</sub> puede ubicarse en el orden subnanometrico, por lo que las fluctuaciones termicas pueden adquirir relevancia a escala atomistica. Aunque no aborda directamente un thermal spike, respalda la idea de que la ruptura nanoscale no obedece estrictamente al criterio clasico de Plateau.</p>
       </div>
     </div>
   </article>
@@ -392,12 +392,12 @@
 <section class="theme" id="tema2">
   <h2>2. Experimento que se replica: AgNW en TEM in-situ</h2>
   <p class="theme-intro">
-    Un solo paper en esta categoria, pero es el que define el experimento que tu colaborador
-    del Balseiro intenta reproducir.
+    Esta categoria contiene el trabajo experimental que define el fenomeno de referencia para la
+    simulacion atomistica del nanohilo de Ag.
   </p>
 
-  <article class="paper high">
-    <header class="paper-head">
+  <article class="articulo high">
+    <header class="articulo-head">
       <div>
         <h3>Kim et al. &mdash; Mechanism of Heat-Induced Fusion of Silver Nanowires</h3>
         <p class="meta">Sci. Rep. 10, 9271 (2020) &nbsp;&middot;&nbsp; <span class="filename">s41598-020-66304-2.pdf</span></p>
@@ -410,8 +410,8 @@
         <p>Estudio TEM in-situ sobre AgNW (30-80 nm) calentados a 5&nbsp;&deg;C/s. Reportan: (i) a 200-300&nbsp;&deg;C las nanoparticulas en la superficie se fusionan, (ii) a 350-400&nbsp;&deg;C empieza la extrusion de atomos de Ag, (iii) a 500-550&nbsp;&deg;C los hilos paralelos se unen en uno solo, (iv) <span class="b">a ~575&nbsp;&deg;C el hilo unificado se rompe puntualmente</span>, en una zona con defectos. Atribuyen el mecanismo a difusion superficial + tension superficial (Rayleigh-like).</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p><span class="b">Es <span class="ital">el</span> experimento de referencia</span>. Sirve como ground truth de lo que tendriamos que reproducir cualitativamente con MD: fusion local, extrusion, ruptura puntual. Nuestra simulacion con thermal spike + TTM/Langevin emula la fase rapida y localizada del corte (~575&nbsp;&deg;C en el experimento) saltandonos la dinamica lenta de difusion superficial que tomaria horas en MD. Es importante reconocer esta separacion de escalas en cualquier reporte.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p><span class="b">Es el experimento de referencia</span>. Proporciona el marco fenomenologico que la simulacion MD debe reproducir cualitativamente: fusion local, extrusion atomica y ruptura puntual. La estrategia de simulacion mediante thermal spike + TTM/Langevin representa la fase rapida y localizada del corte observada experimentalmente alrededor de ~575&nbsp;&deg;C, sin resolver de forma explicita la dinamica lenta de difusion superficial. Esta separacion de escalas debe explicitarse en la discusion metodologica.</p>
       </div>
     </div>
   </article>
@@ -423,13 +423,13 @@
 <section class="theme" id="tema3">
   <h2>3. Fundamentos teoricos del memristor (Chua y la teoria de circuitos)</h2>
   <p class="theme-intro">
-    Estos papers establecen que es un memristor desde la teoria de circuitos. Son fundamentales
-    para entender por que un nanohilo de Ag con un filamento conductor variable es un memristor,
-    pero <span class="b">no contienen fisica directamente aplicable a la simulacion MD</span>.
+    Estos trabajos establecen la definicion de memristor desde la teoria de circuitos. Son relevantes
+    para interpretar un nanohilo de Ag con filamento conductor variable como dispositivo memristivo,
+    aunque <span class="b">no contienen fisica directamente aplicable a la simulacion MD</span>.
   </p>
 
-  <article class="paper medium">
-    <header class="paper-head">
+  <article class="articulo medium">
+    <header class="articulo-head">
       <div>
         <h3>Chua &mdash; Resistance switching memories are memristors</h3>
         <p class="meta">Appl. Phys. A 102, 765 (2011) &nbsp;&middot;&nbsp; <span class="filename">s0033901162649.pdf</span></p>
@@ -442,14 +442,14 @@
         <p>Tutorial de Chua que argumenta que <span class="b">todos los dispositivos de memoria de 2 terminales basados en switching resistivo son memristores</span>, independientemente del material o el mecanismo. La huella dactilar es el lazo de histeresis pinchado en los cuadrantes I y III del plano v-i. Recorre ejemplos de 2000 a 2010 (manganitas, oxidos, magnetos, etc).</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Justifica conceptualmente por que el dispositivo final con filamentos de Ag es un memristor, pero <span class="b">no aporta nada a la fase MD del trabajo</span>. Util si en la introduccion de un futuro paper hay que motivar por que el problema importa para la comunidad de memristores. Tambien util para tu director si pregunta "&iquest;esto califica como memristor?".</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Justifica conceptualmente por que un dispositivo con filamentos conductores de Ag puede clasificarse como memristor, aunque <span class="b">no aporta elementos directos para la etapa MD</span>. Es util para una introduccion orientada a la comunidad de memristores y para delimitar formalmente la naturaleza del dispositivo.</p>
       </div>
     </div>
   </article>
 
-  <article class="paper medium">
-    <header class="paper-head">
+  <article class="articulo medium">
+    <header class="articulo-head">
       <div>
         <h3>Chua &mdash; Everything You Wish to Know About Memristors But Are Afraid to Ask</h3>
         <p class="meta">Radioengineering 24(2), 319-368 (2015) &nbsp;&middot;&nbsp; <span class="filename">15_02_0319_0368.pdf</span></p>
@@ -462,14 +462,14 @@
         <p>Tutorial extenso (50 paginas) de Chua sobre los fundamentos matematicos del memristor: definicion ideal, generic memristor, extended memristor, memristance vs memductance, memristor shoelace, las "tres huellas" del memristor (loop pinchado, encogimiento con la frecuencia, comportamiento como resistor lineal en el limite de alta frecuencia).</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Profundamente teorico, todo desde la perspectiva de teoria de circuitos no lineales. <span class="b">Util como referencia general</span> si tu tesis/paper necesita un capitulo de fundamentos teoricos formales. Para la simulacion MD de Ag es solo trasfondo cultural &mdash; no usaremos estas ecuaciones directamente.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Trabajo de caracter teorico, centrado en teoria de circuitos no lineales. <span class="b">Util como referencia general</span> para una seccion de fundamentos formales. Para la simulacion MD de Ag funciona como contexto conceptual; sus ecuaciones no se aplican directamente al modelo atomistico.</p>
       </div>
     </div>
   </article>
 
-  <article class="paper medium">
-    <header class="paper-head">
+  <article class="articulo medium">
+    <header class="articulo-head">
       <div>
         <h3>Prodromakis, Toumazou &amp; Chua &mdash; Two centuries of memristors</h3>
         <p class="meta">Nature Materials 11, 478 (2012) &nbsp;&middot;&nbsp; <span class="filename">Two_centuries_of_memristors.pdf</span></p>
@@ -482,14 +482,14 @@
         <p>Comentario en Nature Materials que muestra que los lazos pinchados de histeresis estaban observados experimentalmente desde hace dos siglos (lamparas de descarga, arcos electricos, tubos de mercurio, etc.) mucho antes de la formalizacion de Chua en 1971 o la realizacion en TiO2 de HP en 2008.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Solo de interes contextual / historico. Bueno para la introduccion de un paper si quieres mostrar que el memristor no es un invento moderno arbitrario, pero <span class="b">no contiene fisica aplicable</span> al problema de Ag.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>De interes contextual e historico. Puede emplearse en una introduccion para situar la evolucion del concepto de memristor, pero <span class="b">no contiene fisica aplicable</span> al problema atomistico de Ag.</p>
       </div>
     </div>
   </article>
 
-  <article class="paper medium">
-    <header class="paper-head">
+  <article class="articulo medium">
+    <header class="articulo-head">
       <div>
         <h3>Di Ventra, Pershin &amp; Chua &mdash; Circuit elements with memory: memristors, memcapacitors and meminductors</h3>
         <p class="meta">arXiv:0901.3682 / Proc. IEEE 97, 1717 (2009) &nbsp;&middot;&nbsp; <span class="filename">0901_3682v1.pdf</span></p>
@@ -502,8 +502,8 @@
         <p>Extiende la nocion de "elementos con memoria" a capacitores e inductores (memcapacitores, meminductores). Argumentan que estos elementos son comunes a la nanoescala donde la dinamica de electrones e iones depende de la historia del sistema.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Generalizacion teorica del concepto de memristor. <span class="b">Tangencial</span> a nuestro problema MD. Util si la discusion eventual del proyecto considera componentes capacitivos o inductivos parasitos en los filamentos de Ag.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Generalizacion teorica del concepto de memristor. <span class="b">Tangencial</span> respecto del problema MD. Puede resultar util si la discusion del dispositivo incorpora componentes capacitivos o inductivos parasitos asociados a los filamentos de Ag.</p>
       </div>
     </div>
   </article>
@@ -515,13 +515,13 @@
 <section class="theme" id="tema4">
   <h2>4. Modelos matematicos / SPICE de memristores</h2>
   <p class="theme-intro">
-    Modelos compactos para simular memristores en circuitos. Son utiles para la etapa
-    posterior del proyecto (cuando el dispositivo este caracterizado), pero
-    <span class="b">no aportan a la simulacion MD del corte del nanohilo</span>.
+    Modelos compactos para simular memristores en circuitos. Son utiles para una etapa
+    posterior de caracterizacion del dispositivo, pero
+    <span class="b">no aportan directamente a la simulacion MD del corte del nanohilo</span>.
   </p>
 
-  <article class="paper low">
-    <header class="paper-head">
+  <article class="articulo low">
+    <header class="articulo-head">
       <div>
         <h3>Kvatinsky et al. &mdash; VTEAM: A General Model for Voltage Controlled Memristors</h3>
         <p class="meta">IEEE Trans. CAS-II 62, 786 (2015) &nbsp;&middot;&nbsp; <span class="filename">publication_8561.pdf</span></p>
@@ -534,14 +534,14 @@
         <p>Modelo SPICE/Verilog-A para memristores controlados por voltaje con tension umbral, extension del modelo TEAM previo. Lo ajustan a tres dispositivos experimentales incluyendo un <span class="b">nanohilo metalico monocomponente (Strachan)</span> con error &lt; 1.5%.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Es un <span class="b">modelo de circuito</span>, no de fisica atomica. No tiene impacto en la simulacion MD. Sera muy util en una etapa posterior cuando haya que modelar el dispositivo Ag completo en SPICE para conectarlo a circuitos de prueba. La cita al nanohilo metalico de Strachan (2010) es una referencia interesante para tu director porque muestra que un memristor de un solo metal (sin oxido) ya esta documentado experimentalmente.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Es un <span class="b">modelo de circuito</span>, no un modelo de fisica atomica. No incide en la simulacion MD, pero puede ser relevante en una etapa posterior de modelado SPICE del dispositivo de Ag conectado a circuitos de prueba. La referencia al nanohilo metalico de Strachan (2010) es importante porque documenta experimentalmente un memristor monometalico, sin oxido.</p>
       </div>
     </div>
   </article>
 
-  <article class="paper low">
-    <header class="paper-head">
+  <article class="articulo low">
+    <header class="articulo-head">
       <div>
         <h3>Zidan, Fahmy, Hussain &amp; Salama &mdash; Memristor-based memory: The sneak paths problem and solutions</h3>
         <p class="meta">Microelectronics Journal 44, 176 (2013) &nbsp;&middot;&nbsp; <span class="filename">j_mejo_2012_10_001.pdf</span></p>
@@ -551,11 +551,11 @@
     <div class="body">
       <div class="col">
         <h4>De que trata</h4>
-        <p>Analiza el problema de los <span class="b">sneak paths</span> (rutas parasitas de corriente) en arrays crossbar de memristores y propone metricas de margen de ruido y soluciones (diodos de acceso, complementary switches, gating con tres terminales). Es un paper de arquitectura de memoria.</p>
+        <p>Analiza el problema de los <span class="b">sneak paths</span> (rutas parasitas de corriente) en arrays crossbar de memristores y propone metricas de margen de ruido y soluciones (diodos de acceso, complementary switches, gating con tres terminales). Es un articulo de arquitectura de memoria.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Pertenece a otra rama del proyecto memristor, la de <span class="b">integracion en arrays</span>. No tiene relacion con la fisica del corte del nanohilo individual. Util solo si en algun momento el proyecto Balseiro evoluciona hacia caracterizacion de arrays de dispositivos AgNW.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Pertenece a la linea de <span class="b">integracion en arrays</span> de dispositivos memristivos. No esta relacionado con la fisica del corte de un nanohilo individual. Resulta util solo para una eventual extension hacia caracterizacion de arrays de dispositivos AgNW.</p>
       </div>
     </div>
   </article>
@@ -567,14 +567,14 @@
 <section class="theme" id="tema5">
   <h2>5. Mecanismos fisicos del switching resistivo</h2>
   <p class="theme-intro">
-    Reviews que explican como funcionan los mecanismos atomicos del switching resistivo
-    (formacion/disolucion de filamentos de Ag, electrochemical metallization, vacancias
-    de oxigeno, transiciones de fase). Aqui hay informacion <span class="b">muy util</span>
-    para la etapa de DFT que viene despues de MD.
+    Revisiones que describen mecanismos atomicos del switching resistivo
+    (formacion y disolucion de filamentos de Ag, electrochemical metallization, vacancias
+    de oxigeno y transiciones de fase). La informacion es <span class="b">muy util</span>
+    para vincular la simulacion MD con etapas posteriores de modelado electronico o DFT.
   </p>
 
-  <article class="paper medium">
-    <header class="paper-head">
+  <article class="articulo medium">
+    <header class="articulo-head">
       <div>
         <h3>Sun et al. &mdash; Memristors based on Ag/transition-metal-oxide and other systems (review)</h3>
         <p class="meta">Adv. Funct. Mater. 30, 2006773 (2020) &nbsp;&middot;&nbsp; <span class="filename">sun2020.pdf</span></p>
@@ -591,14 +591,14 @@
         Incluye discusion sobre el rol de los nanoclusters de Ag y la cinetica de difusion analoga al Ca<sup>2+</sup> biologico.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p><span class="b">El mas relevante de los reviews de memristores</span> para nuestro proyecto. Las figuras de filamentos de Ag formandose y rompiendose en gaps son visualmente identicas a lo que esperamos producir con MD. Sirve para conectar la salida de nuestra simulacion (filamentos de Ag a ambos lados de un gap) con el dispositivo memristor real. <span class="b">Cita altamente recomendable</span> en la introduccion de cualquier paper futuro.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p><span class="b">El review mas relevante de la seccion memristiva</span>. Las figuras de filamentos de Ag formandose y rompiendose en gaps son directamente comparables con la morfologia esperada en la simulacion MD. Permite conectar la salida atomistica, con filamentos de Ag separados por un gap, con el funcionamiento de un dispositivo memristivo real. <span class="b">Cita altamente recomendable</span> para la introduccion de un trabajo futuro.</p>
       </div>
     </div>
   </article>
 
-  <article class="paper medium">
-    <header class="paper-head">
+  <article class="articulo medium">
+    <header class="articulo-head">
       <div>
         <h3>Jeong et al. &mdash; Memristors for energy-efficient new computing paradigms (review)</h3>
         <p class="meta">Adv. Electron. Mater. 2, 1600090 (2016) &nbsp;&middot;&nbsp; <span class="filename">jeong2016.pdf</span></p>
@@ -611,14 +611,14 @@
         <p>Review tipo handbook (27 paginas) que cubre la aplicabilidad de memristores en logica von Neumann (FPGA, stateful logic) y en computacion neuromorfica (sinapsis artificiales, STDP, second-order memristors con variable auxiliar de temperatura/oxigeno). Tiene una seccion buena sobre la integracion 3D de crossbars.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Mas orientado a aplicaciones que a fisica del dispositivo. Util para entender <span class="b">por que importa</span> producir buenos filamentos (porque dictan la durabilidad del dispositivo cuando se usa como sinapsis), pero <span class="b">no contiene fisica atomistica directamente aplicable</span>. Puede servir si el TFG/tesis necesita una seccion de motivacion.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Mas orientado a aplicaciones que a fisica atomistica del dispositivo. Resulta util para contextualizar <span class="b">la relevancia tecnologica</span> de obtener filamentos estables, ya que estos condicionan la durabilidad del dispositivo en aplicaciones sinapticas. Sin embargo, <span class="b">no contiene fisica atomistica directamente aplicable</span>. Puede emplearse en una seccion de motivacion.</p>
       </div>
     </div>
   </article>
 
-  <article class="paper low">
-    <header class="paper-head">
+  <article class="articulo low">
+    <header class="articulo-head">
       <div>
         <h3>Anonimo (graphene/MoS<sub>2-x</sub>O<sub>x</sub>/graphene) &mdash; Robust memristive switching by an ultrathin 2D heterostructure</h3>
         <p class="meta">arXiv:1801.00530 (2018) &nbsp;&middot;&nbsp; <span class="filename">1801_00530v1.pdf</span></p>
@@ -631,8 +631,8 @@
         <p>Reporte experimental de memristores van der Waals graphene/MoS<sub>2-x</sub>O<sub>x</sub>/graphene con switching basado en migracion de iones de oxigeno y interfaces atomicamente abruptas. Demuestran flexibilidad mecanica con &gt; 1000 ciclos de doblado.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Tipo de dispositivo distinto (heteroestructura vdW basada en oxigeno, no filamentos metalicos de Ag). <span class="b">Tangencial.</span> Util solo como ejemplo de la diversidad de plataformas memristivas en el panorama actual.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Tipo de dispositivo distinto: heteroestructura vdW basada en oxigeno, no filamentos metalicos de Ag. <span class="b">Tangencial.</span> Sirve como ejemplo de la diversidad de plataformas memristivas disponibles en la literatura.</p>
       </div>
     </div>
   </article>
@@ -644,8 +644,8 @@
 <section class="theme" id="tema6">
   <h2>6. Aplicaciones (memoria, neuromorfica, crossbar)</h2>
 
-  <article class="paper low">
-    <header class="paper-head">
+  <article class="articulo low">
+    <header class="articulo-head">
       <div>
         <h3>Mazumder, Kang &amp; Waser (eds.) &mdash; Scanning the Issue: Memristors: Devices, Models, and Applications</h3>
         <p class="meta">Proc. IEEE 100, 1911 (2012), special issue intro &nbsp;&middot;&nbsp; <span class="filename">Memristors_Devices_Models_and_Applicatio.pdf</span></p>
@@ -655,11 +655,11 @@
     <div class="body">
       <div class="col">
         <h4>De que trata</h4>
-        <p>Editorial / tutorial introductorio de un numero especial del IEEE sobre memristores. Hace un repaso historico desde Chua 1971 a HP 2008 y categoriza aplicaciones en (i) memoria no volatil, (ii) sistemas digitales/analogicos, (iii) sistemas neuromorficos. Menciona los 13 papers contribuidos al numero.</p>
+        <p>Editorial / tutorial introductorio de un numero especial del IEEE sobre memristores. Hace un repaso historico desde Chua 1971 a HP 2008 y categoriza aplicaciones en (i) memoria no volatil, (ii) sistemas digitales/analogicos, (iii) sistemas neuromorficos. Menciona los 13 articulos contribuidos al numero.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Es un editorial de tono divulgativo / panoramico. <span class="b">Sin contenido fisico aplicable</span>. Solo util como referencia de panorama general si en una intro de paper se quiere citar la "vista de pajaro" del campo.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Es un editorial de tono panoramico. <span class="b">Sin contenido fisico aplicable</span>. Puede utilizarse como referencia general para introducir el estado amplio del campo.</p>
       </div>
     </div>
   </article>
@@ -671,8 +671,8 @@
 <section class="theme" id="tema7">
   <h2>7. Otros temas relacionados</h2>
 
-  <article class="paper low">
-    <header class="paper-head">
+  <article class="articulo low">
+    <header class="articulo-head">
       <div>
         <h3>Li et al. &mdash; Atomic-scale evolution of tungsten nanotips during field emission and the dominant role of electric field effects</h3>
         <p class="meta">Nature Communications 16, 11575 (2025) &nbsp;&middot;&nbsp; <span class="filename">s41467025679722.pdf</span></p>
@@ -685,14 +685,14 @@
         <p>Estudio TEM in-situ + simulaciones FEcMD multi-fisica sobre la deformacion de nanopuntas de tungsteno (3-9 nm) bajo emision de campo. Identifican el rol dominante del campo electrico (field-induced surface diffusion + field evaporation) sobre los efectos termicos. <span class="b">Usan un two-temperature model (TTM)</span> identico al que proponemos para Ag.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p>Material distinto (W vs Ag), driver distinto (campo electrico vs spike termico), pero <span class="b">la metodologia de simulacion es muy parecida</span>: emplean exactamente la misma combinacion de TTM con acoplamiento electron-fonon que estamos usando. Util como <span class="b">referencia metodologica</span> reciente y tambien como ejemplo de paper de alto impacto que uso TTM en Nature Comm. La cita es politicamente buena para mostrarle a un revisor que la tecnica esta validada.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p>Material distinto (W frente a Ag) y mecanismo impulsor distinto (campo electrico frente a spike termico), pero <span class="b">la metodologia de simulacion es comparable</span>: emplea TTM con acoplamiento electron-fonon. Es util como <span class="b">referencia metodologica</span> reciente y como antecedente de aplicacion de TTM en un estudio de alto impacto.</p>
       </div>
     </div>
   </article>
 
-  <article class="paper low">
-    <header class="paper-head">
+  <article class="articulo low">
+    <header class="articulo-head">
       <div>
         <h3>Grande de Miguel, J. &mdash; Memristor: funcionamiento y aplicaciones (TFG)</h3>
         <p class="meta">Universidad de Valladolid, 2020 &nbsp;&middot;&nbsp; <span class="filename">document.pdf</span></p>
@@ -705,8 +705,8 @@
         <p>Trabajo de fin de grado (en espa&ntilde;ol) sobre memristores. Cubre los fundamentos de Chua, propiedades del TiO<sub>2-x</sub> no estequiometrico, modelado matematico, simulaciones en Simulink y LabView del memristor de HP, y aplicaciones (ciberseguridad, redes neuronales, memorias). Buen material didactico.</p>
       </div>
       <div class="col relevance">
-        <h4>Relevancia para nuestro trabajo</h4>
-        <p><span class="b">Material didactico en espa&ntilde;ol</span>, util para repasar conceptos de memristor con un nivel mas accesible que los papers originales. <span class="b">No es un paper academico</span>, es un TFG, asi que no tiene status de cita formal pero sirve como onboarding rapido. Cero contenido sobre Ag o MD.</p>
+        <h4>Relevancia para el presente trabajo</h4>
+        <p><span class="b">Material didactico en espa&ntilde;ol</span>, util para repasar conceptos de memristor con un nivel mas accesible que los articulos originales. <span class="b">No es un articulo academico</span>, sino un TFG, por lo que no deberia usarse como cita formal principal. No contiene informacion especifica sobre Ag ni simulacion MD.</p>
       </div>
     </div>
   </article>
@@ -718,10 +718,10 @@
 <section class="theme">
   <h2 style="color: var(--brand);">Sintesis: que citar y para que</h2>
 
-  <article class="paper high" style="background: var(--brand-soft);">
-    <header class="paper-head">
+  <article class="articulo high" style="background: var(--brand-soft);">
+    <header class="articulo-head">
       <div>
-        <h3>Para sostener la fisica del corte (justificar metodologia y discutir resultados):</h3>
+        <h3>Para sostener la fisica del corte, justificar la metodologia y discutir resultados:</h3>
       </div>
     </header>
     <div class="body">
@@ -741,10 +741,10 @@
     </div>
   </article>
 
-  <article class="paper medium" style="background: var(--amber-soft);">
-    <header class="paper-head">
+  <article class="articulo medium" style="background: var(--amber-soft);">
+    <header class="articulo-head">
       <div>
-        <h3>Para introducciones y motivacion del proyecto:</h3>
+        <h3>Para introducciones y motivacion del estudio:</h3>
       </div>
     </header>
     <div class="body">
@@ -763,8 +763,8 @@
     </div>
   </article>
 
-  <article class="paper low">
-    <header class="paper-head">
+  <article class="articulo low">
+    <header class="articulo-head">
       <div>
         <h3>Para descartar (no usar como cita central):</h3>
       </div>
@@ -772,18 +772,18 @@
     <div class="body">
       <div class="col">
         <h4>Razon</h4>
-        <p>El TFG de Valladolid (no es paper academico), Chua 2015 y Di Ventra 2009 (formalismo matematico puro, no aporta nada a MD), 1801.00530v1 (otra plataforma vdW, no Ag). Sirven solo como background reading personal.</p>
+        <p>El TFG de Valladolid (no es articulo academico), Chua 2015 y Di Ventra 2009 (formalismo matematico puro, sin aporte directo a MD), y 1801.00530v1 (otra plataforma vdW, no Ag). Se consideran materiales de consulta secundaria.</p>
       </div>
       <div class="col relevance">
         <h4>Recomendacion</h4>
-        <p>Mantener estos PDFs en el corpus para consulta, pero no derrochar palabras citandolos en un paper sobre la simulacion MD del corte de Ag. La economia de citas importa: cada referencia debe ganarse su lugar haciendo trabajo argumental concreto.</p>
+        <p>Mantener estos documentos en el corpus para consulta, pero evitar utilizarlos como citas centrales en un trabajo sobre simulacion MD del corte de Ag. La seleccion bibliografica deberia priorizar referencias con aporte argumental directo.</p>
       </div>
     </div>
   </article>
 </section>
 
 <footer class="foot">
-  Resumen generado para Santiago (CONICET) &mdash; corpus del proyecto AgNW + memristores &mdash; mayo 2026.
+  Corpus bibliografico del proyecto AgNW + memristores &mdash; mayo 2026.
 </footer>
 
 </div>
