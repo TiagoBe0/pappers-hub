@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resumen detallado - Modeling studies of amorphous carbon</title>
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --paper: #ffffff;
+      --ink: #202124;
+      --muted: #5f6368;
+      --line: #d9d9d3;
+      --accent: #333333;
+      --soft: #efefea;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.62;
+    }
+    main {
+      max-width: 1080px;
+      margin: 32px auto;
+      padding: 0 20px 60px;
+    }
+    article {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 36px;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+    }
+    h1, h2, h3 {
+      line-height: 1.25;
+      color: #111;
+    }
+    h1 {
+      font-size: 2rem;
+      margin: 0 0 8px;
+      border-bottom: 3px solid var(--accent);
+      padding-bottom: 16px;
+    }
+    h2 {
+      font-size: 1.35rem;
+      margin-top: 34px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    h3 {
+      font-size: 1.08rem;
+      margin-top: 24px;
+    }
+    p { margin: 12px 0; }
+    .meta, .note {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .box {
+      background: var(--soft);
+      border-left: 5px solid var(--accent);
+      padding: 14px 18px;
+      margin: 18px 0;
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      font-size: 0.95rem;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #eeeeea;
+      font-weight: 700;
+    }
+    code {
+      background: #eeeeea;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+    ul, ol { padding-left: 22px; }
+    .fig {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 18px 0;
+      background: #fbfbf8;
+    }
+    .fig-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .tag {
+      display: inline-block;
+      background: #e8e8e3;
+      border: 1px solid #d0d0ca;
+      border-radius: 999px;
+      padding: 2px 10px;
+      margin: 2px 4px 2px 0;
+      font-size: 0.85rem;
+    }
+    .refs li { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+<main>
+<article>
+  <h1>Resumen completo y detallado del paper: <em>Modeling studies of amorphous carbon</em></h1>
+  <p class="meta"><strong>Referencia principal:</strong> D. Beeman, J. Silverman, R. Lynds y M. R. Anderson, <em>Physical Review B</em>, Vol. 30, N.º 2, 1984, pp. 870–875.</p>
+
+  <div class="box">
+    <strong>Idea central del trabajo.</strong> El artículo compara modelos atomísticos de carbono amorfo con diferentes proporciones de átomos coordinados tres veces, tipo grafito/sp<sup>2</sup>, y cuatro veces, tipo diamante/sp<sup>3</sup>. Evalúa qué modelos reproducen mejor datos experimentales de difracción y espectros Raman. La conclusión principal es que el carbono amorfo estudiado es mayoritariamente tres-coordinado, con una fracción pequeña de enlaces tetraédricos, probablemente menor al 10 %. El modelo más plausible contiene regiones planas tres-coordinadas unidas ocasionalmente por átomos cuatro-coordinados que permiten cambiar la orientación de esas regiones.
+  </div>
+
+  <h2>1. Contexto científico</h2>
+  <p>El carbono amorfo es estructuralmente complejo porque el carbono puede formar enlaces con hibridación sp, sp<sup>2</sup> y sp<sup>3</sup>. En grafito domina la coordinación tres, con ángulos cercanos a 120° y redes planas. En diamante domina la coordinación cuatro, con ángulos tetraédricos cercanos a 109.5°. En un sólido amorfo, la pregunta no es solamente cuántos átomos son sp<sup>2</sup> o sp<sup>3</sup>, sino cómo están distribuidos: en regiones separadas, mezclados homogéneamente, en planos curvados, en anillos de varios tamaños o en redes densas.</p>
+  <p>El problema que atacan los autores es que la función de distribución radial, RDF, no determina de manera única la estructura. Dos modelos diferentes pueden producir RDFs parecidas. Por eso el paper combina RDF, función de interferencia F(k), densidad vibracional de estados y espectros Raman. Esta estrategia es relevante para simulaciones modernas porque evita concluir la estructura solo a partir de una métrica geométrica.</p>
+
+  <h2>2. Modelos construidos en el trabajo</h2>
+  <p>Los autores construyen cuatro modelos atomísticos. Tres son modelos explícitos de carbono amorfo y uno es un modelo comparativo completamente tetraédrico obtenido a partir de un modelo de germanio amorfo reescalado a distancias de enlace tipo diamante.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Modelo</th>
+        <th>Número de átomos</th>
+        <th>Carácter estructural</th>
+        <th>Porcentaje de átomos cuatro-coordinados</th>
+        <th>Interpretación física</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>C1120</td>
+        <td>1120</td>
+        <td>Totalmente tres-coordinado</td>
+        <td>0 %</td>
+        <td>Modelo grafítico amorfo. Tiende a formar planos; no puede volverse isotrópico sin distorsiones angulares grandes.</td>
+      </tr>
+      <tr>
+        <td>C340</td>
+        <td>340</td>
+        <td>Mayormente tres-coordinado, con pocos enlaces tetraédricos</td>
+        <td>9.1 % global; 14 % en la esfera interior analizada</td>
+        <td>Modelo favorito del artículo. Representa regiones planas sp<sup>2</sup> unidas por algunos sitios sp<sup>3</sup>.</td>
+      </tr>
+      <tr>
+        <td>C356</td>
+        <td>356</td>
+        <td>Mixto, con alta fracción tetraédrica</td>
+        <td>51.4 % global; 48 % en la zona interior</td>
+        <td>Modelo diseñado para probar una hipótesis experimental con alta proporción de carbono tipo diamante.</td>
+      </tr>
+      <tr>
+        <td>C519</td>
+        <td>519</td>
+        <td>Totalmente cuatro-coordinado</td>
+        <td>100 %</td>
+        <td>Referencia extrema tipo diamante amorfo. No se propone como estructura realista para el a-C del artículo.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Los modelos se relajan computacionalmente minimizando distorsiones de longitud y ángulo de enlace. Las longitudes objetivo son 1.42 Å para enlaces tres-coordinados tipo grafito, 1.56 Å para enlaces cuatro-coordinados tipo diamante y 1.51 Å para enlaces mixtos entre átomos tres- y cuatro-coordinados. Los ángulos objetivo son 120° para coordinación tres y 109.4° para coordinación cuatro.</p>
+
+  <h2>3. Resultados estructurales principales</h2>
+  <p>El modelo C1120, al ser totalmente tres-coordinado, queda forzado a una geometría laminar. Esto reproduce razonablemente la densidad experimental baja, pero genera anisotropía estructural artificial. El modelo C340 evita parte de ese problema: conserva regiones localmente planas, pero los pocos átomos tetraédricos permiten curvar, conectar y reorientar esas regiones. Esa es la razón por la que el artículo lo interpreta como un modelo físicamente más razonable.</p>
+
+  <p>El modelo C356 y el modelo C519 son mucho más densos. Esto es importante: una alta fracción sp<sup>3</sup> tiende a compactar la red. Por lo tanto, si un experimento sugiere 50 % de coordinación tetraédrica pero la muestra tiene densidad baja o porosidad, hay que sospechar que la interpretación de la RDF puede estar afectada por la normalización de densidad o por inhomogeneidad estructural.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Modelo</th>
+        <th>Primer pico RDF r<sub>1</sub></th>
+        <th>Segundo pico RDF r<sub>2</sub></th>
+        <th>Coordinación media n<sub>1</sub></th>
+        <th>Densidad estimada</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>C1120</td><td>1.42 Å</td><td>2.44 Å</td><td>3.00</td><td>2.11 g/cm³</td></tr>
+      <tr><td>C340</td><td>1.42 Å</td><td>2.43 Å</td><td>3.28</td><td>2.69 g/cm³</td></tr>
+      <tr><td>C356</td><td>1.51 Å</td><td>2.55 Å</td><td>3.53</td><td>3.21 g/cm³</td></tr>
+      <tr><td>C519</td><td>1.55 Å</td><td>2.52 Å</td><td>4.00</td><td>3.39 g/cm³</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. Explicación de todas las figuras</h2>
+
+  <div class="fig">
+    <div class="fig-title">Figura 1. Funciones de distribución radial RDF de los cuatro modelos</div>
+    <p>La figura compara las RDF calculadas para C1120, C340, C356 y C519 con datos experimentales de Boiko et al. y Kakinoki et al. La RDF indica la probabilidad de encontrar pares atómicos separados por una distancia r. El primer pico corresponde a primeros vecinos; el segundo pico, a segundos vecinos y a la topología local de anillos.</p>
+    <p>El modelo C340 reproduce mejor los datos de Boiko, porque su primer pico está cerca de 1.42 Å, típico de enlaces sp<sup>2</sup>/grafíticos, y su coordinación efectiva sigue siendo cercana a tres. El modelo C356 reproduce mejor los datos de Kakinoki, porque su primer pico se desplaza hacia 1.51 Å y su coordinación efectiva aumenta, indicando más enlaces tipo sp<sup>3</sup> o mixtos. El modelo C519 es demasiado diamantino para representar el carbono amorfo experimental de baja densidad. El mensaje de la figura es que la RDF por sí sola no basta: distintos modelos pueden parecer compatibles con distintos experimentos, especialmente si hay incertidumbre en la densidad usada para normalizar los datos.</p>
+  </div>
+
+  <div class="fig">
+    <div class="fig-title">Figura 2. Función de interferencia F(k)</div>
+    <p>La función F(k) es una transformación relacionada con la RDF y con la señal de difracción en el espacio recíproco. Es más sensible a ciertas periodicidades y anisotropías. La figura muestra que el modelo C1120 presenta un pico fuerte cerca de k = 1.72 Å<sup>-1</sup>, asociado a la separación periódica entre planos de aproximadamente 3.64 Å. Ese pico no aparece en los datos experimentales, por lo que el modelo puramente tres-coordinado y laminar resulta problemático.</p>
+    <p>El C340 ajusta mejor los datos de Boiko. El C356 se acerca más a los datos de Kakinoki. La conclusión metodológica es importante: aunque C1120 tiene una densidad razonable, su función de interferencia revela una anisotropía que no parece realista para el carbono amorfo isotrópico.</p>
+  </div>
+
+  <div class="fig">
+    <div class="fig-title">Figura 3. Densidad vibracional de estados, DOS</div>
+    <p>La DOS vibracional muestra cómo se distribuyen las frecuencias normales de vibración de la red. En la figura se comparan modelos de grafito, C1120, C340, C356, C519 y diamante, junto con una aproximación experimental obtenida dividiendo el espectro Raman reducido por la frecuencia.</p>
+    <p>El grafito presenta modos de alta frecuencia cerca de la región Raman principal. El C1120 desplaza hacia abajo el borde de alta frecuencia debido al desorden angular y a la presencia de anillos no hexagonales. Al aumentar la fracción de átomos cuatro-coordinados, la DOS transita gradualmente de un comportamiento grafítico a uno más diamantino. No aparecen dos espectros separados, uno de grafito y otro de diamante; aparece un espectro global modificado. Esto implica que, si los sitios sp<sup>3</sup> están distribuidos en la red, afectan la dinámica vibracional del material completo.</p>
+  </div>
+
+  <div class="fig">
+    <div class="fig-title">Figura 4. Intensidad Raman reducida</div>
+    <p>La figura compara espectros Raman calculados para los cuatro modelos con el espectro experimental de Lannin. El pico principal del grafito aparece cerca de 1581–1591 cm<sup>-1</sup>. En el modelo C1120, el pico principal baja a aproximadamente 1528 cm<sup>-1</sup>, cercano al valor experimental de a-C de aproximadamente 1516 cm<sup>-1</sup>. En los modelos con mayor fracción tetraédrica, el pico baja aún más: C340 alrededor de 1489 cm<sup>-1</sup>, C356 alrededor de 1374 cm<sup>-1</sup> y C519 alrededor de 1265 cm<sup>-1</sup>.</p>
+    <p>La figura es clave para la conclusión del paper. Si hubiese demasiados enlaces tetraédricos distribuidos homogéneamente, el pico Raman se desplazaría demasiado hacia bajas frecuencias y el espectro se alejaría de los experimentos. Por eso los autores concluyen que la fracción sp<sup>3</sup> debe ser baja, probablemente menor al 10 %. También se discute un pico de desorden asociado a microcristalinidad o pérdida de simetría traslacional. En C340, ese pico se desplaza a valores compatibles con películas de a-C recién depositadas, lo cual apoya la presencia de una pequeña fracción tetraédrica.</p>
+  </div>
+
+  <h2>5. Conclusión física del artículo</h2>
+  <p>El paper concluye que el carbono amorfo analizado no es una mezcla simple de dominios grafíticos y dominios diamantinos, ni una red completamente tetraédrica. La interpretación más consistente es una red principalmente tres-coordinada, formada por regiones planas o casi planas de carbono tipo sp<sup>2</sup>, con una pequeña cantidad de átomos cuatro-coordinados que conectan, curvan o reorientan esas regiones.</p>
+  <p>La fracción de enlaces tetraédricos compatible con Raman y difracción se estima baja. Los autores sugieren que no debería superar aproximadamente el 10 %. Una fracción pequeña de sp<sup>3</sup> ayuda a explicar cómo una estructura mayoritariamente sp<sup>2</sup> puede volverse isotrópica sin depender únicamente de planos desconectados o de una gran cantidad de enlaces colgantes.</p>
+
+  <h2>6. Relevancia directa para simulaciones PKA en carbono amorfo con dinámica molecular</h2>
+  <p>Este trabajo no simula PKA ni cascadas de desplazamiento, pero es útil como base estructural para PKA en carbono amorfo. En una simulación de daño por irradiación, el estado inicial del material condiciona todo: número de coordinación, densidad, fracción sp<sup>2</sup>/sp<sup>3</sup>, distribución de anillos, porosidad y grado de relajación. Una cascada en una red sp<sup>2</sup> abierta no evolucionará igual que en una red tetraédrica densa.</p>
+
+  <h3>Variables estructurales que conviene medir antes y después del PKA</h3>
+  <ul>
+    <li><strong>Coordinación local:</strong> fracciones de átomos 2-, 3- y 4-coordinados. Es la métrica más directa para ver grafitización, amorfización adicional o densificación local.</li>
+    <li><strong>Fracción sp<sup>2</sup>/sp<sup>3</sup> aproximada:</strong> puede estimarse por coordinación y ángulo local, pero debe definirse con un cutoff claro.</li>
+    <li><strong>RDF g(r):</strong> útil para comparar con el paper. En a-C los picos de 1.42 Å, 1.51 Å y 1.55 Å son diagnósticos de enlaces sp<sup>2</sup>, mixtos y sp<sup>3</sup>.</li>
+    <li><strong>Distribución angular:</strong> ángulos cercanos a 120° indican sp<sup>2</sup>; ángulos cercanos a 109.5° indican sp<sup>3</sup>.</li>
+    <li><strong>Anillos:</strong> proporción de anillos de 5, 6 y 7 miembros. Las cascadas pueden romper o crear conectividad no hexagonal.</li>
+    <li><strong>Densidad local y volumen libre:</strong> muy importante en carbono amorfo porque la porosidad cambia la eficiencia de recombinación y la forma de la cascada.</li>
+    <li><strong>Defectos persistentes:</strong> en amorfos no conviene usar solo Wigner-Seitz como en cristales. Es mejor combinar desplazamiento no afín, cambios de coordinación, cambios de energía potencial local y conectividad.</li>
+  </ul>
+
+  <h3>Implicaciones para elegir potencial interatómico</h3>
+  <p>Para PKA en carbono, el potencial debe describir bien tres cosas: enlaces sp<sup>2</sup>, enlaces sp<sup>3</sup> y repulsión de corto alcance durante colisiones energéticas. En cascadas no basta un potencial que reproduzca estructura en equilibrio; debe combinarse o empalmarse con ZBL para distancias muy cortas. En la literatura moderna de cascadas en grafito y diamante se usa con frecuencia EDIP + ZBL. Para carbono amorfo también son habituales Tersoff, REBO/AIREBO y ReaxFF, pero la elección debe justificarse según si se busca estructura sp<sup>2</sup>/sp<sup>3</sup>, daño balístico, química reactiva, superficies libres o alta temperatura.</p>
+
+  <h3>Lectura práctica para tu caso</h3>
+  <p>Si estás haciendo PKA en carbono amorfo, este paper te sirve para justificar que el análisis post-PKA no debe limitarse a contar vacancias como en un cristal. En a-C, el daño relevante puede manifestarse como transformación local sp<sup>3</sup>→sp<sup>2</sup>, creación de átomos subcoordinados, sobrecoordinación transitoria, cambio de anillos, compactación o aumento de volumen libre. Para un sólido amorfo, un “defecto” es un cambio topológico y energético respecto de la red inicial, no necesariamente un sitio vacío en una red de referencia.</p>
+
+  <h2>7. Bibliografía útil para PKA, irradiación y carbono amorfo</h2>
+  <ol class="refs">
+    <li><strong>Beeman, Silverman, Lynds & Anderson (1984).</strong> <em>Modeling studies of amorphous carbon.</em> Base clásica para entender RDF, Raman, DOS y fracción sp<sup>2</sup>/sp<sup>3</sup> en carbono amorfo.</li>
+    <li><strong>Christie et al. (2015).</strong> <em>Simulating radiation damage cascades in graphite.</em> Carbon 81, 105–114. Relevante para comparar cascadas en carbono sp<sup>2</sup>. Usa EDIP para carbono y un muestreo estadístico amplio de direcciones y energías de PKA.</li>
+    <li><strong>Buchan et al. (2015).</strong> <em>Molecular dynamics simulation of radiation damage cascades in diamond.</em> Journal of Applied Physics 117, 245901. Relevante para cascadas en carbono sp<sup>3</sup>. Discute EDIP + ZBL, energías de PKA hasta 2.5 keV y recombinación de defectos.</li>
+    <li><strong>Vuković et al. (2018).</strong> <em>Evolution of Threshold Displacement Energy in Irradiated Graphite.</em> Phys. Rev. Applied 10, 064040. Útil para energía umbral de desplazamiento y cómo cambia con la dosis o el daño previo.</li>
+    <li><strong>McKenna et al. / trabajos relacionados en graphite threshold displacement.</strong> Útiles para definir energías umbral, direcciones cristalográficas y estadísticas de eventos de desplazamiento en carbono grafítico.</li>
+    <li><strong>Nordlund et al. (2018).</strong> <em>Primary radiation damage: A review of current understanding and models.</em> Revisión general sobre daño primario, cascadas, fases balística/térmica y límites de MD.</li>
+    <li><strong>Shi et al. (2024).</strong> <em>Insights into irradiation-affected structural evolution and mechanical behavior of amorphous carbon.</em> Acta Materialia. Muy cercano a tu caso: irradiación en a-C, evolución sp<sup>2</sup>/sp<sup>3</sup>, propiedades mecánicas y MD.</li>
+    <li><strong>Bhattarai & Drabold (2017).</strong> <em>Amorphous carbon at low densities: An ab initio study.</em> Carbon 115, 532–538. Útil para construir y validar modelos de a-C de baja densidad, con análisis estructural, electrónico y vibracional.</li>
+    <li><strong>Marks y colaboradores sobre EDIP para carbono.</strong> Relevante si vas a usar potenciales adecuados para carbono desordenado y eventos balísticos.</li>
+    <li><strong>Trabajos sobre ZBL y empalme de potenciales.</strong> Necesarios para justificar correctamente el tratamiento de colisiones de corto alcance en simulaciones PKA.</li>
+  </ol>
+
+  <h2>8. Conclusión para incorporar en una tesis o informe</h2>
+  <p>El artículo muestra que la estructura del carbono amorfo debe interpretarse como una red predominantemente sp<sup>2</sup>, pero no necesariamente como grafito desordenado puro. Una pequeña fracción de coordinación sp<sup>3</sup> puede estabilizar una red tridimensional e isotrópica conectando regiones planas. Para simulaciones PKA, esto implica que el daño debe evaluarse mediante cambios de conectividad, coordinación, hibridación y topología local, no únicamente mediante defectos cristalográficos convencionales. En particular, una cascada puede producir daño estructural importante aunque no exista una red cristalina de referencia donde definir vacancias e intersticiales de forma inequívoca.</p>
+
+</article>
+</main>
+</body>
+</html>
