@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Preguntas y respuestas técnicas sobre el método SOAP para detección de defectos</title>
+  <style>
+    :root {
+      --bg: #f7f8fb;
+      --paper: #ffffff;
+      --ink: #1f2937;
+      --muted: #5f6b7a;
+      --line: #d9dee7;
+      --accent: #1d4ed8;
+      --accent-soft: #e8f0ff;
+      --warn: #92400e;
+      --warn-bg: #fff7ed;
+      --ok: #166534;
+      --ok-bg: #f0fdf4;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 40px 20px 64px;
+    }
+
+    header {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 2rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      margin-top: 40px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--line);
+      color: #111827;
+      font-size: 1.45rem;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      color: #111827;
+      font-size: 1.08rem;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    ul, ol {
+      margin-top: 8px;
+      margin-bottom: 12px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    code {
+      background: #eef2f7;
+      padding: 2px 5px;
+      border-radius: 5px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 0.95em;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-bottom: 0;
+    }
+
+    .note {
+      border-left: 5px solid var(--accent);
+      background: var(--accent-soft);
+      padding: 14px 16px;
+      border-radius: 10px;
+      margin: 18px 0 0;
+      color: #1e3a8a;
+    }
+
+    .review {
+      background: var(--warn-bg);
+      border: 1px solid #fed7aa;
+      border-left: 5px solid var(--warn);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 24px;
+    }
+
+    .review h2 {
+      margin-top: 0;
+      border-bottom: none;
+      padding-bottom: 0;
+      color: var(--warn);
+    }
+
+    .block {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+    }
+
+    .qa {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 18px;
+    }
+
+    .qa:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .question {
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+
+    .answer {
+      color: var(--ink);
+    }
+
+    .status-ok {
+      display: inline-block;
+      background: var(--ok-bg);
+      color: var(--ok);
+      border: 1px solid #bbf7d0;
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .status-check {
+      display: inline-block;
+      background: var(--warn-bg);
+      color: var(--warn);
+      border: 1px solid #fed7aa;
+      border-radius: 999px;
+      padding: 2px 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .equation {
+      display: block;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 12px 0;
+      font-family: "Times New Roman", serif;
+      font-size: 1.08rem;
+      overflow-x: auto;
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 32px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Preguntas y respuestas técnicas sobre el método SOAP para detección de defectos</h1>
+      <p class="subtitle">
+        Documento de preparación para discusión técnica o defensa metodológica. El contenido fue reformulado con tono académico, eliminando expresiones conversacionales y conservando el detalle técnico.
+      </p>
+      <div class="note">
+        Las respuestas están redactadas como argumentos breves, defendibles y orientados a justificar decisiones de diseño, parámetros y limitaciones del método.
+      </div>
+    </header>
+
+    <section class="review">
+      <h2>Revisión técnica breve</h2>
+      <p><span class="status-ok">Correcto en términos generales</span></p>
+      <p>
+        El contenido es conceptualmente consistente: SOAP se presenta como descriptor local, robusto frente a traslaciones, rotaciones y permutaciones; la comparación contra una referencia térmica es razonable; y la distinción entre detección de átomos perturbados y localización explícita de vacancias está bien planteada.
+      </p>
+      <p><span class="status-check">Puntos a revisar antes de exponer</span></p>
+      <ul>
+        <li>
+          La afirmación de invariancia reflexiva debería formularse con cautela: el power spectrum de SOAP elimina información de orientación y puede ser insensible a quiralidad; no conviene presentarlo como una propiedad independiente sin aclaración.
+        </li>
+        <li>
+          El ajuste chi para la distancia <em>d</em> es una hipótesis estadística útil bajo ruido gaussiano isotrópico en el espacio de descriptores. No debería presentarse como una ley exacta si no se muestra validación empírica.
+        </li>
+        <li>
+          El valor efectivo <em>k ≈ 7</em> debe defenderse como una estimación empírica por momentos, no como una dimensión física exacta.
+        </li>
+        <li>
+          Los tiempos de cómputo indicados deben usarse sólo si fueron medidos en el hardware real. Si no, conviene decir “en el orden de segundos” o presentar benchmarks propios.
+        </li>
+        <li>
+          Para aleaciones multicomponente, es correcto indicar que se requiere tratar especies químicas de forma explícita; esta limitación debe quedar visible.
+        </li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2>Bloque 1 — Comprensión conceptual del método</h2>
+
+      <article class="qa">
+        <p class="question">P1. ¿Por qué utilizar SOAP y no Voronoi o Wigner-Seitz para detectar defectos?</p>
+        <div class="answer">
+          <p>
+            Los métodos de Voronoi y Wigner-Seitz funcionan de manera confiable en configuraciones cercanas a 0 K, donde las posiciones atómicas pueden compararse contra una red de referencia bien definida. A temperaturas finitas, las vibraciones térmicas desplazan continuamente a los átomos respecto de sus posiciones ideales, lo que puede generar falsos positivos.
+          </p>
+          <p>
+            SOAP describe el entorno local de cada átomo mediante una huella estructural. En lugar de depender de la posición absoluta, compara el descriptor local con una referencia térmica promedio, <span class="equation">q̄(T)</span>. De este modo, las vibraciones térmicas quedan incorporadas en la línea base y no se interpretan automáticamente como defectos.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P2. ¿Qué invariancias posee el descriptor y por qué son importantes?</p>
+        <div class="answer">
+          <ul>
+            <li>
+              <strong>Invariancia traslacional:</strong> se utilizan coordenadas relativas, <em>r<sub>ij</sub></em>, en lugar de coordenadas absolutas. Esto permite describir el entorno local sin depender de la posición global del átomo en la caja.
+            </li>
+            <li>
+              <strong>Invariancia rotacional:</strong> se obtiene mediante el power spectrum, construido a partir de sumas sobre los coeficientes angulares. Esto permite comparar entornos equivalentes aunque el cristal esté orientado de manera diferente.
+            </li>
+            <li>
+              <strong>Invariancia permutacional:</strong> la densidad local se expresa como una suma sobre vecinos del mismo tipo químico, evitando depender del orden arbitrario en que se enumeran los vecinos.
+            </li>
+            <li>
+              <strong>Insensibilidad a ciertas reflexiones:</strong> en la práctica, el power spectrum descarta parte de la información orientacional. Esta propiedad debe interpretarse con cautela, ya que también puede implicar pérdida de información quiral o direccional.
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P3. ¿Qué ocurre con el descriptor cuando existe un defecto?</p>
+        <div class="answer">
+          <p>
+            Un defecto rompe la simetría local que tendría el entorno en una red perfecta. La densidad local, ρ<sup>i</sup>(r′), se modifica; por lo tanto, cambian los coeficientes de expansión <em>c<sub>nlm</sub></em> y también el power spectrum asociado.
+          </p>
+          <p>
+            La distancia
+            <span class="equation">d<sup>i</sup> = || q̃<sup>i</sup> − q̄ ||</span>
+            aumenta cuando el entorno local se aparta de la referencia térmica. Por ello, un defecto se identifica como una desviación cuantificable respecto del comportamiento promedio de la red sana.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="block">
+      <h2>Bloque 2 — Decisiones de parámetros</h2>
+
+      <article class="qa">
+        <p class="question">P4. ¿Por qué elegir n<sub>max</sub> = 9 y l<sub>max</sub> = 9?</p>
+        <div class="answer">
+          <p>
+            Esta elección representa un compromiso entre resolución estructural y costo computacional. Con estos parámetros, la dimensión del descriptor es:
+          </p>
+          <span class="equation">D = [n<sub>max</sub>(n<sub>max</sub> + 1) / 2] · (l<sub>max</sub> + 1) = 450</span>
+          <p>
+            Esta dimensionalidad permite distinguir entornos localmente similares, como red sana, vacancias e intersticiales, sin incrementar excesivamente el costo de cálculo. Valores menores reducen el costo, pero pueden perder resolución. Valores mayores aumentan el costo sin garantizar una mejora significativa para defectos puntuales simples.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P5. ¿Por qué utilizar r<sub>cut</sub> = 5.0 Å?</p>
+        <div class="answer">
+          <p>
+            Para Fe BCC, la primera esfera de coordinación se encuentra aproximadamente a 2.48 Å y la segunda a 2.87 Å. Un radio de corte de 5.0 Å incluye al menos las dos primeras esferas de coordinación, que concentran la mayor parte de la perturbación estructural inducida por un defecto puntual.
+          </p>
+          <p>
+            Un radio menor puede perder información de la reorganización local más allá de los primeros vecinos. Un radio demasiado grande puede diluir la señal del defecto al incorporar átomos alejados que no están significativamente perturbados.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P6. ¿Cómo se justifica τ = 0.15?</p>
+        <div class="answer">
+          <p>
+            El umbral τ debe determinarse empíricamente a partir del histograma de distancias <em>d<sup>i</sup></em> en un cristal sano termalizado. Si la distribución térmica tiene una moda alrededor de <em>d ≈ 0.08</em> y una cola hasta aproximadamente <em>d ≈ 0.12</em>, mientras que átomos vecinos a una vacancia aparecen en el rango <em>d ≈ 0.18–0.25</em>, entonces τ = 0.15 queda ubicado entre ambas poblaciones.
+          </p>
+          <p>
+            Esta elección reduce simultáneamente falsos positivos y falsos negativos. No obstante, τ no es universal: depende del material, la temperatura, el descriptor y la calidad de la referencia térmica.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P7. ¿Qué efecto tiene modificar σ, la anchura gaussiana?</p>
+        <div class="answer">
+          <ul>
+            <li>
+              Un σ pequeño genera picos estrechos para cada vecino. Esto mejora la sensibilidad a desplazamientos locales, pero aumenta la sensibilidad al ruido térmico.
+            </li>
+            <li>
+              Un σ grande suaviza la densidad local. Esto mejora la robustez frente a vibraciones térmicas, pero puede reducir el contraste entre defectos similares.
+            </li>
+          </ul>
+          <p>
+            La regla
+            <span class="equation">σ = r<sub>cut</sub> / (n<sub>max</sub> + 1)</span>
+            vincula la anchura de las gaussianas con la resolución radial del descriptor. Esta elección evita tanto huecos en la cobertura radial como un suavizado excesivo.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="block">
+      <h2>Bloque 3 — Modelo probabilístico</h2>
+
+      <article class="qa">
+        <p class="question">P8. ¿Por qué modelar la distancia d<sup>i</sup> con una distribución chi?</p>
+        <div class="answer">
+          <p>
+            Si las fluctuaciones térmicas del descriptor respecto de la referencia se aproximan como un vector aleatorio gaussiano de media cero en un espacio efectivo de dimensión <em>k</em>, entonces la norma euclidiana de ese vector sigue una distribución chi.
+          </p>
+          <p>
+            Por lo tanto, la distribución chi es un modelo estadístico natural para describir la magnitud de fluctuaciones térmicas aproximadamente isotrópicas en el espacio de descriptores. Debe considerarse una hipótesis verificable, no una propiedad exacta garantizada.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P9. ¿Por qué k ≈ 7 y no k = 450?</p>
+        <div class="answer">
+          <p>
+            Aunque el descriptor completo posee 450 componentes, muchas de ellas están correlacionadas o tienen contribuciones pequeñas. Por ello, la fluctuación térmica efectiva ocurre en un subespacio de dimensión mucho menor.
+          </p>
+          <p>
+            El número efectivo de grados de libertad puede estimarse mediante el método de momentos:
+          </p>
+          <span class="equation">k = 2 ⟨d²⟩² / Var(d²)</span>
+          <p>
+            Un valor cercano a 7 debe interpretarse como una dimensión estadística efectiva de las fluctuaciones térmicas, no como la dimensión algebraica completa del descriptor.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P10. ¿Cómo se valida el ajuste del modelo chi?</p>
+        <div class="answer">
+          <p>
+            La validación consiste en comparar el histograma empírico de distancias <em>d<sup>i</sup></em> en un cristal sano con la curva de la distribución chi ajustada. Si ambas coinciden razonablemente, el modelo describe bien la dispersión térmica de la referencia.
+          </p>
+          <p>
+            Si la cola empírica es más pesada que la predicha, puede indicar defectos residuales, mala termalización, heterogeneidad térmica o una referencia no representativa. En ese caso, el umbral τ debe recalibrarse y la referencia debe revisarse.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="block">
+      <h2>Bloque 4 — Detección de vacancias y clustering</h2>
+
+      <article class="qa">
+        <p class="question">P11. ¿Por qué se requiere detección por grilla además de SOAP?</p>
+        <div class="answer">
+          <p>
+            SOAP evalúa entornos centrados en átomos existentes. Una vacancia, en cambio, es la ausencia de un átomo; por lo tanto, no existe un átomo central sobre el cual calcular directamente un descriptor.
+          </p>
+          <p>
+            SOAP identifica principalmente átomos vecinos a la vacancia, que pueden etiquetarse como <code>VacancyAdj</code>. Para localizar el centro espacial del vacío se utiliza una grilla: se muestrean puntos en la caja y se identifican aquellos suficientemente alejados de cualquier átomo como candidatos a sitios vacantes.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P12. ¿Por qué utilizar clustering greedy en lugar de DBSCAN o k-means?</p>
+        <div class="answer">
+          <ul>
+            <li>
+              <strong>k-means</strong> requiere conocer previamente el número de clusters, es decir, el número de vacancias.
+            </li>
+            <li>
+              <strong>DBSCAN</strong> puede funcionar, pero introduce parámetros adicionales y mayor complejidad práctica.
+            </li>
+            <li>
+              <strong>Greedy ordenado por distancia al átomo más cercano</strong> selecciona primero los puntos más profundos del vacío, que suelen corresponder al centro físico de la vacancia.
+            </li>
+          </ul>
+          <p>
+            El método greedy es simple, determinista y eficiente cuando el número de puntos candidatos no es grande.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P13. ¿Cómo se evitan falsos positivos en superficies o bordes de grano?</p>
+        <div class="answer">
+          <p>
+            En sistemas bulk con condiciones periódicas de contorno, las superficies artificiales desaparecen y se reduce la aparición de puntos vacantes espurios. En sistemas con superficies reales o bordes de grano, la detección por grilla puede identificar regiones vacías que no corresponden a vacancias cristalinas.
+          </p>
+          <p>
+            En esos casos se requiere una máscara geométrica, una definición explícita de la región material o criterios adicionales que separen vacancias internas de vacío exterior o defectos extendidos.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="block">
+      <h2>Bloque 5 — PCA y clasificación secundaria</h2>
+
+      <article class="qa">
+        <p class="question">P14. ¿Para qué sirve PCA si ya existe clasificación por umbral?</p>
+        <div class="answer">
+          <p>
+            El umbral τ separa átomos compatibles con red sana de átomos con entornos perturbados. Sin embargo, no clasifica necesariamente el tipo de defecto responsable de la perturbación.
+          </p>
+          <p>
+            PCA permite proyectar los descriptores en dos o tres dimensiones para visualizar agrupamientos. Diferentes clusters pueden corresponder a intersticiales, vecinos de vacancia, loops, dumbbells u otros defectos no previstos. Por lo tanto, PCA funciona como herramienta exploratoria y de diagnóstico, no como sustituto directo de la clasificación final.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P15. ¿Qué significa un defecto “tipo-A” en la terminología FaVaD?</p>
+        <div class="answer">
+          <p>
+            Un defecto tipo-A representa una geometría defectiva que no coincide con las referencias previamente definidas, como SIA o vecinos de vacancia. Si aparece un cluster separado en el espacio de PCA, puede seleccionarse un átomo representativo, guardar su descriptor y utilizarlo como nueva referencia en corridas posteriores.
+          </p>
+          <p>
+            Este procedimiento permite un flujo iterativo de descubrimiento y clasificación de defectos no anticipados.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P16. ¿Cómo se construyen las referencias q̄<sub>SIA</sub> y q̄<sub>ANtV</sub>?</p>
+        <div class="answer">
+          <p>
+            Las referencias deben construirse a partir de simulaciones controladas. Para un intersticial, se inserta manualmente un SIA, se relaja la estructura y se calcula el descriptor del entorno representativo. Para una vacancia, se elimina un átomo, se relaja la estructura y se calculan los descriptores de los vecinos afectados.
+          </p>
+          <p>
+            A temperatura finita, conviene promediar sobre varios frames para reducir ruido térmico y obtener una referencia más estable.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="block">
+      <h2>Bloque 6 — Limitaciones y críticas</h2>
+
+      <article class="qa">
+        <p class="question">P17. ¿Cuál es la principal limitación del método?</p>
+        <div class="answer">
+          <p>
+            La principal limitación es la dependencia de una referencia térmica representativa. Si el sistema dañado se encuentra a una temperatura muy diferente de la referencia, o si la referencia contiene defectos residuales, la distancia al descriptor medio puede dejar de separar adecuadamente vibraciones térmicas y defectos reales.
+          </p>
+          <p>
+            Además, en sistemas multicomponente o altamente desordenados, una única referencia promedio puede no ser suficiente para representar todos los entornos locales sanos.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P18. ¿Qué ocurre en aleaciones, por ejemplo HEA FeNiCrCo?</p>
+        <div class="answer">
+          <p>
+            En una aleación multicomponente, el entorno local depende no sólo de la geometría, sino también de la identidad química de los vecinos. Si todas las especies se mezclan en una única densidad, pueden confundirse variaciones químicas normales con defectos estructurales.
+          </p>
+          <p>
+            Una extensión más adecuada consiste en construir descriptores separados por especie o por pares de especies y luego concatenarlos. Esto aumenta el costo computacional, pero reduce el sesgo químico de fondo y mejora la interpretación en HEA.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P19. ¿Cómo se verifica que la implementación es correcta?</p>
+        <div class="answer">
+          <ul>
+            <li>
+              Comparar descriptores de estructuras simples contra valores de referencia o librerías externas.
+            </li>
+            <li>
+              Verificar que átomos equivalentes en una red sana tengan distancias cercanas a cero respecto de la referencia.
+            </li>
+            <li>
+              Introducir defectos controlados, como una vacancia o un intersticial, y confirmar que los entornos afectados aumentan su distancia al descriptor sano.
+            </li>
+            <li>
+              Rotar y trasladar el cristal para verificar que el descriptor no cambia más allá del error numérico.
+            </li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P20. ¿Cuál es el costo computacional y dónde se encuentra el cuello de botella?</p>
+        <div class="answer">
+          <p>
+            Para una caja de aproximadamente 10<sup>5</sup> átomos, el costo principal proviene del cálculo de los coeficientes del descriptor SOAP para cada átomo y sus vecinos. La detección de vacancias por grilla puede resolverse de manera eficiente usando estructuras tipo cell list.
+          </p>
+          <p>
+            El cuello de botella está en el cálculo de los coeficientes <em>c<sub>nlm</sub></em>, cuya complejidad depende de <em>n<sub>max</sub></em>, <em>l<sub>max</sub></em> y del número de vecinos dentro de <em>r<sub>cut</sub></em>. Por ello, la optimización debe concentrarse en el recorrido sobre vecinos, el cálculo angular y la reducción de asignaciones dinámicas de memoria.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="block">
+      <h2>Bloque 7 — Preguntas críticas probables</h2>
+
+      <article class="qa">
+        <p class="question">P21. Si el power spectrum es invariante rotacional, ¿no se pierde información direccional útil?</p>
+        <div class="answer">
+          <p>
+            Sí. La invariancia rotacional implica descartar la orientación absoluta del entorno respecto del laboratorio. Esta pérdida es deseable si el objetivo es detectar defectos independientemente de la orientación del cristal.
+          </p>
+          <p>
+            Sin embargo, si se desea caracterizar la orientación de un defecto extendido, como un loop dislocacional, puede ser necesario utilizar descriptores que conserven más información angular o complementar SOAP con variables geométricas adicionales.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P22. ¿Por qué no utilizar descriptores más modernos como ACE o MTP?</p>
+        <div class="answer">
+          <p>
+            ACE y MTP pueden ser más expresivos, pero también son más complejos de implementar, parametrizar y validar. SOAP tiene una literatura extensa, una interpretación bien establecida y antecedentes directos en detección de defectos.
+          </p>
+          <p>
+            Para una implementación orientada a tesis o desarrollo metodológico, SOAP ofrece un equilibrio razonable entre interpretabilidad, robustez y costo computacional. ACE o MTP pueden plantearse como extensiones futuras.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P23. ¿El código es reproducible y apto para revisión?</p>
+        <div class="answer">
+          <p>
+            Una respuesta sólida debe distinguir entre el estado actual y el estado deseado. El código puede considerarse reproducible si compila de manera controlada, incluye ejemplos mínimos, produce salidas deterministas y documenta los parámetros principales.
+          </p>
+          <p>
+            Para una revisión más estricta, debería incluir tests unitarios, casos de validación con defectos conocidos, benchmarks, instrucciones de compilación, control de versiones y comparación contra una implementación externa o herramienta consolidada.
+          </p>
+        </div>
+      </article>
+
+      <article class="qa">
+        <p class="question">P24. ¿Por qué no compilar contra librerías existentes como QUIP o librascal?</p>
+        <div class="answer">
+          <p>
+            Implementar el descriptor de forma propia permite controlar cada etapa matemática y optimizar el cálculo para el caso específico de defectos en redes BCC o FCC. También reduce dependencias externas, lo cual puede ser importante en entornos HPC.
+          </p>
+          <p>
+            No obstante, para validación cruzada sería recomendable comparar los descriptores propios contra una librería consolidada, como librascal, en al menos un sistema de prueba.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      Documento HTML preparado para revisión metodológica y discusión técnica.
+    </footer>
+  </main>
+</body>
+</html>
